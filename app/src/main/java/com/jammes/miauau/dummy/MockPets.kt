@@ -37,6 +37,6 @@ object MockPets {
             age = "2 anos",
             breed = "Pintcher",
             sex = "Macho"
-        ),
+        )
     )
 }
