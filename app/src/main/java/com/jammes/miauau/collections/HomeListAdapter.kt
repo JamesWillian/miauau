@@ -14,6 +14,9 @@ class HomeListAdapter: RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
         fun bind(petItem: PetItem) {
             binding.petNameTextView.text = petItem.name
             binding.petDescriptionTextView.text = petItem.description
+            binding.petBreedTextView.text = petItem.breed
+            binding.petAgeTextView.text = petItem.age
+            binding.petSexTextView.text = petItem.sex
         }
     }
 

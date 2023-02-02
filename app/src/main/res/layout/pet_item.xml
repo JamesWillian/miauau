@@ -30,12 +30,50 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/petBreedTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/petNameTextView"
+        app:layout_constraintStart_toEndOf="@+id/petPhotoImageView"
+        app:layout_constraintEnd_toStartOf="@+id/petAgeTextView"
+        app:layout_constraintBottom_toTopOf="@+id/petDescriptionTextView"
+        android:text="Raça"
+        android:textSize="14sp"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/petAgeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/petNameTextView"
+        app:layout_constraintStart_toEndOf="@+id/petBreedTextView"
+        app:layout_constraintEnd_toStartOf="@+id/petSexTextView"
+        app:layout_constraintBottom_toTopOf="@+id/petDescriptionTextView"
+        android:text="Idade"
+        android:textSize="14sp"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/petSexTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/petNameTextView"
+        app:layout_constraintStart_toEndOf="@+id/petAgeTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/petDescriptionTextView"
+        android:text="Sexo"
+        android:textSize="14sp"
+        android:textColor="@color/white"/>
+
+    <TextView
         android:id="@+id/petDescriptionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/petNameTextView"
         app:layout_constraintStart_toEndOf="@+id/petPhotoImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
