@@ -9,7 +9,7 @@ object MockPets {
         PetItem(
             id = UUID.randomUUID().toString(),
             name = "Scooby",
-            description = "Descrição sobre o cachorro",
+            description = "Descrição sobre o cachorro com mais de uma linha",
             age = "1 ano",
             breed = "Vira-Lata",
             sex = "Macho"
