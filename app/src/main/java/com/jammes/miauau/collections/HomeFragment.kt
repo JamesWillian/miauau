@@ -12,9 +12,7 @@ import com.jammes.miauau.dummy.MockPets
 class HomeFragment: Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
     private val binding get() = _binding!!
-
     private lateinit var adapter: HomeListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {

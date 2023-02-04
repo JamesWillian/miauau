@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MiauAu</string>
+    <string name="menu_home">Início</string>
+    <string name="menu_pets">Pets</string>
+    <string name="menu_chat">Chat</string>
+    <string name="TODO_fragment_pets">fragment pets</string>
+    <string name="TODO_fragment_chat">fragment chat</string>
 </resources>
