@@ -1,14 +1,15 @@
 package com.jammes.miauau.dummy
 
 import com.jammes.miauau.collections.PetItem
+import com.jammes.miauau.core.PetsRepository
 import java.util.UUID
 
-object MockPets {
+object MockPets: PetsRepository {
 
-    val PetItemList = listOf(
+    val petItemList = listOf(
         PetItem(
             id = UUID.randomUUID().toString(),
-            name = "Scooby",
+            name = "Chaffe",
             description = "Descrição sobre o cachorro com mais de uma linha",
             age = "1 ano",
             breed = "Vira-Lata",
@@ -119,4 +120,8 @@ object MockPets {
             sex = "Macho"
         )
     )
+
+    override fun fetchPets(): List<PetItem> {
+        return petItemList.map { it.copy() }
+    }
 }
