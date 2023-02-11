@@ -2,22 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_main"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.jammes.miauau.collections.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_petDetailFragment"
+            app:destination="@id/petDetailFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/petsFragment"
-        android:name="com.jammes.miauau.collections.PetsFragment"
-        android:label="fragment_pets"
-        tools:layout="@layout/fragment_pets" />
-    <fragment
-        android:id="@+id/chatFragment"
-        android:name="com.jammes.miauau.ChatFragment"
-        android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        android:id="@+id/petDetailFragment"
+        android:name="com.jammes.miauau.collections.PetDetailFragment"
+        android:label="fragment_pet_detail"
+        tools:layout="@layout/fragment_pet_detail" />
 </navigation>

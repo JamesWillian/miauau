@@ -2,10 +2,15 @@ package com.jammes.miauau.collections
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jammes.miauau.databinding.PetItemBinding
+import androidx.navigation.fragment.findNavController
+import com.jammes.miauau.R
+
 
 class HomeListAdapter: RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 
@@ -27,6 +32,7 @@ class HomeListAdapter: RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = PetItemBinding.inflate(layoutInflater, parent, false)
+
         return ViewHolder(binding)
     }
 
@@ -34,6 +40,11 @@ class HomeListAdapter: RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(asyncListDiffer.currentList[position])
+
+        holder.itemView.setOnClickListener {
+            val navigation = Navigation.findNavController(it)
+            navigation.navigate(R.id.action_homeFragment_to_petDetailFragment)
+        }
     }
 
     private val asyncListDiffer: AsyncListDiffer<PetItem> = AsyncListDiffer(this, DiffCallBack)

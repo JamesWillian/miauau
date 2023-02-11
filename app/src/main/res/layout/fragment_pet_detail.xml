@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".collections.PetDetailFragment">
+
+        <ImageView
+            android:id="@+id/petImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/petNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/petImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Nome do Pet"
+            android:textColor="#FFC93C"
+            android:textSize="25sp"
+            />
+
+        <TextView
+            android:id="@+id/petTip1TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/petNameTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/petTip2TextView"
+            android:text="Idade"
+            />
+
+        <TextView
+            android:id="@+id/petTip2TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/petNameTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Raça"
+            />
+
+        <TextView
+            android:id="@+id/petTip3TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/petNameTextView"
+            app:layout_constraintStart_toEndOf="@+id/petTip2TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Macho;Fêmea"
+            />
+
+        <TextView
+            android:id="@+id/petTip4TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/petTip1TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/petTip5TextView"
+            android:text="Vacinado"
+            />
+
+        <TextView
+            android:id="@+id/petTip5TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/petTip2TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Porte"
+            />
+
+        <TextView
+            android:id="@+id/petTip6TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/petTip3TextView"
+            app:layout_constraintStart_toEndOf="@+id/petTip5TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Castrado"
+            />
+
+        <TextView
+            android:id="@+id/petTip7TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="Descrição Geral do Pet..."
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/petTip5TextView" />
+
+        <Button
+            android:id="@+id/adoptButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/petTip7TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="@color/blue"
+            android:textSize="12sp"
+            android:text="Quero Adotar esse Pet"/>
+
+        <ImageView
+            android:id="@+id/shareImageView"
+            android:layout_width="44dp"
+            android:layout_height="46dp"
+            android:src="@drawable/ic_share_foreground"
+            app:layout_constraintTop_toBottomOf="@+id/adoptButton"
+            tools:layout_editor_absoluteX="157dp" />
+
+        <ImageView
+            android:id="@+id/saveImageView"
+            android:layout_width="44dp"
+            android:layout_height="46dp"
+            android:src="@drawable/ic_pets_foreground"
+            app:layout_constraintTop_toBottomOf="@+id/adoptButton"
+            tools:layout_editor_absoluteX="218dp" />
+
+        <TextView
+            android:id="@+id/cidadeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Cidade, UF"
+            />
+
+        <TextView
+            android:id="@+id/tutorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Tutor: Nome do Tutor"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
