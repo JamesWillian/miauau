@@ -3,14 +3,11 @@ package com.jammes.miauau.collections
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jammes.miauau.databinding.PetItemBinding
-import androidx.navigation.fragment.findNavController
 import com.jammes.miauau.R
-
 
 class HomeListAdapter: RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 

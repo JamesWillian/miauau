@@ -12,11 +12,17 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_petDetailFragment"
-            app:destination="@id/petDetailFragment" />
+            app:destination="@id/petDetailFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/petDetailFragment"
         android:name="com.jammes.miauau.collections.PetDetailFragment"
         android:label="fragment_pet_detail"
-        tools:layout="@layout/fragment_pet_detail" />
+        tools:layout="@layout/fragment_pet_detail" >
+        <argument
+            android:name="pet_item_arg"
+            app:argType="string[]" />
+    </fragment>
+
 </navigation>
