@@ -15,8 +15,6 @@ class PetDetailFragment : Fragment() {
     private var _binding: FragmentPetDetailBinding? = null
     private val binding get() = _binding!!
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,7 +22,9 @@ class PetDetailFragment : Fragment() {
 
         _binding = FragmentPetDetailBinding.inflate(inflater,  container, false)
 
-        val pet = MockPets.petItemList.find { it.id == PetDetailFragmentArgs.fromBundle(requireArguments()).petId }
+        val args: PetDetailFragmentArgs by navArgs()
+
+        val pet = MockPets.petItemList.find { it.id == args.petId } // PetDetailFragmentArgs.fromBundle(requireArguments()).petId }
 
         if (pet != null) {
             binding.petNameTextView.text = pet.name //Name
