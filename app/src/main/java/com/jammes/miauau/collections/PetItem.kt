@@ -6,5 +6,9 @@ data class PetItem(
     val description: String,
     val age: String,
     val breed: String,
-    val sex: String
+    val sex: String,
+    val vaccinated: String,
+    val size: String,
+    val castrated: String
 )
+

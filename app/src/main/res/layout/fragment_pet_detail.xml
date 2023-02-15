@@ -30,17 +30,17 @@
         app:layout_constraintTop_toBottomOf="@+id/petImageView" />
 
     <TextView
-        android:id="@+id/petTip1TextView"
+        android:id="@+id/petAgeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Idade"
-        app:layout_constraintEnd_toStartOf="@+id/petTip2TextView"
+        app:layout_constraintEnd_toStartOf="@+id/petBreedTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/petNameTextView" />
 
     <TextView
-        android:id="@+id/petTip2TextView"
+        android:id="@+id/petBreedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -50,47 +50,47 @@
         app:layout_constraintTop_toBottomOf="@+id/petNameTextView" />
 
     <TextView
-        android:id="@+id/petTip3TextView"
+        android:id="@+id/petSexTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Macho;Fêmea"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/petTip2TextView"
+        app:layout_constraintStart_toEndOf="@+id/petBreedTextView"
         app:layout_constraintTop_toBottomOf="@+id/petNameTextView" />
 
     <TextView
-        android:id="@+id/petTip4TextView"
+        android:id="@+id/petVaccinatedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Vacinado"
-        app:layout_constraintEnd_toStartOf="@+id/petTip5TextView"
+        app:layout_constraintEnd_toStartOf="@+id/petSizeTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/petTip1TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/petAgeTextView" />
 
     <TextView
-        android:id="@+id/petTip5TextView"
+        android:id="@+id/petSizeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Porte"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/petTip2TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/petBreedTextView" />
 
     <TextView
-        android:id="@+id/petTip6TextView"
+        android:id="@+id/petCastratedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Castrado"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/petTip5TextView"
-        app:layout_constraintTop_toBottomOf="@+id/petTip3TextView" />
+        app:layout_constraintStart_toEndOf="@+id/petSizeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/petSexTextView" />
 
     <TextView
-        android:id="@+id/petTip7TextView"
+        android:id="@+id/petDescriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
@@ -98,7 +98,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/petTip5TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/petSizeTextView" />
 
     <Button
         android:id="@+id/adoptButton"
@@ -110,7 +110,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/petTip7TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/petDescriptionTextView" />
 
     <LinearLayout
         android:layout_width="match_parent"

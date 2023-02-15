@@ -21,8 +21,8 @@
         android:label="fragment_pet_detail"
         tools:layout="@layout/fragment_pet_detail" >
         <argument
-            android:name="pet_item_arg"
-            app:argType="string[]" />
+            android:name="pet_id"
+            app:argType="string" />
     </fragment>
 
 </navigation>
