@@ -22,8 +22,7 @@ class HomeListAdapter: RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
             binding.petSexTextView.text = petItem.sex
 
             binding.root.setOnClickListener {
-                val arg = petItem.id
-                val action = HomeFragmentDirections.actionHomeFragmentToPetDetailFragment(arg)
+                val action = HomeFragmentDirections.actionHomeFragmentToPetDetailFragment(petItem.id)
                 itemView.findNavController().navigate(action)
             }
         }

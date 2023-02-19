@@ -8,8 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.jammes.miauau.collections.HomeFragment"
-        android:label="fragment_home"
-
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_petDetailFragment"
@@ -19,7 +18,7 @@
     <fragment
         android:id="@+id/petDetailFragment"
         android:name="com.jammes.miauau.collections.PetDetailFragment"
-        android:label="fragment_pet_detail"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_pet_detail" >
         <argument
             android:name="pet_id"
