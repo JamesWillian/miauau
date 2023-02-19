@@ -18,24 +18,23 @@
 
     <ImageView
         android:id="@+id/shareImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="5dp"
         app:layout_constraintBottom_toTopOf="@+id/petSexTextView"
         app:layout_constraintEnd_toStartOf="@+id/saveImageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_share"
-        />
+        app:srcCompat="@drawable/share_pet_foreground" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/saveImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="10dp"
+        app:srcCompat="@drawable/favorite_pet_foreground"
         app:layout_constraintBottom_toTopOf="@+id/petSexTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/petNameTextView"
@@ -50,8 +49,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/shareImageView"
         app:layout_constraintStart_toEndOf="@+id/petPhotoImageView"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/petBreedTextView"
