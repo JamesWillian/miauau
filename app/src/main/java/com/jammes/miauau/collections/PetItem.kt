@@ -9,6 +9,7 @@ data class PetItem(
     val sex: String,
     val vaccinated: String,
     val size: String,
-    val castrated: String
+    val castrated: String,
+    val img: Int
 )
 

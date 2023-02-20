@@ -35,6 +35,7 @@ class PetDetailFragment : Fragment() {
             binding.petCastratedTextView.text = pet.castrated
             binding.petSizeTextView.text = pet.size
             binding.petVaccinatedTextView.text = pet.vaccinated
+            binding.petImageView.setImageResource(pet.img)
         }
 
         return (binding.root)

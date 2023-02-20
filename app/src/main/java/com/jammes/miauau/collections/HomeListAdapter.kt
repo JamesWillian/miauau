@@ -20,6 +20,7 @@ class HomeListAdapter: RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
             binding.petBreedTextView.text = petItem.breed
             binding.petAgeTextView.text = petItem.age
             binding.petSexTextView.text = petItem.sex
+            binding.petPhotoImageView.setImageResource(petItem.img)
 
             binding.root.setOnClickListener {
                 val action = HomeFragmentDirections.actionHomeFragmentToPetDetailFragment(petItem.id)

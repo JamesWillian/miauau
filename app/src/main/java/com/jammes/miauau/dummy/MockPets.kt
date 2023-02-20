@@ -1,5 +1,6 @@
 package com.jammes.miauau.dummy
 
+import com.jammes.miauau.R
 import com.jammes.miauau.collections.PetItem
 import com.jammes.miauau.core.PetsRepository
 import java.util.UUID
@@ -16,7 +17,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Castrado",
             size = "Grande",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_dog
         ),
         PetItem(
             id = "2",
@@ -27,7 +29,8 @@ object MockPets: PetsRepository {
             sex = "Femea",
             castrated = "Não Castrado",
             size = "Pequeno",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_cat1
         ),
         PetItem(
             id = "3",
@@ -38,7 +41,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Não Castrado",
             size = "Médio",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_dog1
         ),
         PetItem(
             id = "4",
@@ -49,7 +53,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Castrado",
             size = "Pequeno",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_dog
         ),
         PetItem(
             id = "5",
@@ -60,7 +65,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Castrado",
             size = "Grande",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_dog2
         ),
         PetItem(
             id = "6",
@@ -71,7 +77,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Não Castrado",
             size = "Médio",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_dog3
         ),
         PetItem(
             id = "7",
@@ -82,7 +89,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Castrado",
             size = "Grande",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_dog5
         ),
         PetItem(
             id = "8",
@@ -93,7 +101,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Não Castrado",
             size = "Pequeno",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_dog
         ),
         PetItem(
             id = "9",
@@ -104,7 +113,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Não Castrado",
             size = "Médio",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_dog
         ),
         PetItem(
             id = "10",
@@ -115,7 +125,8 @@ object MockPets: PetsRepository {
             sex = "Fêmea",
             castrated = "Não Castrado",
             size = "Pequeno",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_cat3
         ),
         PetItem(
             id = "11",
@@ -126,7 +137,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Castrado",
             size = "Grande",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_dog4
         ),
         PetItem(
             id = "12",
@@ -137,7 +149,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Não Castrado",
             size = "Grande",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_dog
         ),
         PetItem(
             id = "13",
@@ -148,7 +161,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Não Castrado",
             size = "Pequeno",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_dog
         ),
         PetItem(
             id = "14",
@@ -159,7 +173,8 @@ object MockPets: PetsRepository {
             sex = "Macho",
             castrated = "Castrado",
             size = "Pequeno",
-            vaccinated = "Vacinado"
+            vaccinated = "Vacinado",
+            img = R.drawable.img_cat2
         )
     )
 
