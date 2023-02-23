@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "650270288206",
+    "project_id": "miauau-app",
+    "storage_bucket": "miauau-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650270288206:android:4f6e6406301314a71c961f",
+        "android_client_info": {
+          "package_name": "com.jammes.miauau"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650270288206-snubftropkprus8mb8s8re7j90crdpp2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNa8c3nWLW6eG4gn2S8FVQVFgnOiv07Hg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650270288206-snubftropkprus8mb8s8re7j90crdpp2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

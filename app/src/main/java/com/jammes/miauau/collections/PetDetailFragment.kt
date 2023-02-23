@@ -24,7 +24,7 @@ class PetDetailFragment : Fragment() {
 
         val args: PetDetailFragmentArgs by navArgs()
 
-        val pet = MockPets.petItemList.find { it.id == args.petId } // PetDetailFragmentArgs.fromBundle(requireArguments()).petId }
+        val pet = MockPets.petItemList.find { it.id == args.petId }
 
         if (pet != null) {
             binding.petNameTextView.text = pet.name //Name
