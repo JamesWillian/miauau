@@ -1,15 +1,23 @@
 package com.jammes.miauau.collections
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.jammes.miauau.core.PetsRepository
+import androidx.lifecycle.*
+import com.jammes.miauau.core.repository.PetsRepository
+import kotlinx.coroutines.launch
 
 class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
 
     private val uiState: MutableLiveData<UiState> by lazy {
-        MutableLiveData<UiState>(UiState(petItemList = repository.fetchPets()))
+        MutableLiveData<UiState>(UiState(petItemList = emptyList()))
+    }
+
+    fun onResume() {
+        viewModelScope.launch {
+            refreshPetsList()
+        }
+    }
+
+    private suspend fun refreshPetsList() {
+        uiState.postValue(UiState(repository.fetchPets()))
     }
 
     fun stateOnceAndStream(): LiveData<UiState> {

@@ -6,11 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jammes.miauau.R
+import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentHomeBinding
-import com.jammes.miauau.dummy.MockPets
 
 class HomeFragment: Fragment() {
 
@@ -18,11 +16,13 @@ class HomeFragment: Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter: HomeListAdapter
     private val viewModel: PetsListViewModel by activityViewModels {
-        PetsListViewModel.Factory(MockPets)
+        val petsRepository = PetsRepositoryFirestore()
+        PetsListViewModel.Factory(petsRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycle.addObserver(PetsListLifecycleObserver(viewModel))
         adapter = HomeListAdapter()
     }
 
@@ -41,8 +41,6 @@ class HomeFragment: Fragment() {
 
         binding.homeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.homeRecyclerView.adapter = adapter
-
-        adapter.updatePetList(MockPets.petItemList)
 
         viewModel.stateOnceAndStream().observe(viewLifecycleOwner){
             bindUiState(it)
