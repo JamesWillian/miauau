@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         setupNavigation()
 
+        binding.imageAddPetToolbar.setOnClickListener {
+            findNavController(R.id.fragmentContainerView).navigate(R.id.petRegisterFragment)
+        }
     }
 
     //Codigo para navegacao entre fragment foi extraido do projeto HabitList do Lucas

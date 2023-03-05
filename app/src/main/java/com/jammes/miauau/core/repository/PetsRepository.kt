@@ -7,6 +7,6 @@ interface PetsRepository {
 
     suspend fun fetchPets():List<PetItem>
 
-    suspend fun fetchPetDetail(petId: Int): PetItem
+    suspend fun fetchPetDetail(petId: String): PetItem
 
 }

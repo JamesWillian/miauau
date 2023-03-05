@@ -3,8 +3,17 @@
     <string name="menu_home">Início</string>
     <string name="menu_pets">Pets</string>
     <string name="menu_chat">Chat</string>
-    <string name="TODO_fragment_pets">fragment pets</string>
-    <string name="TODO_fragment_chat">fragment chat</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register_pet">Cadastrar Pet</string>
+    <string name="pet_name">Nome do Pet</string>
+    <string name="cat">Gato</string>
+    <string name="dog">Cão</string>
+    <string name="age">Idade</string>
+    <string name="breed">Raça</string>
+    <string name="size">Porte</string>
+    <string name="male">Macho</string>
+    <string name="female">Fêmea</string>
+    <string name="vaccinated">Vacinado</string>
+    <string name="castrated">Castrado</string>
+    <string name="pet_description">Descreva o seu pet aqui…</string>
+    <string name="save_pet_info">Salvar Informações do Pet</string>
 </resources>
