@@ -10,9 +10,17 @@ class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
         MutableLiveData<UiState>(UiState(petItemList = emptyList()))
     }
 
+    val detailUiState = MutableLiveData<PetDetailUiState>()
+
     fun onResume() {
         viewModelScope.launch {
             refreshPetsList()
+        }
+    }
+
+    fun onPetItemClicked(petId: String) {
+        viewModelScope.launch {
+            getPetById(petId)
         }
     }
 
@@ -20,11 +28,18 @@ class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
         uiState.postValue(UiState(repository.fetchPets()))
     }
 
+    private suspend fun getPetById(petId: String) {
+        val petDetail = repository.fetchPetDetail(petId)
+        detailUiState.postValue(PetDetailUiState(petDetail))
+    }
+
     fun stateOnceAndStream(): LiveData<UiState> {
         return uiState
     }
 
     data class UiState(val petItemList: List<PetItem>)
+
+    data class PetDetailUiState(val petDetail: PetItem)
 
     class Factory(private val repository: PetsRepository) : ViewModelProvider.Factory {
 
