@@ -14,6 +14,9 @@
     <string name="female">Fêmea</string>
     <string name="vaccinated">Vacinado</string>
     <string name="castrated">Castrado</string>
+    <string name="small">Pequeno</string>
+    <string name="medium">Médio</string>
+    <string name="large">Grande</string>
     <string name="pet_description">Descreva o seu pet aqui…</string>
     <string name="save_pet_info">Salvar Informações do Pet</string>
 </resources>

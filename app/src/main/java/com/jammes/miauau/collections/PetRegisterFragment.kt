@@ -29,32 +29,6 @@ class PetRegisterFragment : Fragment() {
     ): View {
         _binding = FragmentPetRegisterBinding.inflate(inflater, container, false)
 
-        binding.petTypeToggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            when (checkedId) {
-                R.id.buttonDog -> {
-                    binding.buttonDog.setBackgroundColor(resources.getColor(R.color.yellow, null))
-                    binding.buttonCat.setBackgroundColor(resources.getColor(R.color.light, null))
-                }
-                R.id.buttonCat -> {
-                    binding.buttonDog.setBackgroundColor(resources.getColor(R.color.light, null))
-                    binding.buttonCat.setBackgroundColor(resources.getColor(R.color.yellow, null))
-                }
-            }
-        }
-
-        binding.petSexToggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            when (checkedId) {
-                R.id.buttonMale -> {
-                    binding.buttonMale.setBackgroundColor(resources.getColor(R.color.yellow, null))
-                    binding.buttonFemale.setBackgroundColor(resources.getColor(R.color.light, null))
-                }
-                R.id.buttonFemale -> {
-                    binding.buttonMale.setBackgroundColor(resources.getColor(R.color.light, null))
-                    binding.buttonFemale.setBackgroundColor(resources.getColor(R.color.yellow, null))
-                }
-            }
-        }
-
         return (binding.root)
     }
 

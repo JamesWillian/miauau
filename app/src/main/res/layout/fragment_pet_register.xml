@@ -37,35 +37,44 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imagePet" />
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/petTypeToggleButton"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/petTypeChipGroup"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider">
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:singleSelection="true">
 
-            <Button
-                android:id="@+id/buttonDog"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/yellow"
-                android:minHeight="48dp"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDog"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:checkable="true"
                 android:text="@string/dog"
-                android:textAllCaps="false"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background"
+                app:chipCornerRadius="10dip"
+                app:chipIcon="@drawable/dog"
+                app:chipIconVisible="true"
+                app:iconStartPadding="15dp" />
 
-            <Button
-                android:id="@+id/buttonCat"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:minHeight="48dp"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipCat"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:checkable="true"
                 android:text="@string/cat"
-                android:textAllCaps="false"
-                android:textColor="@color/black" />
-
-        </com.google.android.material.button.MaterialButtonToggleGroup>
+                android:textColor="@color/black"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background"
+                app:chipCornerRadius="10dip"
+                app:chipIcon="@drawable/cat"
+                app:chipIconVisible="true"
+                app:iconStartPadding="13dp" />
+        </com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/petNameEditText"
@@ -77,12 +86,13 @@
             android:hint="@string/pet_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/petTypeToggleButton">
+            app:layout_constraintTop_toBottomOf="@+id/petTypeChipGroup">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:gravity="center"
+                android:lines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -98,10 +108,23 @@
             app:layout_constraintTop_toBottomOf="@id/petNameEditText">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/chipAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:gravity="center"
+                android:inputType="number"
+                android:lines="1" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:visibility="invisible"
+            android:text="Semanas"
+            app:layout_constraintTop_toTopOf="@id/petAgeEditText"
+            app:layout_constraintEnd_toEndOf="@id/petAgeEditText"
+            app:layout_constraintBottom_toBottomOf="@id/petAgeEditText" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/petBreedEditText"
@@ -118,7 +141,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:gravity="center"
+                android:maxLength="20"
+                android:lines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -129,6 +154,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
             android:hint="@string/size"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/petBreedEditText">
@@ -136,37 +162,101 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:gravity="center"
+                android:lines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/petSexToggleButton"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/petSizeChipGroup"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginTop="15dp"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/petSizeEditText">
+            app:layout_constraintTop_toBottomOf="@+id/petBreedEditText"
+            app:singleSelection="true">
 
-            <Button
-                android:id="@+id/buttonMale"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/yellow"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipSmall"
+                android:layout_width="108dp"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                android:text="@string/small"
+                android:textColor="@color/black"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background"
+                app:chipCornerRadius="10dip"
+                app:chipIcon="@drawable/ic_size_small_foreground"
+                app:chipIconVisible="true"
+                app:iconStartPadding="4dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMedium"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                android:text="@string/medium"
+                android:textColor="@color/black"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background"
+                app:chipCornerRadius="10dip"
+                app:chipIcon="@drawable/ic_size_medium_foreground"
+                app:chipIconVisible="true"
+                app:iconStartPadding="6dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipLarge"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                android:text="@string/large"
+                android:textColor="@color/black"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background"
+                app:chipCornerRadius="10dip"
+                app:chipIcon="@drawable/ic_size_large_foreground"
+                app:chipIconVisible="true"
+                app:iconStartPadding="6dp" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/petSexChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/petSizeChipGroup"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMale"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:checkable="true"
                 android:text="@string/male"
-                android:textAllCaps="false"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background"
+                app:chipCornerRadius="10dip"
+                app:chipIcon="@drawable/male"
+                app:chipIconVisible="true"
+                app:iconStartPadding="7dp" />
 
-            <Button
-                android:id="@+id/buttonFemale"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipFemale"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:checkable="true"
                 android:text="@string/female"
-                android:textAllCaps="false"
-                android:textColor="@color/black" />
-
-        </com.google.android.material.button.MaterialButtonToggleGroup>
+                android:textColor="@color/black"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background"
+                app:chipCornerRadius="10dip"
+                app:chipIcon="@drawable/female"
+                app:chipIconVisible="true"
+                app:iconStartPadding="6dp" />
+        </com.google.android.material.chip.ChipGroup>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/petOthersLayout"
@@ -177,19 +267,21 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/petSexToggleButton">
+            app:layout_constraintTop_toBottomOf="@+id/petSexChipGroup">
 
             <CheckBox
                 android:id="@+id/petVaccinatedCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
+                android:buttonTint="@color/yellow"
                 android:text="@string/vaccinated" />
 
             <CheckBox
                 android:id="@+id/petCastratedCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/yellow"
                 android:text="@string/castrated" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -223,8 +315,8 @@
             android:backgroundTint="@color/green"
             android:text="@string/save_pet_info"
             android:textAllCaps="false"
-            android:textStyle="bold"
             android:textColor="@color/light"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
