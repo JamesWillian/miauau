@@ -19,4 +19,7 @@
     <string name="large">Grande</string>
     <string name="pet_description">Descreva o seu pet aqui…</string>
     <string name="save_pet_info">Salvar Informações do Pet</string>
+    <string name="weeks">Semanas</string>
+    <string name="months">Meses</string>
+    <string name="years">Anos</string>
 </resources>
