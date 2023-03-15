@@ -22,4 +22,9 @@
     <string name="weeks">Semanas</string>
     <string name="months">Meses</string>
     <string name="years">Anos</string>
+    <string name="pet_name_hint">Nome do Pet</string>
+    <string name="breed_hint">Raça</string>
+    <string name="age_hint">Idade</string>
+    <string name="sex_hint">Sexo</string>
+    <string name="pet_description_hint">Descricao geral do pet...</string>
 </resources>

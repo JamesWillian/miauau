@@ -22,15 +22,15 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageUserToolbar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/icon_toolbar_size"
+                android:layout_height="@dimen/icon_toolbar_size"
                 android:layout_gravity="end"
                 android:src="@drawable/user_foreground" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageAddPetToolbar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/icon_toolbar_size"
+                android:layout_height="@dimen/icon_toolbar_size"
                 android:layout_gravity="end"
                 android:src="@drawable/add_new_pet_foreground" />
 
@@ -43,7 +43,6 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
