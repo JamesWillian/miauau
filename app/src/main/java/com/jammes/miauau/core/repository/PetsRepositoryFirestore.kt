@@ -1,9 +1,11 @@
 package com.jammes.miauau.core.repository
 
+import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.R
 import com.jammes.miauau.collections.PetItem
+import com.jammes.miauau.core.model.PetDomain
 import kotlinx.coroutines.tasks.await
 
 class PetsRepositoryFirestore: PetsRepository {
@@ -57,6 +59,17 @@ class PetsRepositoryFirestore: PetsRepository {
             throw Exception("Desculpe! Não consegui encontrar o seu pet... :(")
         }
 
+    }
+
+    override suspend fun addPet(petItem: PetDomain) {
+        db.collection(COLLECTION)
+            .add(petItem)
+            .addOnSuccessListener {docRef ->
+                Log.d("PetsRepositoryFirestore","Pet Salvo com Sucesso! ID: ${docRef.id}")
+            }
+            .addOnFailureListener {ex ->
+                Log.w("PetsRepositoryFirestore","Não foi possível salvar o Pet!", ex)
+            }
     }
 
     companion object {
