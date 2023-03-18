@@ -5,7 +5,7 @@ data class PetItem(
     val name: String = "",
     val petType: PetType = PetType.DOG,
     val description: String = "",
-    val age: String = "",
+    val age: Int = 0,
     val ageType: AgeType = AgeType.YEARS,
     val breed: String = "",
     val sex: Sex = Sex.MALE,

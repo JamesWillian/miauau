@@ -1,8 +1,8 @@
 package com.jammes.miauau.collections
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -18,8 +18,12 @@ class HomeListAdapter: RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
             binding.petNameTextView.text = petItem.name
             binding.petDescriptionTextView.text = petItem.description
             binding.petBreedTextView.text = petItem.breed
-            binding.petAgeTextView.text = petItem.age
-            binding.petSexTextView.text = petItem.sex
+            binding.petAgeTextView.text = petItem.age.toString()
+            binding.petSexTextView.text =
+                when (petItem.sex) {
+                    Sex.MALE -> "Macho"
+                    Sex.FEMALE -> "Femea"
+                }
             binding.petPhotoImageView.setImageResource(petItem.img)
 
             binding.root.setOnClickListener {
@@ -34,6 +38,8 @@ class HomeListAdapter: RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
+
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = PetItemBinding.inflate(layoutInflater, parent, false)
 

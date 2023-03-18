@@ -37,15 +37,15 @@ class PetDetailFragment : Fragment() {
         viewModel.onPetItemClicked(args.petId)
         viewModel.detailUiState.observe(viewLifecycleOwner) { pet ->
             if (pet != null) {
-                binding.petNameTextView.text = pet.petDetail.name //Name
-                binding.petDescriptionTextView.text = pet.petDetail.description //Description
-                binding.petBreedTextView.text = pet.petDetail.breed //Breed
-                binding.petAgeTextView.text = pet.petDetail.age //Age
-                binding.petSexTextView.text = pet.petDetail.sex //Sex
-                binding.petCastratedTextView.text = pet.petDetail.castrated
-                binding.petSizeTextView.text = pet.petDetail.size
-                binding.petVaccinatedTextView.text = pet.petDetail.vaccinated
-                binding.petImageView.setImageResource(pet.petDetail.img)
+//                binding.petNameTextView.text = pet.petDetail.name //Name
+//                binding.petDescriptionTextView.text = pet.petDetail.description //Description
+//                binding.petBreedTextView.text = pet.petDetail.breed //Breed
+//                binding.petAgeTextView.text = pet.petDetail.age //Age
+//                binding.petSexTextView.text = pet.petDetail.sex //Sex
+//                binding.petCastratedTextView.text = pet.petDetail.castrated
+//                binding.petSizeTextView.text = pet.petDetail.size
+//                binding.petVaccinatedTextView.text = pet.petDetail.vaccinated
+//                binding.petImageView.setImageResource(pet.petDetail.img)
             }
         }
 

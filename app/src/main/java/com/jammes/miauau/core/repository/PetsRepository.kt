@@ -5,7 +5,7 @@ import com.jammes.miauau.core.model.PetDomain
 
 interface PetsRepository {
 
-    suspend fun fetchPets():List<PetItem>
+    suspend fun fetchPets():List<PetDomain>
 
     suspend fun fetchPetDetail(petId: String): PetItem
 

@@ -4,7 +4,7 @@ import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.R
-import com.jammes.miauau.collections.PetItem
+import com.jammes.miauau.collections.*
 import com.jammes.miauau.core.model.PetDomain
 import kotlinx.coroutines.tasks.await
 
@@ -12,8 +12,8 @@ class PetsRepositoryFirestore: PetsRepository {
 
     private val db = Firebase.firestore
 
-    override suspend fun fetchPets(): List<PetItem> {
-        val resultList = mutableListOf<PetItem>()
+    override suspend fun fetchPets(): List<PetDomain> {
+        val resultList = mutableListOf<PetDomain>()
 
         val petsList = db.collection(COLLECTION)
             .get()
@@ -21,17 +21,18 @@ class PetsRepositoryFirestore: PetsRepository {
 
         for (pet in petsList) {
             resultList.add(
-                PetItem(
+                PetDomain(
                     id = pet.id,
+                    petType = 1,
                     name = pet.getString("name")!!,
                     description = pet.getString("description")!!,
-                    age = pet.getString("age")!!,
+                    age = pet.getLong("age")!!.toInt(),
+                    ageType = 1,
                     breed = pet.getString("breed")!!,
-                    sex = pet.getString("sex")!!,
-                    vaccinated = pet.getString("vaccinated")!!,
-                    size = pet.getString("size")!!,
-                    castrated = pet.getString("castrated")!!,
-                    img = R.drawable.img_dog1
+                    sex = pet.getLong("sex")!!.toInt(),
+                    vaccinated = pet.getBoolean("vaccinated")!!,
+                    size = pet.getLong("size")!!.toInt(),
+                    castrated = pet.getBoolean("castrated")!!
                 )
             )
         }
@@ -46,13 +47,15 @@ class PetsRepositoryFirestore: PetsRepository {
 
         if (doc.exists() && doc != null) {
             return petDetail.copy(id = doc.id,
+                petType = PetType.DOG,
                 name = doc.getString("name")!!,
                 description = doc.getString("description")!!,
-                age = doc.getString("age")!!,
+                age = doc.getLong("age")!!.toInt(),
+                ageType = AgeType.YEARS,
                 breed = doc.getString("breed")!!,
-                sex = doc.getString("sex")!!,
+                sex = Sex.MALE,
                 vaccinated = doc.getString("vaccinated")!!,
-                size = doc.getString("size")!!,
+                size = Size.MEDIUM,
                 castrated = doc.getString("castrated")!!,
                 img = R.drawable.img_dog1)
         } else {
