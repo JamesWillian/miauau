@@ -1,14 +1,13 @@
 package com.jammes.miauau.collections
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.jammes.miauau.databinding.PetItemBinding
 import com.jammes.miauau.R
+import com.jammes.miauau.databinding.PetItemBinding
 
 class HomeListAdapter: RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 

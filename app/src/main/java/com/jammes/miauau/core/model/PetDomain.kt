@@ -1,15 +1,15 @@
 package com.jammes.miauau.core.model
 
 data class PetDomain(
-    val id: String,
-    val petType: Int,
-    val name: String,
-    val description: String,
-    val age: Int,
-    val ageType: Int,
-    val breed: String,
-    val sex: Int,
-    val vaccinated: Boolean,
-    val size: Int,
-    val castrated: Boolean
+    val id: String = "",
+    val petType: Int = 1,
+    val name: String = "",
+    val description: String = "",
+    val age: Int = 0,
+    val ageType: Int = 1,
+    val breed: String = "",
+    val sex: Int = 1,
+    val vaccinated: Boolean = false,
+    val size: Int = 1,
+    val castrated: Boolean = false
 )

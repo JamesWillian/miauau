@@ -40,24 +40,23 @@ class PetsRepositoryFirestore: PetsRepository {
         return resultList
     }
 
-    override suspend fun fetchPetDetail(petId: String): PetItem {
+    override suspend fun fetchPetDetail(petId: String): PetDomain {
 
         val doc = db.collection(COLLECTION).document(petId).get().await()
-        val petDetail = doc.toObject(PetItem::class.java)!!
+        val petDetail = doc.toObject(PetDomain::class.java)!!
 
         if (doc.exists() && doc != null) {
             return petDetail.copy(id = doc.id,
-                petType = PetType.DOG,
+                petType = doc.getLong("petType")!!.toInt(),
                 name = doc.getString("name")!!,
                 description = doc.getString("description")!!,
                 age = doc.getLong("age")!!.toInt(),
-                ageType = AgeType.YEARS,
+                ageType = doc.getLong("ageType")!!.toInt(),
                 breed = doc.getString("breed")!!,
-                sex = Sex.MALE,
-                vaccinated = doc.getString("vaccinated")!!,
-                size = Size.MEDIUM,
-                castrated = doc.getString("castrated")!!,
-                img = R.drawable.img_dog1)
+                sex = doc.getLong("sex")!!.toInt(),
+                vaccinated = doc.getBoolean("vaccinated")!!,
+                size = doc.getLong("size")!!.toInt(),
+                castrated = doc.getBoolean("castrated")!!)
         } else {
             throw Exception("Desculpe! Não consegui encontrar o seu pet... :(")
         }

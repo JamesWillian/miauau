@@ -2,6 +2,7 @@ package com.jammes.miauau.collections
 
 import androidx.lifecycle.*
 import com.jammes.miauau.R
+import com.jammes.miauau.core.model.PetDomain
 import com.jammes.miauau.core.repository.PetsRepository
 import kotlinx.coroutines.launch
 
@@ -54,7 +55,7 @@ class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
                                 2 -> Sex.FEMALE
                                 else -> Sex.MALE
                             },
-                        vaccinated = if (pet.vaccinated) R.string.vaccinated.toString() else "",
+                        vaccinated = if (pet.vaccinated) "Vacinado" else "",
                         size =
                             when (pet.size) {
                                 1 -> Size.SMALL
@@ -62,16 +63,56 @@ class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
                                 3 -> Size.LARGE
                                 else -> Size.MEDIUM
                             },
-                        castrated = if (pet.castrated) R.string.castrated.toString() else "",
+                        castrated = if (pet.castrated) "Castrado" else "",
                         img = R.drawable.img_dog1,
                     )
                 })
         )
     }
 
+    private fun PetDomain.toPetItem(): PetItem {
+        return PetItem(
+            id,
+            name,
+            petType =
+            when (petType) {
+                1 -> PetType.DOG
+                2 -> PetType.CAT
+                else -> PetType.DOG
+            },
+            description,
+            age,
+            ageType =
+            when (ageType) {
+                1 -> AgeType.YEARS
+                2 -> AgeType.MONTHS
+                3 -> AgeType.WEEKS
+                else -> AgeType.YEARS
+            },
+            breed,
+            sex =
+            when (sex) {
+                1 -> Sex.MALE
+                2 -> Sex.FEMALE
+                else -> Sex.MALE
+            },
+            vaccinated = if (vaccinated) "Vacinado" else "",
+            size =
+            when (size) {
+                1 -> Size.SMALL
+                2 -> Size.MEDIUM
+                3 -> Size.LARGE
+                else -> Size.MEDIUM
+            },
+            castrated = if (castrated) "Castrado" else "",
+            img = R.drawable.img_dog1,
+        )
+    }
+
     private suspend fun getPetById(petId: String) {
         val petDetail = repository.fetchPetDetail(petId)
-        detailUiState.postValue(PetDetailUiState(petDetail))
+        val pet: PetItem = petDetail.toPetItem()
+        detailUiState.postValue(PetDetailUiState(pet))
     }
 
     fun stateOnceAndStream(): LiveData<UiState> {
