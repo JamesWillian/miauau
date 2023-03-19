@@ -26,7 +26,8 @@ class HomeListAdapter: RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
             binding.petPhotoImageView.setImageResource(petItem.img)
 
             binding.root.setOnClickListener {
-                val action = HomeFragmentDirections.actionHomeFragmentToPetDetailFragment(petItem.id)
+                val id = petItem.id ?: ""
+                val action = HomeFragmentDirections.actionHomeFragmentToPetDetailFragment(id)
                 itemView.findNavController().navigate(action)
             }
         }

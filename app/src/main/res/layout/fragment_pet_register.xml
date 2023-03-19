@@ -147,6 +147,7 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chipYears"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
@@ -156,6 +157,7 @@
                 app:chipBackgroundColor="@color/chip_background" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chipMonths"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
@@ -165,6 +167,7 @@
                 app:chipBackgroundColor="@color/chip_background" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chipWeeks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
@@ -316,6 +319,7 @@
 
         <Button
             style="@style/Widget.Material3.Button.ElevatedButton"
+            android:id="@+id/SaveButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="30dp"

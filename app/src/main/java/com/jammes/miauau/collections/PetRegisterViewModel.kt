@@ -18,7 +18,7 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
     class Factory(private val repository: PetsRepository) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PetsListViewModel(repository) as T
+            return PetRegisterViewModel(repository) as T
         }
     }
 }

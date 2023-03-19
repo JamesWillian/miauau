@@ -12,10 +12,11 @@
         android:layout_height="200dp"
         android:layout_gravity="top|center"
         android:layout_marginTop="30dp"
-        android:src="@drawable/img_dog"
+        android:src="@drawable/ic_pet_no_photo_foreground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/img_dog"/>
 
     <TextView
         android:id="@+id/petNameTextView"
@@ -139,25 +140,5 @@
 
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/cidadeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Cidade, UF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tutorTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Tutor: Nome do Tutor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

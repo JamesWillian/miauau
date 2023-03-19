@@ -1,7 +1,7 @@
 package com.jammes.miauau.core.model
 
 data class PetDomain(
-    val id: String = "",
+    val id: String? = null,
     val petType: Int = 1,
     val name: String = "",
     val description: String = "",

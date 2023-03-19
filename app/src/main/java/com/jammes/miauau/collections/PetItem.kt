@@ -1,7 +1,7 @@
 package com.jammes.miauau.collections
 
 data class PetItem(
-    val id: String = "",
+    val id: String? = null,
     val name: String = "",
     val petType: PetType = PetType.DOG,
     val description: String = "",
