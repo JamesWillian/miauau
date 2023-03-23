@@ -45,7 +45,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider"
-            app:singleSelection="true">
+            app:singleSelection="true"
+            app:checkedChip="@id/chipDog"
+            app:selectionRequired="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipDog"
@@ -144,7 +146,9 @@
             app:layout_constraintBottom_toBottomOf="@id/petAgeEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/petAgeEditText"
-            app:singleSelection="true">
+            app:singleSelection="true"
+            app:checkedChip="@id/chipYears"
+            app:selectionRequired="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipYears"
@@ -186,7 +190,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/petAgeChipGroup"
-            app:singleSelection="true">
+            app:singleSelection="true"
+            app:checkedChip="@id/chipMedium"
+            app:selectionRequired="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipSmall"
@@ -239,7 +245,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/petSizeChipGroup"
-            app:singleSelection="true">
+            app:singleSelection="true"
+            app:checkedChip="@id/chipMale"
+            app:selectionRequired="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipMale"
