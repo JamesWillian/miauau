@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "650270288206-snubftropkprus8mb8s8re7j90crdpp2.apps.googleusercontent.com",
+          "client_id": "650270288206-ip4bf6fl9lgf6avqrjp88kg4t20jrm8b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jammes.miauau",
+            "certificate_hash": "1123ebef6a65ab21a202634fa105c2b205a8a438"
+          }
+        },
+        {
+          "client_id": "650270288206-jsv61tntode7kupptil34g9be7pctnlh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "650270288206-snubftropkprus8mb8s8re7j90crdpp2.apps.googleusercontent.com",
+              "client_id": "650270288206-jsv61tntode7kupptil34g9be7pctnlh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

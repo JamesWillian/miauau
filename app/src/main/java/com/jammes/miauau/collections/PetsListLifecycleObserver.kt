@@ -9,6 +9,6 @@ class PetsListLifecycleObserver(
 
     override fun onResume(owner: LifecycleOwner) {
         super.onResume(owner)
-        viewModel.onResume()
+//        viewModel.onResume()
     }
 }
