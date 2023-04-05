@@ -35,6 +35,10 @@ class MainActivity : AppCompatActivity() {
         binding.imageAddPetToolbar.setOnClickListener {
             findNavController(R.id.fragmentContainerView).navigate(R.id.petRegisterFragment)
         }
+
+        binding.imageUserToolbar.setOnClickListener {
+            login()
+        }
     }
 
     override fun onStart() {
@@ -59,6 +63,12 @@ class MainActivity : AppCompatActivity() {
 
             signInLauncher.launch(signInItent)
         }
+
+    }
+
+    private fun login() {
+        val loginDialog = LoginDialogFragment()
+        loginDialog.show(supportFragmentManager, "loginFragment")
     }
 
     private fun onSignInResult(res: FirebaseAuthUIAuthenticationResult?) {
@@ -67,9 +77,10 @@ class MainActivity : AppCompatActivity() {
         if (res?.resultCode == RESULT_OK) {
             val user = FirebaseAuth.getInstance().currentUser
 
-            Toast.makeText(this, "Sucesso!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Sucesso! Bem-vindo ${user?.displayName}", Toast.LENGTH_SHORT).show()
 
         } else {
+            login()
             Toast.makeText(this, "Não foi possível fazer login. Tente Novamente...", Toast.LENGTH_SHORT).show()
         }
     }
