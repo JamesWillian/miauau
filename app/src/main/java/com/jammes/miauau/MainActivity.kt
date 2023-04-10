@@ -19,70 +19,30 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-        auth = Firebase.auth
-
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         setupNavigation()
 
+        //Chamar a tela de registro de novo pet
         binding.imageAddPetToolbar.setOnClickListener {
             findNavController(R.id.fragmentContainerView).navigate(R.id.petRegisterFragment)
         }
 
+        //Chamar a tela de Login caso o usuario ainda não estiver autenticado
         binding.imageUserToolbar.setOnClickListener {
             login()
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        if (auth.currentUser == null) {
-            val signInLauncher = registerForActivityResult(
-                FirebaseAuthUIActivityResultContract()
-            ) { res ->
-                this.onSignInResult(res)
-            }
-
-            val providers = arrayListOf(
-                AuthUI.IdpConfig.EmailBuilder().build(),
-                AuthUI.IdpConfig.GoogleBuilder().build()
-            )
-
-            val signInItent = AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .build()
-
-            signInLauncher.launch(signInItent)
-        }
-
-    }
-
     private fun login() {
         val loginDialog = LoginDialogFragment()
         loginDialog.show(supportFragmentManager, "loginFragment")
-    }
-
-    private fun onSignInResult(res: FirebaseAuthUIAuthenticationResult?) {
-        val response = res?.idpResponse
-
-        if (res?.resultCode == RESULT_OK) {
-            val user = FirebaseAuth.getInstance().currentUser
-
-            Toast.makeText(this, "Sucesso! Bem-vindo ${user?.displayName}", Toast.LENGTH_SHORT).show()
-
-        } else {
-            login()
-            Toast.makeText(this, "Não foi possível fazer login. Tente Novamente...", Toast.LENGTH_SHORT).show()
-        }
     }
 
     //Codigo para navegacao entre fragment foi extraido do projeto HabitList do Lucas
