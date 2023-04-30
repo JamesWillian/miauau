@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jammes.miauau.R
-import com.jammes.miauau.core.model.PetDomain
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentPetRegisterBinding
 
@@ -37,70 +36,45 @@ class PetRegisterFragment : Fragment() {
 
         binding.SaveButton.setOnClickListener {
 
-            val name = binding.petNameEditText.editText?.text.toString()
+            val pet = Pet(
+                name = binding.petNameEditText.editText?.text.toString(),
+                description = binding.petDescriptionEditText.editText?.text.toString(),
+                type = petOptionsChip[binding.petTypeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
+                age = try {binding.petAgeEditText.editText?.text.toString().toInt()}
+                      catch (ex: NumberFormatException) { 0 },
+                ageType = petOptionsChip[binding.petAgeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
+                breed = binding.petBreedEditText.editText?.text.toString(),
+                sex = petOptionsChip[binding.petSexChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
+                vaccinated = binding.petVaccinatedCheckBox.isChecked,
+                size = petOptionsChip[binding.petSizeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 2,
+                castrated = binding.petCastratedCheckBox.isChecked
+            )
 
-            val description = binding.petDescriptionEditText.editText?.text.toString()
-
-            val petType = when (binding.petTypeChipGroup.checkedChipId) {
-                R.id.chipDog -> 1
-                R.id.chipCat -> 2
-                else -> 1
-            }
-
-            val age = try {
-                binding.petAgeEditText.editText?.text.toString().toInt()
-            } catch (ex: NumberFormatException) { 0 }
-
-            val ageType = when (binding.petAgeChipGroup.checkedChipId) {
-                R.id.chipYears -> 1
-                R.id.chipMonths -> 2
-                R.id.chipWeeks -> 3
-                else -> 1
-            }
-
-            val breed = binding.petBreedEditText.editText?.text.toString()
-
-            val sex = when (binding.petSexChipGroup.checkedChipId) {
-                R.id.chipMale -> 1
-                R.id.chipFemale -> 2
-                else -> 1
-            }
-
-            val vaccinated = binding.petVaccinatedCheckBox.isChecked
-
-            val size = when (binding.petSizeChipGroup.checkedChipId) {
-                R.id.chipSmall -> 1
-                R.id.chipMedium -> 2
-                R.id.chipLarge -> 3
-                else -> 2
-            }
-
-            val castrated = binding.petCastratedCheckBox.isChecked
-
-            if (name == "") Toast.makeText(context, "Informe o Nome do Pet", Toast.LENGTH_LONG).show() else
-            if (description == "") Toast.makeText(context, "Informe uma Descriçã do Pet", Toast.LENGTH_LONG).show() else
-            if (age <= 0) Toast.makeText(context, "Informe a Idade do Pet", Toast.LENGTH_LONG).show()
-            else {
-
-                viewModel.addNewPet(
-                    PetDomain(
-                        petType = petType,
-                        name = name,
-                        description = description,
-                        age = age,
-                        ageType = ageType,
-                        breed = breed,
-                        sex = sex,
-                        vaccinated = vaccinated,
-                        size = size,
-                        castrated = castrated
-                    )
-                )
-
+            if (viewModel.addNewPet(pet)) {
                 findNavController().navigateUp()
+            } else {
+                Toast.makeText(
+                    context,
+                    "Preencha todos os campos obrigatórios",
+                    Toast.LENGTH_LONG
+                ).show()
             }
+
         }
     }
+
+    private val petOptionsChip = mapOf(
+        R.id.chipDog to listOf(PetRegisterChipInfo(1, "Cão", 1)),
+        R.id.chipCat to listOf(PetRegisterChipInfo(1, "Gato", 2)),
+        R.id.chipYears to listOf(PetRegisterChipInfo(1, "Years", 1)),
+        R.id.chipMonths to listOf(PetRegisterChipInfo(1, "Months", 2)),
+        R.id.chipWeeks to listOf(PetRegisterChipInfo(1, "Weeks", 3)),
+        R.id.chipMale to listOf(PetRegisterChipInfo(1, "Male", 1)),
+        R.id.chipFemale to listOf(PetRegisterChipInfo(1, "Female", 2)),
+        R.id.chipSmall to listOf(PetRegisterChipInfo(1, "Small", 1)),
+        R.id.chipMedium to listOf(PetRegisterChipInfo(1, "Medium", 2)),
+        R.id.chipLarge to listOf(PetRegisterChipInfo(1, "Large", 3)),
+    )
 
     override fun onDestroy() {
         super.onDestroy()

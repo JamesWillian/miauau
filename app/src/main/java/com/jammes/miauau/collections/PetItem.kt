@@ -14,19 +14,3 @@ data class PetItem(
     val castrated: String = "",
     val img: Int = 0
 )
-
-enum class PetType {
-    DOG, CAT
-}
-
-enum class AgeType {
-    YEARS, MONTHS, WEEKS
-}
-
-enum class Sex {
-    MALE, FEMALE
-}
-
-enum class Size {
-    SMALL, MEDIUM, LARGE
-}

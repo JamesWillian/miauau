@@ -47,8 +47,8 @@ class HomeFragment: Fragment() {
         }
     }
 
-    private fun bindUiState(uiState: PetsListViewModel.UiState){
-        adapter.updatePetList(uiState.petItemList)
+    private fun bindUiState(petListUiState: PetsListViewModel.PetListUiState){
+        adapter.updatePetList(petListUiState.petItemList)
     }
 
     override fun onDestroy() {

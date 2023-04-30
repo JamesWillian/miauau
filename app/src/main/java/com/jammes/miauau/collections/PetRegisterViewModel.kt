@@ -9,10 +9,35 @@ import kotlinx.coroutines.launch
 
 class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel() {
 
-    fun addNewPet(pet: PetDomain) {
-        viewModelScope.launch {
-            repository.addPet(pet)
+    private fun isValid(pet: Pet): Boolean {
+        if (pet.name.isBlank()) return false
+        if (pet.description.isBlank()) return false
+        if (pet.age <= 0) return false
+        return true
+    }
+
+    fun addNewPet(pet: Pet): Boolean {
+        val petValid = isValid(pet)
+
+        if (petValid) {
+            val pet = PetDomain(
+                petType = pet.type,
+                name = pet.name,
+                description = pet.description,
+                age = pet.age,
+                ageType = pet.ageType,
+                breed = pet.breed,
+                sex = pet.sex,
+                vaccinated = pet.vaccinated,
+                size = pet.size,
+                castrated = pet.castrated
+            )
+
+            viewModelScope.launch {
+                repository.addPet(pet)
+            }
         }
+        return petValid
     }
 
     class Factory(private val repository: PetsRepository) : ViewModelProvider.Factory {
