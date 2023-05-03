@@ -14,26 +14,39 @@
     <ImageView
         android:id="@+id/imageLogo"
         android:layout_width="300dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="60dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/dog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/welcomeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_welcome_message"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageLogo"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageLogo">
+        app:layout_constraintTop_toBottomOf="@id/welcomeTextView">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/usernameText"
@@ -60,41 +73,48 @@
             android:id="@+id/passwordText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:imeActionLabel="@string/action_sign_in_short" />
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/login"
-        android:layout_width="match_parent"
+        android:id="@+id/signIn"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/blue"
+        app:icon="@drawable/mail_24"
+        app:iconGravity="textStart"
         android:text="@string/action_sign_in"
-        android:textColor="#353333"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/light"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintStart_toStartOf="@+id/password"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/loginGoogle"
-        android:layout_width="match_parent"
+        android:id="@+id/signInGoogle"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginBottom="64dp"
-        android:text="Entrar com o Google"
-        android:textColor="#353333"
+        android:text="@string/sign_in_google"
         android:textAllCaps="false"
+        android:textColor="#353333"
+        android:textSize="16sp"
+        app:icon="@drawable/googleg_standard_color_18"
+        app:iconGravity="textStart"
+        app:iconTintMode="multiply"
+        android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login"
+        app:layout_constraintEnd_toEndOf="@+id/signIn"
+        app:layout_constraintStart_toStartOf="@+id/signIn"
+        app:layout_constraintTop_toBottomOf="@+id/signIn"
         app:layout_constraintVertical_bias="0.1" />
 
     <TextView
@@ -103,8 +123,9 @@
         android:layout_height="wrap_content"
         android:text="Fazer login depois..."
         android:textAlignment="center"
-        android:textColor="@color/blue"
+        android:textColor="#3267CD"
         android:textStyle="normal"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jammes.miauau.LoginAuthViewModel
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentHomeBinding
 
@@ -15,14 +17,17 @@ class HomeFragment: Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: HomeListAdapter
-    private val viewModel: PetsListViewModel by activityViewModels {
+    private val petListViewModel: PetsListViewModel by activityViewModels {
         val petsRepository = PetsRepositoryFirestore()
         PetsListViewModel.Factory(petsRepository)
+    }
+    private val loginViewModel: LoginAuthViewModel by viewModels {
+        LoginAuthViewModel.Factory()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.addObserver(PetsListLifecycleObserver(viewModel))
+        lifecycle.addObserver(PetsListLifecycleObserver(petListViewModel,loginViewModel))
         adapter = HomeListAdapter()
     }
 
@@ -42,8 +47,8 @@ class HomeFragment: Fragment() {
         binding.homeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.homeRecyclerView.adapter = adapter
 
-        viewModel.stateOnceAndStream().observe(viewLifecycleOwner){
-            bindUiState(it)
+        petListViewModel.stateOnceAndStream().observe(viewLifecycleOwner){ petList ->
+            bindUiState(petList)
         }
     }
 

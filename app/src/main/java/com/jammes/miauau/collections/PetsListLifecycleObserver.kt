@@ -1,25 +1,29 @@
 package com.jammes.miauau.collections
 
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.jammes.miauau.LoginAuth
+import com.jammes.miauau.LoginAuthViewModel
 
 class PetsListLifecycleObserver(
-    private val viewModel: PetsListViewModel
+    private val viewModel: PetsListViewModel,
+    private val loginViewModel: LoginAuthViewModel
 ): DefaultLifecycleObserver {
-
-    private val login = LoginAuth()
 
     override fun onResume(owner: LifecycleOwner) {
         super.onResume(owner)
 
-        if (Firebase.auth.currentUser != null) {
-            viewModel.onResume()
+        //Se não houver usuario autenticado, faz login anonimo
+        if (Firebase.auth.currentUser == null) {
+            loginViewModel.signInAnonymous().observe(owner) { loginSucess ->
+                if (loginSucess) {
+                    viewModel.onResume()
+                }
+            }
         } else {
-            //Fazer login anonimo
-            login.signInAnonymous()
+            viewModel.onResume()
         }
     }
 }
