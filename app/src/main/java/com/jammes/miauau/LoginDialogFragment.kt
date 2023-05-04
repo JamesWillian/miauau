@@ -46,6 +46,11 @@ class LoginDialogFragment: DialogFragment() {
             }
 
         }
+
+        binding.signUpNew.setOnClickListener {
+            val signupDialog = SignUpDialogFragment()
+            signupDialog.show(childFragmentManager, "signupFragment")
+        }
     }
 
 }

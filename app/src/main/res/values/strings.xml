@@ -30,8 +30,14 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Senha</string>
+    <string name="prompt_password_confirmation">Confirme a Senha</string>
     <string name="action_sign_in">Entrar com Email</string>
     <string name="action_sign_in_short">Entrar</string>
     <string name="sign_in_google">Entrar com o Google</string>
+    <string name="sign_up">Realizar Cadastro</string>
     <string name="login_welcome_message">Bem-vindo!\nFaça login para continuar</string>
+    <string name="sign_up_message">Registre-se</string>
+    <string name="already_have_user">Já tenho um usuário</string>
+    <string name="skip_login">Fazer login depois...</string>
+    <string name="not_registered_yet">Não tem uma conta?</string>
 </resources>
