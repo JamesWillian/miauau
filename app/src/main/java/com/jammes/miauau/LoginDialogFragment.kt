@@ -47,9 +47,27 @@ class LoginDialogFragment: DialogFragment() {
 
         }
 
-        binding.signUpNew.setOnClickListener {
-            val signupDialog = SignUpDialogFragment()
-            signupDialog.show(childFragmentManager, "signupFragment")
+        binding.signUp.setOnClickListener {
+
+            val email = binding.usernameText.text.toString()
+            val password = binding.passwordText.text.toString()
+
+            loginViewModel.createAccount(email, password)
+                .observe(viewLifecycleOwner) { result ->
+
+                    if (result) {
+                        Toast.makeText(this.context, "Usuário criado com sucesso!", Toast.LENGTH_LONG).show()
+                        dismiss()
+                    } else {
+                        Toast.makeText(
+                            this.context,
+                            "Não foi possível criar seu usuário. Verifique seus dados!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                }
+
         }
     }
 
