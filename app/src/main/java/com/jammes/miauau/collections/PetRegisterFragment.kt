@@ -64,8 +64,8 @@ class PetRegisterFragment : Fragment() {
     }
 
     private val petOptionsChip = mapOf(
-        R.id.chipDog to listOf(PetRegisterChipInfo(1, "Cão", 1)),
-        R.id.chipCat to listOf(PetRegisterChipInfo(1, "Gato", 2)),
+        R.id.chipDog to listOf(PetRegisterChipInfo(1, "Dog", 1)),
+        R.id.chipCat to listOf(PetRegisterChipInfo(1, "Cat", 2)),
         R.id.chipYears to listOf(PetRegisterChipInfo(1, "Years", 1)),
         R.id.chipMonths to listOf(PetRegisterChipInfo(1, "Months", 2)),
         R.id.chipWeeks to listOf(PetRegisterChipInfo(1, "Weeks", 3)),
