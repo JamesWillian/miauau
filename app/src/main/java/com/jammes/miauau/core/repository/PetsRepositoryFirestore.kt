@@ -23,11 +23,11 @@ class PetsRepositoryFirestore: PetsRepository {
             resultList.add(
                 PetDomain(
                     id = pet.id,
-                    petType = 1,
+                    petType = pet.getLong("petType")!!.toInt(),
                     name = pet.getString("name")!!,
                     description = pet.getString("description")!!,
                     age = pet.getLong("age")!!.toInt(),
-                    ageType = 1,
+                    ageType = pet.getLong("ageType")!!.toInt(),
                     breed = pet.getString("breed")!!,
                     sex = pet.getLong("sex")!!.toInt(),
                     vaccinated = pet.getBoolean("vaccinated")!!,
