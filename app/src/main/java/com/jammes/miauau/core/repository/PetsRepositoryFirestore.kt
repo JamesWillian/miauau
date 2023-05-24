@@ -3,8 +3,6 @@ package com.jammes.miauau.core.repository
 import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.jammes.miauau.R
-import com.jammes.miauau.collections.*
 import com.jammes.miauau.core.model.PetDomain
 import kotlinx.coroutines.tasks.await
 
