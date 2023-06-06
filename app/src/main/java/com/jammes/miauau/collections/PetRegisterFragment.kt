@@ -63,13 +63,9 @@ class PetRegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         binding.SaveButton.setOnClickListener {
 
             val imageStream = binding.imagePet.toInputStream(binding.imagePet)
-
-
 
             val pet = Pet(
                 name = binding.petNameEditText.editText?.text.toString(),
@@ -86,7 +82,8 @@ class PetRegisterFragment : Fragment() {
                 image = imageStream
             )
 
-            if (viewModel.addNewPet(pet)) {
+            if (viewModel.isValid(pet)) {
+                viewModel.addNewPet(pet, imageStream)
                 findNavController().navigateUp()
             } else {
                 Toast.makeText(

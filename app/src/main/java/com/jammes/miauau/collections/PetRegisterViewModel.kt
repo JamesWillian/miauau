@@ -1,5 +1,6 @@
 package com.jammes.miauau.collections
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -9,58 +10,57 @@ import com.google.firebase.storage.ktx.storage
 import com.jammes.miauau.core.model.PetDomain
 import com.jammes.miauau.core.repository.PetsRepository
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import java.io.ByteArrayInputStream
+import java.io.InputStream
 
 class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel() {
 
-    lateinit var storage: FirebaseStorage
-
-    private fun isValid(pet: Pet): Boolean {
+    fun isValid(pet: Pet): Boolean {
         if (pet.name.isBlank()) return false
         if (pet.description.isBlank()) return false
         if (pet.age <= 0) return false
         return true
     }
 
-    fun addNewPet(pet: Pet): Boolean {
+    private suspend fun sendImageToStore(petName: String, imageStream: ByteArrayInputStream): String? {
+        val storage = Firebase.storage
+        val storageRef = storage.reference
 
-        val petValid = isValid(pet)
+        val imageFileName = "${petName}-${System.currentTimeMillis()}.jpg "
+        val imageRef = storageRef.child("imagesPets/$imageFileName")
 
-        if (petValid) {
-            storage = Firebase.storage
-            val storageRef = storage.reference
+        return try {
+            imageRef.putStream(imageStream).await()
+            imageRef.downloadUrl.await()?.toString()
+        } catch (e: Exception) {
+            null
+        }
+    }
 
-            val imageFileName = "${pet.name}-${System.currentTimeMillis()}.jpg "
-            val imageRef = storageRef.child("imagesPets/$imageFileName")
-            var imageUrl = ""
+    fun addNewPet(pet: Pet, petImage: ByteArrayInputStream) {
 
-            val uploadTask = imageRef.putStream(pet.image)
-            uploadTask.addOnSuccessListener {
-                imageRef.downloadUrl.addOnSuccessListener {uri ->
-                    imageUrl = uri.toString() // Verificar! Não está capturando a url da imagem para gravar no firestore
-                }
-            }
+        viewModelScope.launch {
+            val imageUrl = sendImageToStore(pet.name, petImage)
 
-            Thread.sleep(5000)
+            val petComImg = PetDomain(
+                    petType = pet.type,
+                    name = pet.name,
+                    description = pet.description,
+                    age = pet.age,
+                    ageType = pet.ageType,
+                    breed = pet.breed,
+                    sex = pet.sex,
+                    vaccinated = pet.vaccinated,
+                    size = pet.size,
+                    castrated = pet.castrated
+                )
 
-            val pet = PetDomain(
-                petType = pet.type,
-                name = pet.name,
-                description = pet.description,
-                age = pet.age,
-                ageType = pet.ageType,
-                breed = pet.breed,
-                sex = pet.sex,
-                vaccinated = pet.vaccinated,
-                size = pet.size,
-                castrated = pet.castrated,
-                imageURL = imageUrl
-            )
-
-            viewModelScope.launch {
-                repository.addPet(pet)
+            if (imageUrl != null) {
+                petComImg.imageURL = imageUrl
+                repository.addPet(petComImg)
             }
         }
-        return petValid
     }
 
     class Factory(private val repository: PetsRepository) : ViewModelProvider.Factory {

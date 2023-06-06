@@ -12,6 +12,6 @@ data class PetDomain(
     val vaccinated: Boolean = false,
     val size: Int = 1,
     val castrated: Boolean = false,
-    val imageURL: String = "",
+    var imageURL: String = "",
     val tutorId: Int? = null
 )
