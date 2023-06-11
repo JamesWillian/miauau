@@ -31,9 +31,14 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
         val imageRef = storageRef.child("imagesPets/$imageFileName")
 
         return try {
-            imageRef.putStream(imageStream).await()
-            imageRef.downloadUrl.await()?.toString()
+            val uploadImg = imageRef.putStream(imageStream).await()
+//            if (uploadImg.task.isSuccessful) {
+//                imageRef.downloadUrl.await()?.toString()
+//            } else {null}
+            null
         } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e("DownLoadImageStorage",e.message.toString())
             null
         }
     }
@@ -41,7 +46,7 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
     fun addNewPet(pet: Pet, petImage: ByteArrayInputStream) {
 
         viewModelScope.launch {
-            val imageUrl = sendImageToStore(pet.name, petImage)
+//            val imageUrl = sendImageToStore(pet.name, petImage)
 
             val petComImg = PetDomain(
                     petType = pet.type,
@@ -56,10 +61,8 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
                     castrated = pet.castrated
                 )
 
-            if (imageUrl != null) {
-                petComImg.imageURL = imageUrl
-                repository.addPet(petComImg)
-            }
+            petComImg.imageURL = petImage
+            repository.addPet(petComImg)
         }
     }
 

@@ -46,14 +46,23 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        //Chamar a tela de registro de novo pet
+        /**
+         * Tela de Cadastro de Novo Pet
+         */
         binding.imageAddPetToolbar.setOnClickListener {
             findNavController(R.id.fragmentContainerView).navigate(R.id.petRegisterFragment)
         }
 
-        //Chamar a tela de Login caso o usuario ainda não estiver autenticado
+        /**
+         * Se autenticado > Tela de Perfil
+         * Não autenticado > Login One Tap
+         */
         binding.imageUserToolbar.setOnClickListener {
-            oneTapSignIn()
+            if (Firebase.auth.currentUser != null) {
+                findNavController(R.id.fragmentContainerView).navigate(R.id.userProfileFragment)
+            } else {
+                oneTapSignIn()
+            }
         }
 
     }

@@ -27,4 +27,6 @@
     <string name="age_hint">Idade</string>
     <string name="sex_hint">Sexo</string>
     <string name="pet_description_hint">Descrição geral do pet</string>
+    <string name="Profile">Perfil</string>
+    <string name="EditProfile">Editar Perfil</string>
 </resources>

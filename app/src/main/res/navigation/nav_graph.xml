@@ -27,6 +27,21 @@
     <fragment
         android:id="@+id/petRegisterFragment"
         android:name="com.jammes.miauau.collections.PetRegisterFragment"
-        android:label="@string/register_pet" />
+        android:label="@string/register_pet"
+        tools:layout="@layout/fragment_pet_register"/>
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.jammes.miauau.collections.UserProfileFragment"
+        android:label="@string/Profile"
+        tools:layout="@layout/fragment_user_profile">
+        <action
+            android:id="@+id/action_userProfileFragment_to_userProfileEditFragment"
+            app:destination="@id/userProfileEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProfileEditFragment"
+        android:name="com.jammes.miauau.collections.UserProfileEditFragment"
+        android:label="@string/EditProfile"
+        tools:layout="@layout/fragment_user_profile_edit"/>
 
 </navigation>

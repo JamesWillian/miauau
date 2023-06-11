@@ -1,5 +1,7 @@
 package com.jammes.miauau.core.model
 
+import java.io.ByteArrayInputStream
+
 data class PetDomain(
     val id: String? = null,
     val petType: Int = 1,
@@ -12,6 +14,6 @@ data class PetDomain(
     val vaccinated: Boolean = false,
     val size: Int = 1,
     val castrated: Boolean = false,
-    var imageURL: String = "",
+    var imageURL: ByteArrayInputStream? = null,
     val tutorId: Int? = null
 )
