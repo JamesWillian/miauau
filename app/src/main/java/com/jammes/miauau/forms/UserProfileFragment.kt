@@ -1,12 +1,14 @@
-package com.jammes.miauau.collections
+package com.jammes.miauau.forms
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.jammes.miauau.forms.UserProfileFragmentDirections
 import com.jammes.miauau.databinding.FragmentUserProfileBinding
 
 class UserProfileFragment: Fragment() {
@@ -27,8 +29,14 @@ class UserProfileFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.userDetailsButton.setOnClickListener {
-            val action = UserProfileFragmentDirections.actionUserProfileFragmentToUserProfileEditFragment()
+            val action =
+                UserProfileFragmentDirections.actionUserProfileFragmentToUserProfileEditFragment()
             findNavController().navigate(action)
+        }
+
+        binding.userLogoffButton.setOnClickListener {
+            Firebase.auth.signOut()
+            findNavController().navigateUp()
         }
     }
 }

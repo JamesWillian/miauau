@@ -1,4 +1,4 @@
-package com.jammes.miauau.collections
+package com.jammes.miauau.forms
 
 
 import android.annotation.SuppressLint
@@ -21,18 +21,17 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
 import com.jammes.miauau.R
+import com.jammes.miauau.collections.Pet
+import com.jammes.miauau.collections.PetRegisterChipInfo
+import com.jammes.miauau.collections.PetRegisterViewModel
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentPetRegisterBinding
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 
-private const val REQUEST_CAMERA_PERMISSION = 100
-
 class PetRegisterFragment : Fragment() {
+
 
     private var _binding: FragmentPetRegisterBinding? = null
     private val binding get() = _binding!!
@@ -150,4 +149,7 @@ class PetRegisterFragment : Fragment() {
         _binding = null
     }
 
+    companion object {
+        private const val REQUEST_CAMERA_PERMISSION = 100
+    }
 }

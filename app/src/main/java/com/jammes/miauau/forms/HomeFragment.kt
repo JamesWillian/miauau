@@ -1,4 +1,4 @@
-package com.jammes.miauau.collections
+package com.jammes.miauau.forms
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jammes.miauau.collections.HomeListAdapter
+import com.jammes.miauau.collections.PetsListLifecycleObserver
+import com.jammes.miauau.collections.PetsListViewModel
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentHomeBinding
 

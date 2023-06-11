@@ -1,4 +1,4 @@
-package com.jammes.miauau.collections
+package com.jammes.miauau.forms
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.jammes.miauau.R
+import com.jammes.miauau.collections.*
+import com.jammes.miauau.forms.PetDetailFragmentArgs
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentPetDetailBinding
 
