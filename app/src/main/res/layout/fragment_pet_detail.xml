@@ -31,7 +31,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/img_dog"/>
+                tools:src="@drawable/img_dog" />
 
             <TextView
                 android:id="@+id/petNameTextView"
@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="Nome do Pet"
+                android:textAlignment="center"
                 android:textColor="#FFC93C"
                 android:textSize="25sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -59,16 +60,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/petAgeTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:text="Idade" />
+                        android:layout_margin="10dp"
+                        android:text="Idade"
+                        android:textAlignment="center" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -85,16 +86,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/petBreedTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:text="Raça" />
+                        android:layout_margin="10dp"
+                        android:text="Raça"
+                        android:textAlignment="center" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -112,16 +113,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/petSexTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:text="Macho;Fêmea" />
+                        android:layout_margin="10dp"
+                        android:text="Macho;Fêmea"
+                        android:textAlignment="center" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -138,16 +139,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/petSizeTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:text="Macho;Fêmea" />
+                        android:layout_margin="10dp"
+                        android:text="Porte"
+                        android:textAlignment="center" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -165,16 +166,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/petCastratedTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:text="Castrado" />
+                        android:layout_margin="10dp"
+                        android:text="Castrado"
+                        android:textAlignment="center" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -191,16 +192,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/petVaccinatedTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:text="Vacinado" />
+                        android:layout_margin="10dp"
+                        android:text="Vacinado"
+                        android:textAlignment="center" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -211,23 +212,23 @@
                 android:layout_marginTop="15dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp"
-                app:layout_constraintStart_toStartOf="@id/petCastratedCard"
                 app:layout_constraintEnd_toEndOf="@id/petVaccinatedCard"
+                app:layout_constraintStart_toStartOf="@id/petCastratedCard"
                 app:layout_constraintTop_toBottomOf="@id/petCastratedCard">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/petDescriptionTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:textAlignment="center"
                         android:layout_gravity="center"
+                        android:layout_margin="16dp"
                         android:text="Descrição Geral do Pet..."
+                        android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -235,6 +236,7 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <Button
                 android:id="@+id/adoptButton"
                 android:layout_width="0dp"
@@ -242,11 +244,11 @@
                 android:layout_marginTop="40dp"
                 android:backgroundTint="@color/blue"
                 android:text="Quero Adotar esse Pet"
-                android:textSize="16sp"
                 android:textAllCaps="false"
+                android:textSize="16sp"
                 app:cornerRadius="10dp"
-                app:layout_constraintStart_toStartOf="@id/petDescriptionCard"
                 app:layout_constraintEnd_toEndOf="@id/petDescriptionCard"
+                app:layout_constraintStart_toStartOf="@id/petDescriptionCard"
                 app:layout_constraintTop_toBottomOf="@id/petDescriptionCard" />
 
             <LinearLayout

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
@@ -48,6 +49,8 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
         viewModelScope.launch {
 //            val imageUrl = sendImageToStore(pet.name, petImage)
 
+            val idUsr = Firebase.auth.currentUser!!.uid
+
             val petComImg = PetDomain(
                     petType = pet.type,
                     name = pet.name,
@@ -58,10 +61,11 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
                     sex = pet.sex,
                     vaccinated = pet.vaccinated,
                     size = pet.size,
-                    castrated = pet.castrated
+                    castrated = pet.castrated,
+                    tutorId = idUsr
                 )
 
-            petComImg.imageURL = petImage
+//            petComImg.imageURL = petImage
             repository.addPet(petComImg)
         }
     }
