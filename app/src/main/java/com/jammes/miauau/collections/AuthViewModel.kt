@@ -100,7 +100,6 @@ class AuthViewModel(private val repository: UsersRepository): ViewModel() {
                                 photoUrl = user.photoUrl.toString()
                             )
                         )
-//                    Toast.makeText(this, "Bem-vindo ${user!!.displayName}", Toast.LENGTH_SHORT).show()
                     } else {
                         Log.w(TAG, "signInWithCredential:failure", task.exception)
                     }

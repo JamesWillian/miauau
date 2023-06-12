@@ -1,6 +1,7 @@
 package com.jammes.miauau.core.repository
 
 import android.util.Log
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.core.model.PetDomain
@@ -31,9 +32,10 @@ class UsersRepositoryFirestore: UsersRepository {
 
     override suspend fun addUser(user: UserDomain) {
         db.collection(COLLECTION)
-            .add(user)
-            .addOnSuccessListener {docRef ->
-                Log.d("UsersRepoFirestore","Usuário Salvo com Sucesso! ID: ${docRef.id}")
+            .document(user.uid!!)
+            .set(user, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.d("UsersRepoFirestore","Usuário Salvo com Sucesso! ID: ${user.uid}")
             }
             .addOnFailureListener {ex ->
                 Log.w("UsersRepoFirestore","Não foi possível salvar os dados do Usuário!", ex)
