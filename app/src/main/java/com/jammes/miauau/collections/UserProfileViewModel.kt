@@ -15,26 +15,58 @@ class UserProfileViewModel(private val repository: UsersRepository): ViewModel()
         }
     }
 
+    fun saveUserProfile(user: User) {
+        viewModelScope.launch {
+            setUser(user)
+        }
+    }
+
     private suspend fun getUserById(userId: String) {
         val userDomain = repository.fetchUserDetail(userId)
-        val user = userDomain.toUser()
+//        val user = userDomain.toUser()
+        val user = userDomain.let {
+            User(
+                uid = it.uid,
+                name = it.name,
+                location = it.location,
+                about = it.about,
+                phone = it.phone,
+                email = it.email,
+                showContact = it.showContact
+            )
+        }
         userUiState.postValue(UserUiState(user))
+    }
+
+    private suspend fun setUser(user: User) {
+        val newUser = user.let {
+            UserDomain(
+                uid = it.uid,
+                name = it.name,
+                location = it.location,
+                about = it.about,
+                phone = it.phone,
+                email = it.email,
+                showContact = it.showContact
+            )
+        }
+        repository.addUser(newUser)
     }
 
     fun stateOnceAndStream(): LiveData<UserUiState> {
         return userUiState
     }
 
-    private fun UserDomain.toUser(): User {
-        return User(
-            uid,
-            name,
-            location,
-            about,
-            phone,
-            email
-        )
-    }
+//    private fun UserDomain.toUser(): User {
+//        return User(
+//            uid,
+//            name,
+//            location,
+//            about,
+//            phone,
+//            email
+//        )
+//    }
 
     data class UserUiState(val user: User)
 

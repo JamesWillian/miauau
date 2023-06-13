@@ -97,8 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:text="Exibir meus dados para contato"
-        android:checked="true"
+        android:text="Exibir meus dados de contato"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userEmailEditText"/>
@@ -118,8 +117,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:lines="3"
-            android:maxLength="30" />
+            android:lines="4"
+            android:maxLength="120" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

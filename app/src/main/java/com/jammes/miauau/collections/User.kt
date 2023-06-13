@@ -9,5 +9,6 @@ data class User (
     val about: String = "",
     val phone: String = "",
     val email: String = "",
+    val showContact: Boolean = true,
     val photo: Bitmap? = null
 )

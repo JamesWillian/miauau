@@ -7,5 +7,6 @@ data class UserDomain(
     val about: String = "",
     val phone: String = "",
     val email: String = "",
+    val showContact: Boolean = true,
     val photoUrl: String = ""
 )
