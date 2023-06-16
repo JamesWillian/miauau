@@ -19,12 +19,12 @@ class UsersRepositoryFirestore: UsersRepository {
         if (doc.exists() && doc != null) {
             return userDetail.copy(
                 uid = doc.id,
-                name = doc.getString("name")!!,
-                location = doc.getString("location")!!,
-                about = doc.getString("about")!!,
-                phone = doc.getString("phone")!!,
-                email = doc.getString("email")!!,
-                photoUrl = doc.getString("photoUrl")!!)
+                name = doc.getString("name") ?: "Sem Nome",
+                location = doc.getString("location") ?: "Sem Localização",
+                about = doc.getString("about") ?: "Sem Informações",
+                phone = doc.getString("phone") ?: "Sem Telefone",
+                email = doc.getString("email") ?: "Sem Email",
+                photoUrl = doc.getString("photoUrl") ?: "")
         } else {
             throw Exception("Usuário não localizado...")
         }

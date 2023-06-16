@@ -92,7 +92,7 @@ class AuthViewModel(private val repository: UsersRepository): ViewModel() {
                         repository.addUser(
                             UserDomain(
                                 uid = user!!.uid,
-                                name = user.displayName!!,
+                                name = user.displayName ?: "Sem Nome",
                                 about = "",
                                 phone = user.phoneNumber ?: "",
                                 email = user.email ?: "",
