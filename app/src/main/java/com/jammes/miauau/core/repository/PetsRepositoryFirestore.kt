@@ -1,6 +1,7 @@
 package com.jammes.miauau.core.repository
 
 import android.util.Log
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.core.model.PetDomain
@@ -14,6 +15,7 @@ class PetsRepositoryFirestore: PetsRepository {
         val resultList = mutableListOf<PetDomain>()
 
         val petsList = db.collection(COLLECTION)
+            .whereNotEqualTo("tutorId",Firebase.auth.currentUser!!.uid)
             .get()
             .await()
 
