@@ -18,7 +18,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             tools:context=".forms.PetDetailFragment">
 
             <ImageView
@@ -237,44 +237,40 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <ImageView
+                android:id="@+id/shareImageView2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_share_foreground"
+                app:layout_constraintStart_toStartOf="@id/petDescriptionCard"
+                app:layout_constraintEnd_toStartOf="@id/adoptButton"
+                app:layout_constraintBottom_toBottomOf="@id/adoptButton"
+                app:layout_constraintTop_toTopOf="@id/adoptButton"/>
+
             <Button
                 android:id="@+id/adoptButton"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="40dp"
                 android:backgroundTint="@color/blue"
-                android:text="Quero Adotar esse Pet"
+                android:text="Adotar esse Pet"
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 app:cornerRadius="10dp"
+                app:layout_constraintEnd_toStartOf="@id/saveImageView2"
+                app:layout_constraintStart_toEndOf="@id/shareImageView2"
+                app:layout_constraintTop_toBottomOf="@id/petDescriptionCard"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/saveImageView2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_pets_foreground"
+                app:layout_constraintStart_toEndOf="@id/adoptButton"
                 app:layout_constraintEnd_toEndOf="@id/petDescriptionCard"
-                app:layout_constraintStart_toStartOf="@id/petDescriptionCard"
-                app:layout_constraintTop_toBottomOf="@id/petDescriptionCard" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/adoptButton">
-
-
-                <ImageView
-                    android:id="@+id/shareImageView"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_share_foreground" />
-
-                <ImageView
-                    android:id="@+id/saveImageView"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_pets_foreground" />
-
-            </LinearLayout>
+                app:layout_constraintBottom_toBottomOf="@id/adoptButton"
+                app:layout_constraintTop_toTopOf="@id/adoptButton"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

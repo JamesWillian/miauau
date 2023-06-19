@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -49,13 +50,17 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         setupNavigation()
 
-
+        val navController = findNavController(R.id.fragmentContainerView)
 
         /**
          * Tela de Cadastro de Novo Pet
          */
         binding.imageAddPetToolbar.setOnClickListener {
-            findNavController(R.id.fragmentContainerView).navigate(R.id.petRegisterFragment)
+            if (Firebase.auth.currentUser!!.isAnonymous) {
+                login()
+            } else {
+                navController.navigate(R.id.petRegisterFragment)
+            }
         }
 
         /**
@@ -64,14 +69,19 @@ class MainActivity : AppCompatActivity() {
          */
         binding.imageUserToolbar.setOnClickListener {
             if (Firebase.auth.currentUser!!.isAnonymous) {
-                viewModel.oneTapSignIn(
-                    getString(R.string.default_web_client_id),
-                    Identity.getSignInClient(this),
-                    signInLauncher)
+                login()
             } else {
-                findNavController(R.id.fragmentContainerView).navigate(R.id.userProfileFragment)
+                navController.navigate(R.id.userProfileFragment)
             }
         }
+    }
+
+    private fun login() {
+        viewModel.oneTapSignIn(
+            getString(R.string.default_web_client_id),
+            Identity.getSignInClient(this),
+            signInLauncher
+        )
     }
 
     private fun setupNavigation() {

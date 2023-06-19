@@ -1,6 +1,6 @@
 package com.jammes.miauau.collections
 
-import java.io.ByteArrayInputStream
+import android.graphics.Bitmap
 
 data class Pet(
     val name: String,
@@ -13,5 +13,5 @@ data class Pet(
     val vaccinated: Boolean,
     val size: Int,
     val castrated: Boolean,
-    val image: ByteArrayInputStream
+    val image: Bitmap
 )

@@ -3,11 +3,13 @@ package com.jammes.miauau.core.repository
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.inject.Deferred
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.core.model.PetDomain
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
 
-class PetsRepositoryFirestore: PetsRepository {
+class PetsRepositoryFirestore : PetsRepository {
 
     private val db = Firebase.firestore
 
@@ -15,7 +17,7 @@ class PetsRepositoryFirestore: PetsRepository {
         val resultList = mutableListOf<PetDomain>()
 
         val petsList = db.collection(COLLECTION)
-            .whereNotEqualTo("tutorId",Firebase.auth.currentUser!!.uid)
+            .whereNotEqualTo("tutorId", Firebase.auth.currentUser!!.uid)
             .get()
             .await()
 
@@ -46,7 +48,8 @@ class PetsRepositoryFirestore: PetsRepository {
         val petDetail = doc.toObject(PetDomain::class.java)!!
 
         if (doc.exists() && doc != null) {
-            return petDetail.copy(id = doc.id,
+            return petDetail.copy(
+                id = doc.id,
                 petType = doc.getLong("petType")!!.toInt(),
                 name = doc.getString("name")!!,
                 description = doc.getString("description")!!,
@@ -56,7 +59,8 @@ class PetsRepositoryFirestore: PetsRepository {
                 sex = doc.getLong("sex")!!.toInt(),
                 vaccinated = doc.getBoolean("vaccinated")!!,
                 size = doc.getLong("size")!!.toInt(),
-                castrated = doc.getBoolean("castrated")!!)
+                castrated = doc.getBoolean("castrated")!!
+            )
         } else {
             throw Exception("Desculpe! Não consegui encontrar o seu pet... :(")
         }
@@ -65,12 +69,22 @@ class PetsRepositoryFirestore: PetsRepository {
 
     override suspend fun addPet(petItem: PetDomain) {
         db.collection(COLLECTION)
-            .add(petItem)
-            .addOnSuccessListener {docRef ->
-                Log.d("PetsRepositoryFirestore","Pet Salvo com Sucesso! ID: ${docRef.id}")
+            .document(petItem.id!!)
+            .set(petItem)
+            .addOnSuccessListener {
+                Log.d("PetsRepositoryFirestore", "Pet Salvo com Sucesso! ID: ${petItem.id}")
             }
-            .addOnFailureListener {ex ->
-                Log.w("PetsRepositoryFirestore","Não foi possível salvar o Pet!", ex)
+            .addOnFailureListener { ex ->
+                Log.w("PetsRepositoryFirestore", "Não foi possível salvar o Pet!", ex)
+            }.await()
+    }
+
+    override suspend fun addImagePet(petId: String, imageURL: String) {
+        db.collection(COLLECTION)
+            .document(petId)
+            .update("imageURL", imageURL)
+            .addOnSuccessListener {
+                Log.i("PetsRepositoryFirestore", "Imagem vinculada com sucesso!")
             }
     }
 

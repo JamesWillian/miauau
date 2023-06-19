@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -62,6 +63,10 @@ class PetRegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {pet ->
+            updateUI(pet)
+        }
+
         binding.SaveButton.setOnClickListener {
 
             val imageStream = binding.imagePet.toInputStream(binding.imagePet)
@@ -78,11 +83,11 @@ class PetRegisterFragment : Fragment() {
                 vaccinated = binding.petVaccinatedCheckBox.isChecked,
                 size = petOptionsChip[binding.petSizeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 2,
                 castrated = binding.petCastratedCheckBox.isChecked,
-                image = imageStream
+                image = binding.imagePet.drawable.toBitmap()
             )
 
             if (viewModel.isValid(pet)) {
-                viewModel.addNewPet(pet, imageStream)
+                viewModel.addNewPet(pet)
                 findNavController().navigateUp()
             } else {
                 Toast.makeText(
@@ -113,11 +118,19 @@ class PetRegisterFragment : Fragment() {
         }
     }
 
+    private fun updateUI(uiState: PetRegisterViewModel.UiState) {
+        binding.petNameEditText.editText?.setText(uiState.pet.name)
+        binding.petBreedEditText.editText?.setText(uiState.pet.breed)
+        binding.petAgeEditText.editText?.setText(uiState.pet.age)
+        binding.petDescriptionEditText.editText?.setText(uiState.pet.description)
+        binding.imagePet.setImageBitmap(uiState.pet.image)
+    }
+
     fun ImageView.toInputStream(image: ImageView): ByteArrayInputStream {
         val drawable = image.drawable as BitmapDrawable
         val bitmap = drawable.bitmap
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val data = baos.toByteArray()
 
         return ByteArrayInputStream(data)
