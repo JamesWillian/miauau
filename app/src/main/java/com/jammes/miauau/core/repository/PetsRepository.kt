@@ -11,7 +11,7 @@ interface PetsRepository {
 
     suspend fun fetchPetDetail(petId: String): PetDomain
 
-    suspend fun addPet(petItem: PetDomain)
+    fun addPet(petItem: PetDomain)
 
     suspend fun addImagePet(petId: String, imageURL: String)
 }

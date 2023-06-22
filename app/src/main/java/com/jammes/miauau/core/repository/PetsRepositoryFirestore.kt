@@ -67,7 +67,7 @@ class PetsRepositoryFirestore : PetsRepository {
 
     }
 
-    override suspend fun addPet(petItem: PetDomain) {
+    override fun addPet(petItem: PetDomain) {
         db.collection(COLLECTION)
             .document(petItem.id!!)
             .set(petItem)
@@ -76,7 +76,7 @@ class PetsRepositoryFirestore : PetsRepository {
             }
             .addOnFailureListener { ex ->
                 Log.w("PetsRepositoryFirestore", "Não foi possível salvar o Pet!", ex)
-            }.await()
+            }
     }
 
     override suspend fun addImagePet(petId: String, imageURL: String) {

@@ -1,7 +1,11 @@
 package com.jammes.miauau.collections
 
+import android.content.res.Resources
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.util.Log
+import android.widget.ImageView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,15 +20,13 @@ import com.jammes.miauau.core.repository.PetsRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
 class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel() {
 
     private val storage = Firebase.storage
     private val storageRef = storage.reference
-    private val petScope = viewModelScope
-    private val imageScope = viewModelScope
-    private val urlImage = MutableLiveData("")
 
     private val uiState = MutableLiveData<UiState>()
 
@@ -39,64 +41,51 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
         return true
     }
 
-    private suspend fun sendImageToStore(petItem: PetDomain, imageStream: ByteArrayInputStream) {
-        Log.i("ImagemPet", "Chamou sendImageToStore")
-        val imageFileName = "${petItem.name}-${System.currentTimeMillis()}.png "
-        val imageRef = storageRef.child("imagesPets/$imageFileName")
+    private fun toInputStream(image: Bitmap): ByteArray {
 
-        Log.i("ImagemPet", "Antes do PutStream")
-        val uploadImg = imageRef.putStream(imageStream).await()
+        val baos = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        return baos.toByteArray()
 
-        Log.i("ImagemPet", "Antes do If")
-        if (uploadImg.task.isSuccessful) {
-            Log.i("ImagemPet", "Sucess antes da url")
-            imageRef.downloadUrl
-                .addOnSuccessListener {
-                    urlImage.postValue(it.toString())
-                    Log.i("ImagemPet", "Sucess $it")
-
-                }
-                .addOnFailureListener {
-                    Log.e("ImagemPet", "Erro ao obter URL ${it.message}")
-                }
-
-        }
     }
 
     fun addNewPet(pet: Pet) {
         val idUsr = Firebase.auth.currentUser!!.uid
+        val img = toInputStream(pet.image)
+        val imageFileName = "${pet.name}-${System.currentTimeMillis()}.png "
+        val imageRef = storageRef.child("imagesPets/$imageFileName")
 
-        val petComImg = PetDomain(
-            id = "${pet.name}-${System.currentTimeMillis()}",
-            petType = pet.type,
-            name = pet.name,
-            description = pet.description,
-            age = pet.age,
-            ageType = pet.ageType,
-            breed = pet.breed,
-            sex = pet.sex,
-            vaccinated = pet.vaccinated,
-            size = pet.size,
-            castrated = pet.castrated,
-            tutorId = idUsr
-        )
+        val uploadTask = imageRef.putBytes(img)
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            imageRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val downloadUrl = task.result.toString()
 
-        petScope.launch {
-
-            repository.addPet(petComImg)
-
+                val petComImg = PetDomain(
+                    id = "${pet.name}-${System.currentTimeMillis()}",
+                    petType = pet.type,
+                    name = pet.name,
+                    description = pet.description,
+                    age = pet.age,
+                    ageType = pet.ageType,
+                    breed = pet.breed,
+                    sex = pet.sex,
+                    vaccinated = pet.vaccinated,
+                    size = pet.size,
+                    castrated = pet.castrated,
+                    tutorId = idUsr,
+                    imageURL = downloadUrl
+                )
+                repository.addPet(petComImg)
+            }
         }
 
-        imageScope.launch {
-
-//            sendImageToStore(petComImg, pet.image)
-
-        }
-
-//        viewModelScope.launch {
-//            Log.i("ImagemPet", "URL da Imagem: $urlImage")
-//            repository.addImagePet(petComImg.id!!, urlImage.value.toString())
-//        }
     }
 
     data class UiState(val pet: Pet)

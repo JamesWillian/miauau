@@ -69,8 +69,6 @@ class PetRegisterFragment : Fragment() {
 
         binding.SaveButton.setOnClickListener {
 
-            val imageStream = binding.imagePet.toInputStream(binding.imagePet)
-
             val pet = Pet(
                 name = binding.petNameEditText.editText?.text.toString(),
                 description = binding.petDescriptionEditText.editText?.text.toString(),
@@ -126,15 +124,7 @@ class PetRegisterFragment : Fragment() {
         binding.imagePet.setImageBitmap(uiState.pet.image)
     }
 
-    fun ImageView.toInputStream(image: ImageView): ByteArrayInputStream {
-        val drawable = image.drawable as BitmapDrawable
-        val bitmap = drawable.bitmap
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
-        val data = baos.toByteArray()
 
-        return ByteArrayInputStream(data)
-    }
 
     @SuppressLint("QueryPermissionsNeeded")
     private fun startCamera(activity: FragmentActivity) {
