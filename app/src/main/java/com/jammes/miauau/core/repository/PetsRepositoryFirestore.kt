@@ -34,7 +34,8 @@ class PetsRepositoryFirestore : PetsRepository {
                     sex = pet.getLong("sex")!!.toInt(),
                     vaccinated = pet.getBoolean("vaccinated")!!,
                     size = pet.getLong("size")!!.toInt(),
-                    castrated = pet.getBoolean("castrated")!!
+                    castrated = pet.getBoolean("castrated")!!,
+                    imageURL = pet.getString("imageURL")
                 )
             )
         }
@@ -59,7 +60,8 @@ class PetsRepositoryFirestore : PetsRepository {
                 sex = doc.getLong("sex")!!.toInt(),
                 vaccinated = doc.getBoolean("vaccinated")!!,
                 size = doc.getLong("size")!!.toInt(),
-                castrated = doc.getBoolean("castrated")!!
+                castrated = doc.getBoolean("castrated")!!,
+                imageURL = doc.getString("imageURL")
             )
         } else {
             throw Exception("Desculpe! Não consegui encontrar o seu pet... :(")

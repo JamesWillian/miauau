@@ -28,7 +28,9 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
     private val storage = Firebase.storage
     private val storageRef = storage.reference
 
-    private val uiState = MutableLiveData<UiState>()
+    private val uiState : MutableLiveData<UiState> by lazy {
+        MutableLiveData<UiState>()
+    }
 
     fun stateOnceAndStream(): LiveData<UiState> {
         return uiState

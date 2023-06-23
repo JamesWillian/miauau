@@ -13,6 +13,7 @@ import com.jammes.miauau.collections.*
 import com.jammes.miauau.forms.PetDetailFragmentArgs
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentPetDetailBinding
+import com.squareup.picasso.Picasso
 
 class PetDetailFragment : Fragment() {
 
@@ -66,7 +67,14 @@ class PetDetailFragment : Fragment() {
                         Size.LARGE -> resources.getString(R.string.large)
                     } //size
                 binding.petVaccinatedTextView.text = pet.petDetail.vaccinated
-                binding.petImageView.setImageResource(pet.petDetail.img)
+//                binding.petImageView.setImageResource(pet.petDetail.img)
+                if (pet.petDetail.imageURL != "") {
+                    Picasso.get()
+                        .load(pet.petDetail.imageURL)
+                        .placeholder(R.drawable.ic_launcher_foreground)
+                        .error(R.drawable.ic_launcher_foreground)
+                        .into(binding.petImageView)
+                }
             }
         }
     }

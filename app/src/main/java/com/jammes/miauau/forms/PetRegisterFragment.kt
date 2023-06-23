@@ -122,6 +122,11 @@ class PetRegisterFragment : Fragment() {
         binding.petAgeEditText.editText?.setText(uiState.pet.age)
         binding.petDescriptionEditText.editText?.setText(uiState.pet.description)
         binding.imagePet.setImageBitmap(uiState.pet.image)
+
+        binding.petTypeChipGroup.check(getChipIdByValue(uiState.pet.type) ?: binding.chipDog.id)
+        binding.petAgeChipGroup.check(getChipIdByValue(uiState.pet.ageType) ?: binding.chipYears.id)
+        binding.petSizeChipGroup.check(getChipIdByValue(uiState.pet.size) ?: binding.chipMedium.id)
+        binding.petSexChipGroup.check(getChipIdByValue(uiState.pet.sex) ?: binding.chipMale.id)
     }
 
 
@@ -146,6 +151,14 @@ class PetRegisterFragment : Fragment() {
         R.id.chipMedium to listOf(PetRegisterChipInfo(1, "Medium", 2)),
         R.id.chipLarge to listOf(PetRegisterChipInfo(1, "Large", 3)),
     )
+
+    private val petOptionsChipValues = petOptionsChip.flatMap { entry ->
+        entry.value.map { chipInfo -> chipInfo.value to entry.key }
+    }.toMap()
+
+    fun getChipIdByValue(value: Int): Int? {
+        return petOptionsChipValues[value]
+    }
 
     override fun onDestroy() {
         super.onDestroy()

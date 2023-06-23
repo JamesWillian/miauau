@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jammes.miauau.R
 import com.jammes.miauau.databinding.PetItemBinding
 import com.jammes.miauau.forms.HomeFragmentDirections
+import com.squareup.picasso.Picasso
 
 class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 
@@ -33,7 +34,14 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
                     Sex.MALE -> itemView.context.getString(R.string.male)
                     Sex.FEMALE -> itemView.context.getString(R.string.female)
                 }
-            binding.petPhotoImageView.setImageResource(petItem.img)
+//            binding.petPhotoImageView.setImageResource(petItem.img)
+            if (petItem.imageURL != "") {
+                Picasso.get()
+                    .load(petItem.imageURL)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(binding.petPhotoImageView)
+            }
 
             binding.root.setOnClickListener {
                 val id = petItem.id ?: ""
