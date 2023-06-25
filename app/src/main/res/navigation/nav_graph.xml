@@ -36,7 +36,12 @@
         tools:layout="@layout/fragment_user_profile">
         <action
             android:id="@+id/action_userProfileFragment_to_userProfileEditFragment"
-            app:destination="@id/userProfileEditFragment" />
+            app:destination="@id/userProfileEditFragment"
+            app:popUpTo="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_petDetailFragment"
+            app:destination="@id/petDetailFragment"
+            app:popUpTo="@id/userProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/userProfileEditFragment"

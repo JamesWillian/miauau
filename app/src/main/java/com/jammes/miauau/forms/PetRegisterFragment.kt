@@ -9,6 +9,8 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -69,20 +72,7 @@ class PetRegisterFragment : Fragment() {
 
         binding.SaveButton.setOnClickListener {
 
-            val pet = Pet(
-                name = binding.petNameEditText.editText?.text.toString(),
-                description = binding.petDescriptionEditText.editText?.text.toString(),
-                type = petOptionsChip[binding.petTypeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
-                age = try {binding.petAgeEditText.editText?.text.toString().toInt()}
-                      catch (ex: NumberFormatException) { 0 },
-                ageType = petOptionsChip[binding.petAgeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
-                breed = binding.petBreedEditText.editText?.text.toString(),
-                sex = petOptionsChip[binding.petSexChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
-                vaccinated = binding.petVaccinatedCheckBox.isChecked,
-                size = petOptionsChip[binding.petSizeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 2,
-                castrated = binding.petCastratedCheckBox.isChecked,
-                image = binding.imagePet.drawable.toBitmap()
-            )
+            val pet = petData()
 
             if (viewModel.isValid(pet)) {
                 viewModel.addNewPet(pet)
@@ -129,7 +119,22 @@ class PetRegisterFragment : Fragment() {
         binding.petSexChipGroup.check(getChipIdByValue(uiState.pet.sex) ?: binding.chipMale.id)
     }
 
-
+    fun petData(): Pet {
+        return Pet(
+            name = binding.petNameEditText.editText?.text.toString(),
+            description = binding.petDescriptionEditText.editText?.text.toString(),
+            type = petOptionsChip[binding.petTypeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
+            age = try {binding.petAgeEditText.editText?.text.toString().toInt()}
+                  catch (ex: NumberFormatException) { 0 },
+            ageType = petOptionsChip[binding.petAgeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
+            breed = binding.petBreedEditText.editText?.text.toString(),
+            sex = petOptionsChip[binding.petSexChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
+            vaccinated = binding.petVaccinatedCheckBox.isChecked,
+            size = petOptionsChip[binding.petSizeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 2,
+            castrated = binding.petCastratedCheckBox.isChecked,
+            image = binding.imagePet.drawable.toBitmap()
+        )
+    }
 
     @SuppressLint("QueryPermissionsNeeded")
     private fun startCamera(activity: FragmentActivity) {

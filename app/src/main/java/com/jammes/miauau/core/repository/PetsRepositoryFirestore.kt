@@ -43,6 +43,27 @@ class PetsRepositoryFirestore : PetsRepository {
         return resultList
     }
 
+    override suspend fun fetchOwnPets(): List<PetDomain> {
+        val resultList = mutableListOf<PetDomain>()
+
+        val petsList = db.collection(COLLECTION)
+            .whereEqualTo("tutorId", Firebase.auth.currentUser!!.uid)
+            .get()
+            .await()
+
+        for (pet in petsList) {
+            resultList.add(
+                PetDomain(
+                    id = pet.id,
+                    name = pet.getString("name")!!,
+                    imageURL = pet.getString("imageURL")
+                )
+            )
+        }
+
+        return resultList
+    }
+
     override suspend fun fetchPetDetail(petId: String): PetDomain {
 
         val doc = db.collection(COLLECTION).document(petId).get().await()

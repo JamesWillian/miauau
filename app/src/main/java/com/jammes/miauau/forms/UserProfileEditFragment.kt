@@ -12,6 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.collections.User
 import com.jammes.miauau.collections.UserProfileViewModel
+import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.core.repository.UsersRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentUserProfileEditBinding
 
@@ -21,7 +22,7 @@ class UserProfileEditFragment: Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: UserProfileViewModel by activityViewModels {
-        UserProfileViewModel.Factory(UsersRepositoryFirestore())
+        UserProfileViewModel.Factory(UsersRepositoryFirestore(), PetsRepositoryFirestore())
     }
 
     override fun onCreateView(

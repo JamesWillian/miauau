@@ -2,12 +2,47 @@ package com.jammes.miauau.collections
 
 import androidx.lifecycle.*
 import com.jammes.miauau.core.model.UserDomain
+import com.jammes.miauau.core.repository.PetsRepository
 import com.jammes.miauau.core.repository.UsersRepository
 import kotlinx.coroutines.launch
 
-class UserProfileViewModel(private val repository: UsersRepository): ViewModel() {
+class UserProfileViewModel(
+    private val userRepository: UsersRepository,
+    private val petRepository: PetsRepository
+): ViewModel() {
 
     private val userUiState = MutableLiveData<UserUiState>()
+
+    private val petListUiState: MutableLiveData<MyPetListUiState> by lazy {
+        MutableLiveData<MyPetListUiState>(
+            MyPetListUiState(
+                petItemList = emptyList()
+            )
+        )
+    }
+
+    fun onResume() {
+        viewModelScope.launch {
+            refreshPetsList()
+        }
+    }
+
+    private suspend fun refreshPetsList() {
+        petListUiState.postValue(
+            MyPetListUiState(petRepository.fetchOwnPets()
+                .map { pet ->
+                    PetItem(
+                        id = pet.id,
+                        name = pet.name,
+                        imageURL = pet.imageURL ?: ""
+                    )
+                })
+        )
+    }
+
+    fun statePetsOnce(): LiveData<MyPetListUiState> {
+        return petListUiState
+    }
 
     fun refreshUser(userId: String) {
         viewModelScope.launch {
@@ -22,7 +57,7 @@ class UserProfileViewModel(private val repository: UsersRepository): ViewModel()
     }
 
     private suspend fun getUserById(userId: String) {
-        val userDomain = repository.fetchUserDetail(userId)
+        val userDomain = userRepository.fetchUserDetail(userId)
 //        val user = userDomain.toUser()
         val user = userDomain.let {
             User(
@@ -32,6 +67,7 @@ class UserProfileViewModel(private val repository: UsersRepository): ViewModel()
                 about = it.about,
                 phone = it.phone,
                 email = it.email,
+                photoUrl = it.photoUrl,
                 showContact = it.showContact
             )
         }
@@ -50,7 +86,7 @@ class UserProfileViewModel(private val repository: UsersRepository): ViewModel()
                 showContact = it.showContact
             )
         }
-        repository.addUser(newUser)
+        userRepository.addUser(newUser)
     }
 
     fun stateOnceAndStream(): LiveData<UserUiState> {
@@ -70,10 +106,15 @@ class UserProfileViewModel(private val repository: UsersRepository): ViewModel()
 
     data class UserUiState(val user: User)
 
-    class Factory(private val repository: UsersRepository) : ViewModelProvider.Factory {
+    data class MyPetListUiState(val petItemList: List<PetItem>)
+
+    class Factory(
+        private val userRepository: UsersRepository,
+        private val petRepository: PetsRepository
+    ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return UserProfileViewModel(repository) as T
+            return UserProfileViewModel(userRepository, petRepository) as T
         }
     }
 }

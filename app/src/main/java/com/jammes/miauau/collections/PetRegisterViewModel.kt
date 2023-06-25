@@ -36,6 +36,12 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
         return uiState
     }
 
+    fun updateUiState(newPet: Pet) {
+        uiState.postValue(
+            UiState(newPet)
+        )
+    }
+
     fun isValid(pet: Pet): Boolean {
         if (pet.name.isBlank()) return false
         if (pet.description.isBlank()) return false
