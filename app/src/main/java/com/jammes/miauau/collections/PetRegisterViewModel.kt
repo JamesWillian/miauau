@@ -96,6 +96,12 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
 
     }
 
+//    private suspend fun getPetById(petId: String) {
+//        val petDetail = repository.fetchPetDetail(petId)
+//        val pet: PetItem = petDetail.toPetItem()
+//        uiState.postValue(UiState(pet))
+//    }
+
     data class UiState(val pet: Pet)
 
     class Factory(private val repository: PetsRepository) : ViewModelProvider.Factory {

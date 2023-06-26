@@ -12,5 +12,6 @@ data class PetItem(
     val vaccinated: String = "",
     val size: Size = Size.MEDIUM,
     val castrated: String = "",
-    val imageURL: String = ""
+    val imageURL: String = "",
+    val tutorId: String = ""
 )

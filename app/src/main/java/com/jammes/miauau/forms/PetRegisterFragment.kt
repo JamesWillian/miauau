@@ -25,6 +25,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.jammes.miauau.R
 import com.jammes.miauau.collections.Pet
 import com.jammes.miauau.collections.PetRegisterChipInfo
@@ -65,6 +66,8 @@ class PetRegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val args: PetRegisterFragmentArgs by navArgs()
 
         viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {pet ->
             updateUI(pet)

@@ -82,7 +82,8 @@ class PetsRepositoryFirestore : PetsRepository {
                 vaccinated = doc.getBoolean("vaccinated")!!,
                 size = doc.getLong("size")!!.toInt(),
                 castrated = doc.getBoolean("castrated")!!,
-                imageURL = doc.getString("imageURL")
+                imageURL = doc.getString("imageURL"),
+                tutorId = doc.getString("tutorId")
             )
         } else {
             throw Exception("Desculpe! Não consegui encontrar o seu pet... :(")

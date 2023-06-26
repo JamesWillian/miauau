@@ -71,6 +71,7 @@ class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
             },
             castrated = if (castrated) "Castrado" else "",
             imageURL = imageURL ?: "",
+            tutorId = tutorId ?: ""
         )
     }
 

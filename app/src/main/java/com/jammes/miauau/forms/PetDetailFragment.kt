@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.R
 import com.jammes.miauau.collections.*
 import com.jammes.miauau.forms.PetDetailFragmentArgs
@@ -42,40 +45,53 @@ class PetDetailFragment : Fragment() {
 
         viewModel.onPetItemClicked(args.petId)
         viewModel.detailUiState.observe(viewLifecycleOwner) { pet ->
-            if (pet != null) {
+            updateUI(pet)
+        }
+    }
 
-                val ageType = when (pet.petDetail.ageType) {
-                    AgeType.YEARS -> resources.getString(R.string.years)
-                    AgeType.MONTHS -> resources.getString(R.string.months)
-                    AgeType.WEEKS -> resources.getString(R.string.weeks)
-                }
+    private fun updateUI(pet: PetsListViewModel.PetDetailUiState) {
 
-                binding.petNameTextView.text = pet.petDetail.name //Name
-                binding.petDescriptionTextView.text = pet.petDetail.description //Description
-                binding.petBreedTextView.text = pet.petDetail.breed //Breed
-                binding.petAgeTextView.text = "${pet.petDetail.age} $ageType" //Age
-                binding.petSexTextView.text =
-                    when (pet.petDetail.sex) {
-                        Sex.MALE -> resources.getString(R.string.male)
-                        Sex.FEMALE -> resources.getString(R.string.female)
-                    } //Sex
-                binding.petCastratedTextView.text = pet.petDetail.castrated
-                binding.petSizeTextView.text =
-                    when (pet.petDetail.size) {
-                        Size.SMALL -> resources.getString(R.string.small)
-                        Size.MEDIUM -> resources.getString(R.string.medium)
-                        Size.LARGE -> resources.getString(R.string.large)
-                    } //size
-                binding.petVaccinatedTextView.text = pet.petDetail.vaccinated
-//                binding.petImageView.setImageResource(pet.petDetail.img)
-                if (pet.petDetail.imageURL != "") {
-                    Picasso.get()
-                        .load(pet.petDetail.imageURL)
-                        .placeholder(R.drawable.ic_launcher_foreground)
-                        .error(R.drawable.ic_launcher_foreground)
-                        .into(binding.petImageView)
-                }
+        val ageType = when (pet.petDetail.ageType) {
+            AgeType.YEARS -> resources.getString(R.string.years)
+            AgeType.MONTHS -> resources.getString(R.string.months)
+            AgeType.WEEKS -> resources.getString(R.string.weeks)
+        }
+
+        binding.petNameTextView.text = pet.petDetail.name //Name
+        binding.petDescriptionTextView.text = pet.petDetail.description //Description
+        binding.petBreedTextView.text = pet.petDetail.breed //Breed
+        binding.petAgeTextView.text = "${pet.petDetail.age} $ageType" //Age
+        binding.petSexTextView.text =
+            when (pet.petDetail.sex) {
+                Sex.MALE -> resources.getString(R.string.male)
+                Sex.FEMALE -> resources.getString(R.string.female)
+            } //Sex
+        binding.petCastratedTextView.text = pet.petDetail.castrated
+        binding.petSizeTextView.text =
+            when (pet.petDetail.size) {
+                Size.SMALL -> resources.getString(R.string.small)
+                Size.MEDIUM -> resources.getString(R.string.medium)
+                Size.LARGE -> resources.getString(R.string.large)
+            } //size
+        binding.petVaccinatedTextView.text = pet.petDetail.vaccinated
+
+        if (pet.petDetail.imageURL != "") {
+            Picasso.get()
+                .load(pet.petDetail.imageURL)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(binding.petImageView)
+        }
+
+        if (pet.petDetail.tutorId == Firebase.auth.currentUser!!.uid) {
+            binding.adoptButton.text = "Editar meu Pet"
+            binding.adoptButton.setOnClickListener {
+                val action =
+                    PetDetailFragmentDirections.actionPetDetailFragmentToPetRegisterFragment(pet.petDetail.id)
+                findNavController().navigate(action)
             }
+        } else {
+            binding.adoptButton.text = "Adotar esse Pet"
         }
     }
 
