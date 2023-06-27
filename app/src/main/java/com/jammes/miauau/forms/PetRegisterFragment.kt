@@ -132,9 +132,9 @@ class PetRegisterFragment : Fragment() {
             ageType = (petOptionsChip[binding.petAgeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1) as AgeType,
             breed = binding.petBreedEditText.editText?.text.toString(),
             sex = (petOptionsChip[binding.petSexChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1) as Sex,
-            vaccinated = binding.petVaccinatedCheckBox.isChecked.toString(),
+            vaccinated = if (binding.petVaccinatedCheckBox.isChecked) "Vacinado" else "",
             size = (petOptionsChip[binding.petSizeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 2) as Size,
-            castrated = binding.petCastratedCheckBox.isChecked.toString(),
+            castrated = if (binding.petCastratedCheckBox.isChecked) "Castrado" else "",
             imageBitmap = binding.imagePet.drawable.toBitmap(),
             tutorId = Firebase.auth.currentUser!!.uid
         )
