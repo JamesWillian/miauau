@@ -1,5 +1,7 @@
 package com.jammes.miauau.collections
 
+import android.graphics.Bitmap
+
 data class PetItem(
     val id: String? = null,
     val name: String = "",
@@ -13,5 +15,6 @@ data class PetItem(
     val size: Size = Size.MEDIUM,
     val castrated: String = "",
     val imageURL: String = "",
+    val imageBitmap: Bitmap? = null,
     val tutorId: String = ""
 )

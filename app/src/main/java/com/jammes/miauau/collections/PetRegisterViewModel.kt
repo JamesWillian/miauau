@@ -36,13 +36,13 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
         return uiState
     }
 
-    fun updateUiState(newPet: Pet) {
+    fun updateUiState(newPet: PetItem) {
         uiState.postValue(
             UiState(newPet)
         )
     }
 
-    fun isValid(pet: Pet): Boolean {
+    fun isValid(pet: PetItem): Boolean {
         if (pet.name.isBlank()) return false
         if (pet.description.isBlank()) return false
         if (pet.age <= 0) return false
@@ -57,39 +57,26 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
 
     }
 
-    fun addNewPet(pet: Pet) {
+    fun addNewPet(pet: PetItem) {
         val idUsr = Firebase.auth.currentUser!!.uid
-        val img = toInputStream(pet.image)
+        val img = pet.imageBitmap?.let { toInputStream(it) }
         val imageFileName = "${pet.name}-${System.currentTimeMillis()}.png "
         val imageRef = storageRef.child("imagesPets/$imageFileName")
 
-        val uploadTask = imageRef.putBytes(img)
-        uploadTask.continueWithTask { task ->
+        val uploadTask = img?.let { imageRef.putBytes(it) }
+        uploadTask?.continueWithTask { task ->
             if (!task.isSuccessful) {
                 task.exception?.let {
                     throw it
                 }
             }
             imageRef.downloadUrl
-        }.addOnCompleteListener { task ->
+        }?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val downloadUrl = task.result.toString()
+                val newPet = pet.copy(imageURL = downloadUrl)
+                val petComImg = newPet.toPetDomain()
 
-                val petComImg = PetDomain(
-                    id = "${pet.name}-${System.currentTimeMillis()}",
-                    petType = pet.type,
-                    name = pet.name,
-                    description = pet.description,
-                    age = pet.age,
-                    ageType = pet.ageType,
-                    breed = pet.breed,
-                    sex = pet.sex,
-                    vaccinated = pet.vaccinated,
-                    size = pet.size,
-                    castrated = pet.castrated,
-                    tutorId = idUsr,
-                    imageURL = downloadUrl
-                )
                 repository.addPet(petComImg)
             }
         }
@@ -102,7 +89,43 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
 //        uiState.postValue(UiState(pet))
 //    }
 
-    data class UiState(val pet: Pet)
+    data class UiState(val pet: PetItem)
+
+    private fun PetItem.toPetDomain(): PetDomain {
+        return PetDomain(
+            id = id,
+            name = name,
+            description = description,
+            age = age,
+            breed = breed,
+            vaccinated = (vaccinated != ""),
+            castrated = (castrated != ""),
+            imageURL = imageURL,
+            tutorId = tutorId,
+            petType =
+            when (petType) {
+                PetType.DOG -> 1
+                PetType.CAT -> 2
+            },
+            ageType =
+            when (ageType) {
+                AgeType.YEARS -> 1
+                AgeType.MONTHS -> 2
+                AgeType.WEEKS -> 3
+            },
+            sex =
+            when (sex) {
+                Sex.MALE -> 1
+                Sex.FEMALE -> 2
+            },
+            size =
+            when (size) {
+                Size.SMALL -> 1
+                Size.MEDIUM -> 2
+                Size.LARGE -> 3
+            }
+        )
+    }
 
     class Factory(private val repository: PetsRepository) : ViewModelProvider.Factory {
 

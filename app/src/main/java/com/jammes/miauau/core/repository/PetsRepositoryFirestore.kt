@@ -93,22 +93,12 @@ class PetsRepositoryFirestore : PetsRepository {
 
     override fun addPet(petItem: PetDomain) {
         db.collection(COLLECTION)
-            .document(petItem.id!!)
-            .set(petItem)
-            .addOnSuccessListener {
-                Log.d("PetsRepositoryFirestore", "Pet Salvo com Sucesso! ID: ${petItem.id}")
+            .add(petItem)
+            .addOnSuccessListener {docRef ->
+                Log.d("PetsRepositoryFirestore", "Pet Salvo com Sucesso! ID: ${docRef.id}")
             }
             .addOnFailureListener { ex ->
                 Log.w("PetsRepositoryFirestore", "Não foi possível salvar o Pet!", ex)
-            }
-    }
-
-    override suspend fun addImagePet(petId: String, imageURL: String) {
-        db.collection(COLLECTION)
-            .document(petId)
-            .update("imageURL", imageURL)
-            .addOnSuccessListener {
-                Log.i("PetsRepositoryFirestore", "Imagem vinculada com sucesso!")
             }
     }
 

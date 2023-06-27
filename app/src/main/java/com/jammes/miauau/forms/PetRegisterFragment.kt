@@ -26,10 +26,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.R
-import com.jammes.miauau.collections.Pet
-import com.jammes.miauau.collections.PetRegisterChipInfo
-import com.jammes.miauau.collections.PetRegisterViewModel
+import com.jammes.miauau.collections.*
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentPetRegisterBinding
 import java.io.ByteArrayInputStream
@@ -114,28 +114,29 @@ class PetRegisterFragment : Fragment() {
         binding.petBreedEditText.editText?.setText(uiState.pet.breed)
         binding.petAgeEditText.editText?.setText(uiState.pet.age)
         binding.petDescriptionEditText.editText?.setText(uiState.pet.description)
-        binding.imagePet.setImageBitmap(uiState.pet.image)
+        binding.imagePet.setImageBitmap(uiState.pet.imageBitmap)
 
-        binding.petTypeChipGroup.check(getChipIdByValue(uiState.pet.type) ?: binding.chipDog.id)
-        binding.petAgeChipGroup.check(getChipIdByValue(uiState.pet.ageType) ?: binding.chipYears.id)
-        binding.petSizeChipGroup.check(getChipIdByValue(uiState.pet.size) ?: binding.chipMedium.id)
-        binding.petSexChipGroup.check(getChipIdByValue(uiState.pet.sex) ?: binding.chipMale.id)
+//        binding.petTypeChipGroup.check(getChipIdByValue(uiState.pet.type) ?: binding.chipDog.id)
+//        binding.petAgeChipGroup.check(getChipIdByValue(uiState.pet.ageType) ?: binding.chipYears.id)
+//        binding.petSizeChipGroup.check(getChipIdByValue(uiState.pet.size) ?: binding.chipMedium.id)
+//        binding.petSexChipGroup.check(getChipIdByValue(uiState.pet.sex) ?: binding.chipMale.id)
     }
 
-    fun petData(): Pet {
-        return Pet(
+    private fun petData(): PetItem {
+        return PetItem(
             name = binding.petNameEditText.editText?.text.toString(),
             description = binding.petDescriptionEditText.editText?.text.toString(),
-            type = petOptionsChip[binding.petTypeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
+            petType = (petOptionsChip[binding.petTypeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: PetType.DOG) as PetType,
             age = try {binding.petAgeEditText.editText?.text.toString().toInt()}
                   catch (ex: NumberFormatException) { 0 },
-            ageType = petOptionsChip[binding.petAgeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
+            ageType = (petOptionsChip[binding.petAgeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1) as AgeType,
             breed = binding.petBreedEditText.editText?.text.toString(),
-            sex = petOptionsChip[binding.petSexChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1,
-            vaccinated = binding.petVaccinatedCheckBox.isChecked,
-            size = petOptionsChip[binding.petSizeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 2,
-            castrated = binding.petCastratedCheckBox.isChecked,
-            image = binding.imagePet.drawable.toBitmap()
+            sex = (petOptionsChip[binding.petSexChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1) as Sex,
+            vaccinated = binding.petVaccinatedCheckBox.isChecked.toString(),
+            size = (petOptionsChip[binding.petSizeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 2) as Size,
+            castrated = binding.petCastratedCheckBox.isChecked.toString(),
+            imageBitmap = binding.imagePet.drawable.toBitmap(),
+            tutorId = Firebase.auth.currentUser!!.uid
         )
     }
 
@@ -148,16 +149,16 @@ class PetRegisterFragment : Fragment() {
     }
 
     private val petOptionsChip = mapOf(
-        R.id.chipDog to listOf(PetRegisterChipInfo(1, "Dog", 1)),
-        R.id.chipCat to listOf(PetRegisterChipInfo(1, "Cat", 2)),
-        R.id.chipYears to listOf(PetRegisterChipInfo(1, "Years", 1)),
-        R.id.chipMonths to listOf(PetRegisterChipInfo(1, "Months", 2)),
-        R.id.chipWeeks to listOf(PetRegisterChipInfo(1, "Weeks", 3)),
-        R.id.chipMale to listOf(PetRegisterChipInfo(1, "Male", 1)),
-        R.id.chipFemale to listOf(PetRegisterChipInfo(1, "Female", 2)),
-        R.id.chipSmall to listOf(PetRegisterChipInfo(1, "Small", 1)),
-        R.id.chipMedium to listOf(PetRegisterChipInfo(1, "Medium", 2)),
-        R.id.chipLarge to listOf(PetRegisterChipInfo(1, "Large", 3)),
+        R.id.chipDog to listOf(PetRegisterChipInfo(1, "Dog", PetType.DOG)),
+        R.id.chipCat to listOf(PetRegisterChipInfo(1, "Cat", PetType.CAT)),
+        R.id.chipYears to listOf(PetRegisterChipInfo(1, "Years", AgeType.YEARS)),
+        R.id.chipMonths to listOf(PetRegisterChipInfo(1, "Months", AgeType.MONTHS)),
+        R.id.chipWeeks to listOf(PetRegisterChipInfo(1, "Weeks", AgeType.WEEKS)),
+        R.id.chipMale to listOf(PetRegisterChipInfo(1, "Male", Sex.MALE)),
+        R.id.chipFemale to listOf(PetRegisterChipInfo(1, "Female", Sex.FEMALE)),
+        R.id.chipSmall to listOf(PetRegisterChipInfo(1, "Small", Size.SMALL)),
+        R.id.chipMedium to listOf(PetRegisterChipInfo(1, "Medium", Size.MEDIUM)),
+        R.id.chipLarge to listOf(PetRegisterChipInfo(1, "Large", Size.LARGE)),
     )
 
     private val petOptionsChipValues = petOptionsChip.flatMap { entry ->

@@ -9,10 +9,7 @@ interface PetsRepository {
 
     suspend fun fetchPets():List<PetDomain>
     suspend fun fetchOwnPets():List<PetDomain>
-
     suspend fun fetchPetDetail(petId: String): PetDomain
-
     fun addPet(petItem: PetDomain)
 
-    suspend fun addImagePet(petId: String, imageURL: String)
 }
