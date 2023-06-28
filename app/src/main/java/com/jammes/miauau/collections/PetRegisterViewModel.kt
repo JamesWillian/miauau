@@ -29,7 +29,25 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
     private val storageRef = storage.reference
 
     private val uiState : MutableLiveData<UiState> by lazy {
-        MutableLiveData<UiState>()
+        MutableLiveData<UiState>(
+            UiState(
+                PetItem(
+                    id = null,
+                    name = "",
+                    petType = PetType.DOG,
+                    description = "",
+                    age = null,
+                    ageType = AgeType.YEARS,
+                    breed = "",
+                    sex = Sex.MALE,
+                    vaccinated = "",
+                    size = Size.MEDIUM,
+                    castrated = "",
+                    imageURL = "",
+                    tutorId = ""
+                )
+            )
+        )
     }
 
     fun stateOnceAndStream(): LiveData<UiState> {
@@ -42,10 +60,13 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
         )
     }
 
-    fun isValid(pet: PetItem): Boolean {
-        if (pet.name.isBlank()) return false
+    fun petIsValid(): Boolean {
+        val pet = uiState.value?.pet
+
+        if (pet?.name?.isBlank() == true) return false
+        if (pet?.imageBitmap == null) return false
         if (pet.description.isBlank()) return false
-        if (pet.age <= 0) return false
+        if ((pet.age ?: 0) <= 0) return false
         return true
     }
 
@@ -57,10 +78,10 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
 
     }
 
-    fun addNewPet(pet: PetItem) {
-        val idUsr = Firebase.auth.currentUser!!.uid
-        val img = pet.imageBitmap?.let { toInputStream(it) }
-        val imageFileName = "${pet.name}-${System.currentTimeMillis()}.png "
+    fun addNewPet() {
+        val pet = uiState.value?.pet
+        val img = pet?.imageBitmap?.let { toInputStream(it) }
+        val imageFileName = "${pet?.name}-${System.currentTimeMillis()}.png "
         val imageRef = storageRef.child("imagesPets/$imageFileName")
 
         val uploadTask = img?.let { imageRef.putBytes(it) }
@@ -80,7 +101,6 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
                 repository.addPet(petComImg)
             }
         }
-
     }
 
 //    private suspend fun getPetById(petId: String) {
@@ -96,7 +116,7 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
             id = id,
             name = name,
             description = description,
-            age = age,
+            age = age ?: 0,
             breed = breed,
             vaccinated = (vaccinated != ""),
             castrated = (castrated != ""),

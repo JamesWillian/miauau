@@ -21,9 +21,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.drawToBitmap
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.firebase.auth.ktx.auth
@@ -41,14 +43,15 @@ class PetRegisterFragment : Fragment() {
     private var _binding: FragmentPetRegisterBinding? = null
     private val binding get() = _binding!!
 
-
     private val viewModel: PetRegisterViewModel by viewModels {
         PetRegisterViewModel.Factory(PetsRepositoryFirestore())
     }
 
+    private var imageBitmap: Bitmap? = null
+
     val takePicture = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val imageBitmap = result.data?.extras?.get("data") as Bitmap
+            imageBitmap = result.data?.extras?.get("data") as Bitmap
 
             binding.imagePet.setImageBitmap(imageBitmap)
 
@@ -69,16 +72,17 @@ class PetRegisterFragment : Fragment() {
 
         val args: PetRegisterFragmentArgs by navArgs()
 
-        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {pet ->
-            updateUI(pet)
+        val observador = Observer<PetRegisterViewModel.UiState> {uiState ->
+            updateUI(uiState)
         }
+        viewModel.stateOnceAndStream().observe(viewLifecycleOwner, observador)
 
         binding.SaveButton.setOnClickListener {
 
-            val pet = petData()
+            viewModel.updateUiState(petData())
 
-            if (viewModel.isValid(pet)) {
-                viewModel.addNewPet(pet)
+            if (viewModel.petIsValid()) {
+                viewModel.addNewPet()
                 findNavController().navigateUp()
             } else {
                 Toast.makeText(
@@ -109,17 +113,43 @@ class PetRegisterFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+
+        viewModel.updateUiState(petData())
+    }
+
     private fun updateUI(uiState: PetRegisterViewModel.UiState) {
         binding.petNameEditText.editText?.setText(uiState.pet.name)
         binding.petBreedEditText.editText?.setText(uiState.pet.breed)
-        binding.petAgeEditText.editText?.setText(uiState.pet.age)
+        binding.petAgeEditText.editText?.setText((uiState.pet.age ?: "").toString())
         binding.petDescriptionEditText.editText?.setText(uiState.pet.description)
-        binding.imagePet.setImageBitmap(uiState.pet.imageBitmap)
+        if (uiState.pet.imageBitmap != null) {
+            binding.imagePet.setImageBitmap(uiState.pet.imageBitmap)
+        }
+        binding.petTypeChipGroup.check(
+            when (uiState.pet.petType) {
+                PetType.DOG -> binding.chipDog.id
+                PetType.CAT -> binding.chipCat.id
+            }
+        )
+        binding.petAgeChipGroup.check(
+            when (uiState.pet.ageType) {
+                AgeType.YEARS -> binding.chipYears.id
+                AgeType.MONTHS -> binding.chipMonths.id
+                AgeType.WEEKS -> binding.chipWeeks.id
+            }
+        )
+        when (uiState.pet.size) {
+            Size.SMALL -> binding.chipSmall.id
+            Size.MEDIUM -> binding.chipMedium.id
+            Size.LARGE -> binding.chipLarge.id
+        }
+        when (uiState.pet.sex) {
+            Sex.MALE -> binding.chipMale.id
+            Sex.FEMALE -> binding.chipFemale.id
+        }
 
-//        binding.petTypeChipGroup.check(getChipIdByValue(uiState.pet.type) ?: binding.chipDog.id)
-//        binding.petAgeChipGroup.check(getChipIdByValue(uiState.pet.ageType) ?: binding.chipYears.id)
-//        binding.petSizeChipGroup.check(getChipIdByValue(uiState.pet.size) ?: binding.chipMedium.id)
-//        binding.petSexChipGroup.check(getChipIdByValue(uiState.pet.sex) ?: binding.chipMale.id)
     }
 
     private fun petData(): PetItem {
@@ -128,14 +158,14 @@ class PetRegisterFragment : Fragment() {
             description = binding.petDescriptionEditText.editText?.text.toString(),
             petType = (petOptionsChip[binding.petTypeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: PetType.DOG) as PetType,
             age = try {binding.petAgeEditText.editText?.text.toString().toInt()}
-                  catch (ex: NumberFormatException) { 0 },
+                  catch (ex: NumberFormatException) { null },
             ageType = (petOptionsChip[binding.petAgeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1) as AgeType,
             breed = binding.petBreedEditText.editText?.text.toString(),
             sex = (petOptionsChip[binding.petSexChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 1) as Sex,
             vaccinated = if (binding.petVaccinatedCheckBox.isChecked) "Vacinado" else "",
             size = (petOptionsChip[binding.petSizeChipGroup.checkedChipId]?.find { it.chipId == 1 }?.value ?: 2) as Size,
             castrated = if (binding.petCastratedCheckBox.isChecked) "Castrado" else "",
-            imageBitmap = binding.imagePet.drawable.toBitmap(),
+            imageBitmap = imageBitmap,
             tutorId = Firebase.auth.currentUser!!.uid
         )
     }
@@ -160,14 +190,6 @@ class PetRegisterFragment : Fragment() {
         R.id.chipMedium to listOf(PetRegisterChipInfo(1, "Medium", Size.MEDIUM)),
         R.id.chipLarge to listOf(PetRegisterChipInfo(1, "Large", Size.LARGE)),
     )
-
-    private val petOptionsChipValues = petOptionsChip.flatMap { entry ->
-        entry.value.map { chipInfo -> chipInfo.value to entry.key }
-    }.toMap()
-
-    fun getChipIdByValue(value: Int): Int? {
-        return petOptionsChipValues[value]
-    }
 
     override fun onDestroy() {
         super.onDestroy()
