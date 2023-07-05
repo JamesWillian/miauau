@@ -47,7 +47,8 @@ class UserProfileEditFragment: Fragment() {
                 email = binding.userEmailEditText.editText?.text.toString(),
                 phone = binding.userPhoneEditText.editText?.text.toString(),
                 about = binding.userDescriptionEditText.editText?.text.toString(),
-                showContact = binding.showUserContactCheckBox.isChecked
+                showContact = binding.showUserContactCheckBox.isChecked,
+                photoUrl = Firebase.auth.currentUser!!.photoUrl.toString()
             )
             viewModel.saveUserProfile(user)
             findNavController().navigateUp()

@@ -50,6 +50,12 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
         )
     }
 
+    fun fetchPet(petId: String) {
+        viewModelScope.launch {
+            getPetById(petId)
+        }
+    }
+
     fun stateOnceAndStream(): LiveData<UiState> {
         return uiState
     }
@@ -103,13 +109,53 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
         }
     }
 
-//    private suspend fun getPetById(petId: String) {
-//        val petDetail = repository.fetchPetDetail(petId)
-//        val pet: PetItem = petDetail.toPetItem()
-//        uiState.postValue(UiState(pet))
-//    }
+    private suspend fun getPetById(petId: String) {
+        val petDetail = repository.fetchPetDetail(petId)
+        val pet: PetItem = petDetail.toPetItem()
+        uiState.postValue(UiState(pet))
+    }
 
     data class UiState(val pet: PetItem)
+
+    private fun PetDomain.toPetItem(): PetItem {
+        return PetItem(
+            id = id,
+            name = name,
+            description = description,
+            age = age ?: 0,
+            breed = breed,
+            vaccinated = if (vaccinated) "Vacinado" else "",
+            castrated = if (castrated) "Castrado" else "",
+            imageURL = imageURL ?: "",
+            tutorId = tutorId ?: "",
+            petType =
+            when (petType) {
+                1 -> PetType.DOG
+                2 -> PetType.CAT
+                else -> {PetType.DOG}
+            },
+            ageType =
+            when (ageType) {
+                1 -> AgeType.YEARS
+                2 -> AgeType.MONTHS
+                3 -> AgeType.WEEKS
+                else -> (AgeType.YEARS)
+            },
+            sex =
+            when (sex) {
+                1 -> Sex.MALE
+                2 -> Sex.FEMALE
+                else -> (Sex.MALE)
+            },
+            size =
+            when (size) {
+                1 -> Size.SMALL
+                2 -> Size.MEDIUM
+                3 -> Size.LARGE
+                else -> (Size.MEDIUM)
+            }
+        )
+    }
 
     private fun PetItem.toPetDomain(): PetDomain {
         return PetDomain(

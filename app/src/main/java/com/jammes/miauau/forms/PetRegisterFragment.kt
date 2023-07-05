@@ -34,6 +34,7 @@ import com.jammes.miauau.R
 import com.jammes.miauau.collections.*
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentPetRegisterBinding
+import com.squareup.picasso.Picasso
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 
@@ -72,6 +73,13 @@ class PetRegisterFragment : Fragment() {
 
         val args: PetRegisterFragmentArgs by navArgs()
 
+        //Verificando se foi passado o id do Pet para buscar as informações para a UI
+        if (arguments?.containsKey("petId") == true) {
+            if (!args.petId.isNullOrEmpty()) {
+                viewModel.fetchPet(args.petId!!)
+            }
+        }
+
         val observador = Observer<PetRegisterViewModel.UiState> {uiState ->
             updateUI(uiState)
         }
@@ -79,6 +87,7 @@ class PetRegisterFragment : Fragment() {
 
         binding.SaveButton.setOnClickListener {
 
+            //Atualiza o UiState para utilizar os dados no momento de enviar o pet para o Firebase
             viewModel.updateUiState(petData())
 
             if (viewModel.petIsValid()) {
@@ -126,6 +135,14 @@ class PetRegisterFragment : Fragment() {
         binding.petDescriptionEditText.editText?.setText(uiState.pet.description)
         if (uiState.pet.imageBitmap != null) {
             binding.imagePet.setImageBitmap(uiState.pet.imageBitmap)
+        } else {
+            if (uiState.pet.imageURL != "") {
+                Picasso.get()
+                    .load(uiState.pet.imageURL)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(binding.imagePet)
+            }
         }
         binding.petTypeChipGroup.check(
             when (uiState.pet.petType) {

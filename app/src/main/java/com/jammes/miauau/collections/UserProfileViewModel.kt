@@ -83,7 +83,8 @@ class UserProfileViewModel(
                 about = it.about,
                 phone = it.phone,
                 email = it.email,
-                showContact = it.showContact
+                showContact = it.showContact,
+                photoUrl = it.photoUrl ?: ""
             )
         }
         userRepository.addUser(newUser)
@@ -92,17 +93,6 @@ class UserProfileViewModel(
     fun stateOnceAndStream(): LiveData<UserUiState> {
         return userUiState
     }
-
-//    private fun UserDomain.toUser(): User {
-//        return User(
-//            uid,
-//            name,
-//            location,
-//            about,
-//            phone,
-//            email
-//        )
-//    }
 
     data class UserUiState(val user: User)
 
