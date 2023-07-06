@@ -61,16 +61,14 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
     }
 
     fun updateUiState(newPet: PetItem) {
-        uiState.postValue(
-            UiState(newPet)
-        )
+        uiState.value = UiState(newPet)
     }
 
     fun petIsValid(): Boolean {
-        val pet = uiState.value?.pet
+        val pet = uiState.value?.pet ?: return false
 
-        if (pet?.name?.isBlank() == true) return false
-        if (pet?.imageBitmap == null) return false
+        if (pet.name.isBlank()) return false
+//        if (pet.imageBitmap == null) return false
         if (pet.description.isBlank()) return false
         if ((pet.age ?: 0) <= 0) return false
         return true
@@ -84,7 +82,16 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
 
     }
 
-    fun addNewPet() {
+    fun addPet() {
+        if (uiState.value?.pet!!.id.isNullOrEmpty()) {
+            new()
+        } else {
+            val pet = uiState.value?.pet!!.toPetDomain()
+            repository.updatePet(pet)
+        }
+    }
+
+    private fun new() {
         val pet = uiState.value?.pet
         val img = pet?.imageBitmap?.let { toInputStream(it) }
         val imageFileName = "${pet?.name}-${System.currentTimeMillis()}.png "
@@ -122,7 +129,7 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
             id = id,
             name = name,
             description = description,
-            age = age ?: 0,
+            age = age,
             breed = breed,
             vaccinated = if (vaccinated) "Vacinado" else "",
             castrated = if (castrated) "Castrado" else "",

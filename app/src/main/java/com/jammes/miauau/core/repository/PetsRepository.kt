@@ -11,5 +11,6 @@ interface PetsRepository {
     suspend fun fetchOwnPets():List<PetDomain>
     suspend fun fetchPetDetail(petId: String): PetDomain
     fun addPet(petItem: PetDomain)
+    fun updatePet(petItem: PetDomain)
 
 }

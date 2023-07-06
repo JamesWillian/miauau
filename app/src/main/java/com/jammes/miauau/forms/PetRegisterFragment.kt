@@ -87,19 +87,7 @@ class PetRegisterFragment : Fragment() {
 
         binding.SaveButton.setOnClickListener {
 
-            //Atualiza o UiState para utilizar os dados no momento de enviar o pet para o Firebase
-            viewModel.updateUiState(petData())
-
-            if (viewModel.petIsValid()) {
-                viewModel.addNewPet()
-                findNavController().navigateUp()
-            } else {
-                Toast.makeText(
-                    context,
-                    "Preencha todos os campos obrigatórios",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+            onSave()
 
         }
 
@@ -119,6 +107,22 @@ class PetRegisterFragment : Fragment() {
                     REQUEST_CAMERA_PERMISSION
                 )
             }
+        }
+    }
+
+    private fun onSave() {
+        //Atualiza o UiState para utilizar os dados no momento de enviar o pet para o Firebase
+        viewModel.updateUiState(petData())
+
+        if (viewModel.petIsValid()) {
+            viewModel.addPet()
+            findNavController().navigateUp()
+        } else {
+            Toast.makeText(
+                context,
+                "Preencha todos os campos obrigatórios",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 

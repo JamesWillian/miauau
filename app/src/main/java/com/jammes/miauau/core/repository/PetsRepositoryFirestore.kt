@@ -102,6 +102,18 @@ class PetsRepositoryFirestore : PetsRepository {
             }
     }
 
+    override fun updatePet(petItem: PetDomain) {
+        db.collection(COLLECTION)
+            .document(petItem.id!!)
+            .set(petItem)
+            .addOnSuccessListener {
+                Log.d("PetsRepositoryFirestore", "Pet Atualziado com Sucesso! ID: ${petItem.id}")
+            }
+            .addOnFailureListener {ex ->
+                Log.w("PetsRepositoryFirestore", "Não foi possível atualziar o Pet!", ex)
+            }
+    }
+
     companion object {
         private const val COLLECTION = "pets"
     }
