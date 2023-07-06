@@ -61,7 +61,27 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
     }
 
     fun updateUiState(newPet: PetItem) {
-        uiState.value = UiState(newPet)
+        uiState.value?.let {currentUiState ->
+            uiState.value = currentUiState.copy(
+                PetItem(
+                    id = currentUiState.pet.id,
+                    name = newPet.name,
+                    petType = newPet.petType,
+                    description = newPet.description,
+                    age = newPet.age,
+                    ageType = newPet.ageType,
+                    breed = newPet.breed,
+                    sex = newPet.sex,
+                    vaccinated = newPet.vaccinated,
+                    size = newPet.size,
+                    castrated = newPet.castrated,
+                    imageURL = currentUiState.pet.imageURL,
+                    imageBitmap = newPet.imageBitmap,
+                    tutorId = newPet.tutorId
+                )
+            )
+        }
+
     }
 
     fun petIsValid(): Boolean {
