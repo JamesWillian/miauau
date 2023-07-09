@@ -1,27 +1,17 @@
 package com.jammes.miauau.collections
 
-import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.util.Log
-import android.widget.ImageView
-import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import com.jammes.miauau.core.model.PetDomain
+import com.jammes.miauau.core.model.*
 import com.jammes.miauau.core.repository.PetsRepository
 import kotlinx.coroutines.*
-import kotlinx.coroutines.tasks.await
-import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
-import java.io.InputStream
 
 class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel() {
 
@@ -159,7 +149,8 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
             when (petType) {
                 1 -> PetType.DOG
                 2 -> PetType.CAT
-                else -> {PetType.DOG}
+                else -> {
+                    PetType.DOG}
             },
             ageType =
             when (ageType) {

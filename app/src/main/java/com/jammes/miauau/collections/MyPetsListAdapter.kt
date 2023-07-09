@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jammes.miauau.R
+import com.jammes.miauau.core.model.PetItem
 import com.jammes.miauau.databinding.MyPetItemBinding
 import com.jammes.miauau.forms.UserProfileFragmentDirections
 import com.squareup.picasso.Picasso

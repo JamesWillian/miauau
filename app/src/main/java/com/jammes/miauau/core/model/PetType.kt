@@ -1,4 +1,4 @@
-package com.jammes.miauau.collections
+package com.jammes.miauau.core.model
 
 sealed class PetType {
     object DOG: PetType()

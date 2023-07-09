@@ -29,4 +29,5 @@
     <string name="pet_description_hint">Descrição geral do pet</string>
     <string name="Profile">Perfil</string>
     <string name="EditProfile">Editar Perfil</string>
+    <string name="pet_image">Imagem do Pet</string>
 </resources>

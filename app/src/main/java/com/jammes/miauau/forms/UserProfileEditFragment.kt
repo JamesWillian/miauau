@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.jammes.miauau.collections.User
+import com.jammes.miauau.core.model.User
 import com.jammes.miauau.collections.UserProfileViewModel
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.core.repository.UsersRepositoryFirestore

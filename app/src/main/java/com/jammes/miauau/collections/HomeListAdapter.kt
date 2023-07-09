@@ -1,6 +1,5 @@
 package com.jammes.miauau.collections
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -8,6 +7,9 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jammes.miauau.R
+import com.jammes.miauau.core.model.AgeType
+import com.jammes.miauau.core.model.PetItem
+import com.jammes.miauau.core.model.Sex
 import com.jammes.miauau.databinding.PetItemBinding
 import com.jammes.miauau.forms.HomeFragmentDirections
 import com.squareup.picasso.Picasso
@@ -21,6 +23,7 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
                 AgeType.WEEKS -> itemView.context.getString(R.string.weeks)
                 AgeType.MONTHS -> itemView.context.getString(R.string.months)
                 AgeType.YEARS -> itemView.context.getString(R.string.years)
+                else -> {""}
             }
 
             binding.petNameTextView.text = petItem.name
@@ -32,6 +35,7 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
                 when (petItem.sex) {
                     Sex.MALE -> itemView.context.getString(R.string.male)
                     Sex.FEMALE -> itemView.context.getString(R.string.female)
+                    else -> {""}
                 }
 
             Picasso.get()

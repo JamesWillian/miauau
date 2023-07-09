@@ -1,8 +1,7 @@
 package com.jammes.miauau.collections
 
 import androidx.lifecycle.*
-import com.jammes.miauau.R
-import com.jammes.miauau.core.model.PetDomain
+import com.jammes.miauau.core.model.*
 import com.jammes.miauau.core.repository.PetsRepository
 import kotlinx.coroutines.launch
 

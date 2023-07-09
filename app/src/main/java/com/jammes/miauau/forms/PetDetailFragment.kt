@@ -13,7 +13,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.R
 import com.jammes.miauau.collections.*
-import com.jammes.miauau.forms.PetDetailFragmentArgs
+import com.jammes.miauau.core.model.AgeType
+import com.jammes.miauau.core.model.Sex
+import com.jammes.miauau.core.model.Size
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentPetDetailBinding
 import com.squareup.picasso.Picasso

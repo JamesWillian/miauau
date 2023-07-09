@@ -6,274 +6,284 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mainCardView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".forms.PetDetailFragment">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp">
 
-            <ImageView
-                android:id="@+id/petImageView"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="top|center"
-                android:layout_marginTop="30dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_pet_no_photo_foreground"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/img_dog" />
+                android:layout_height="match_parent" >
 
-            <TextView
-                android:id="@+id/petNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="Nome do Pet"
-                android:textAlignment="center"
-                android:textColor="#FFC93C"
-                android:textSize="25sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/petImageView" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/petAgeCard"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
-                app:layout_constraintEnd_toStartOf="@id/petBreedCard"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/petNameTextView">
-
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/petImageView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="200dp"
+                    android:layout_gravity="top|center"
+                    android:layout_marginTop="30dp"
+                    android:contentDescription="@string/pet_image"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_pet_no_photo_foreground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/img_dog" />
 
-                    <TextView
-                        android:id="@+id/petAgeTextView"
+                <TextView
+                    android:id="@+id/petNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Nome do Pet"
+                    android:textAlignment="center"
+                    android:textColor="#FFC93C"
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/petImageView" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/petAgeCard"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:layout_constraintEnd_toStartOf="@id/petBreedCard"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/petNameTextView">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:text="Idade"
-                        android:textAlignment="center" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/petBreedCard"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/petAgeCard"
-                app:layout_constraintTop_toTopOf="@id/petAgeCard">
+                        <TextView
+                            android:id="@+id/petAgeTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:text="Idade"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/petBreedCard"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/petAgeCard"
+                    app:layout_constraintTop_toTopOf="@id/petAgeCard">
 
-                    <TextView
-                        android:id="@+id/petBreedTextView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:text="Raça"
-                        android:textAlignment="center" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/petSexCard"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
-                app:layout_constraintEnd_toStartOf="@id/petSizeCard"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/petAgeCard">
+                        <TextView
+                            android:id="@+id/petBreedTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:text="Raça"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/petSexCard"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:layout_constraintEnd_toStartOf="@id/petSizeCard"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/petAgeCard">
 
-                    <TextView
-                        android:id="@+id/petSexTextView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:text="Macho;Fêmea"
-                        android:textAlignment="center" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/petSizeCard"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/petSexCard"
-                app:layout_constraintTop_toTopOf="@id/petSexCard">
+                        <TextView
+                            android:id="@+id/petSexTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:text="Macho;Fêmea"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/petSizeCard"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/petSexCard"
+                    app:layout_constraintTop_toTopOf="@id/petSexCard">
 
-                    <TextView
-                        android:id="@+id/petSizeTextView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:text="Porte"
-                        android:textAlignment="center" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/petCastratedCard"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
-                app:layout_constraintEnd_toStartOf="@id/petVaccinatedCard"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/petSexCard">
+                        <TextView
+                            android:id="@+id/petSizeTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:text="Porte"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/petCastratedCard"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:layout_constraintEnd_toStartOf="@id/petVaccinatedCard"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/petSexCard">
 
-                    <TextView
-                        android:id="@+id/petCastratedTextView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:text="Castrado"
-                        android:textAlignment="center" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/petVaccinatedCard"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/petCastratedCard"
-                app:layout_constraintTop_toTopOf="@id/petCastratedCard">
+                        <TextView
+                            android:id="@+id/petCastratedTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:text="Castrado"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/petVaccinatedCard"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/petCastratedCard"
+                    app:layout_constraintTop_toTopOf="@id/petCastratedCard">
 
-                    <TextView
-                        android:id="@+id/petVaccinatedTextView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:text="Vacinado"
-                        android:textAlignment="center" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/petDescriptionCard"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="5dp"
-                app:layout_constraintEnd_toEndOf="@id/petVaccinatedCard"
-                app:layout_constraintStart_toStartOf="@id/petCastratedCard"
-                app:layout_constraintTop_toBottomOf="@id/petCastratedCard">
+                        <TextView
+                            android:id="@+id/petVaccinatedTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:text="Vacinado"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/petDescriptionCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:layout_constraintEnd_toEndOf="@id/petVaccinatedCard"
+                    app:layout_constraintStart_toStartOf="@id/petCastratedCard"
+                    app:layout_constraintTop_toBottomOf="@id/petCastratedCard">
 
-                    <TextView
-                        android:id="@+id/petDescriptionTextView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="16dp"
-                        android:text="Descrição Geral do Pet..."
-                        android:textAlignment="center"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/petCastratedCard" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/petDescriptionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="16dp"
+                            android:text="Descrição Geral do Pet..."
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/petCastratedCard" />
 
-            <ImageView
-                android:id="@+id/shareImageView2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_share_foreground"
-                app:layout_constraintStart_toStartOf="@id/petDescriptionCard"
-                app:layout_constraintEnd_toStartOf="@id/adoptButton"
-                app:layout_constraintBottom_toBottomOf="@id/adoptButton"
-                app:layout_constraintTop_toTopOf="@id/adoptButton"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/adoptButton"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="40dp"
-                android:backgroundTint="@color/blue"
-                android:text="Adotar esse Pet"
-                android:textAllCaps="false"
-                android:textSize="16sp"
-                app:cornerRadius="10dp"
-                app:layout_constraintEnd_toStartOf="@id/saveImageView2"
-                app:layout_constraintStart_toEndOf="@id/shareImageView2"
-                app:layout_constraintTop_toBottomOf="@id/petDescriptionCard"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView
+                    android:id="@+id/shareImageView2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_share_foreground"
+                    app:layout_constraintBottom_toBottomOf="@id/adoptButton"
+                    app:layout_constraintEnd_toStartOf="@id/adoptButton"
+                    app:layout_constraintStart_toStartOf="@id/petDescriptionCard"
+                    app:layout_constraintTop_toTopOf="@id/adoptButton" />
 
-            <ImageView
-                android:id="@+id/saveImageView2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_pets_foreground"
-                app:layout_constraintStart_toEndOf="@id/adoptButton"
-                app:layout_constraintEnd_toEndOf="@id/petDescriptionCard"
-                app:layout_constraintBottom_toBottomOf="@id/adoptButton"
-                app:layout_constraintTop_toTopOf="@id/adoptButton"/>
+                <Button
+                    android:id="@+id/adoptButton"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/blue"
+                    android:text="Adotar esse Pet"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintEnd_toStartOf="@id/saveImageView2"
+                    app:layout_constraintStart_toEndOf="@id/shareImageView2"
+                    app:layout_constraintTop_toBottomOf="@id/petDescriptionCard" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/saveImageView2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_pets_foreground"
+                    app:layout_constraintBottom_toBottomOf="@id/adoptButton"
+                    app:layout_constraintEnd_toEndOf="@id/petDescriptionCard"
+                    app:layout_constraintStart_toEndOf="@id/adoptButton"
+                    app:layout_constraintTop_toTopOf="@id/adoptButton" />
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

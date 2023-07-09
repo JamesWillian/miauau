@@ -1,4 +1,4 @@
-package com.jammes.miauau.collections
+package com.jammes.miauau.core.model
 
 import android.graphics.Bitmap
 

@@ -1,6 +1,8 @@
 package com.jammes.miauau.collections
 
 import androidx.lifecycle.*
+import com.jammes.miauau.core.model.PetItem
+import com.jammes.miauau.core.model.User
 import com.jammes.miauau.core.model.UserDomain
 import com.jammes.miauau.core.repository.PetsRepository
 import com.jammes.miauau.core.repository.UsersRepository
