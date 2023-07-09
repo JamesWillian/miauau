@@ -34,7 +34,7 @@ class UserProfileViewModel(
                     PetItem(
                         id = pet.id,
                         name = pet.name,
-                        imageURL = pet.imageURL ?: ""
+                        imageURL = pet.imageURL
                     )
                 })
         )
@@ -84,7 +84,7 @@ class UserProfileViewModel(
                 phone = it.phone,
                 email = it.email,
                 showContact = it.showContact,
-                photoUrl = it.photoUrl ?: ""
+                photoUrl = it.photoUrl
             )
         }
         userRepository.addUser(newUser)

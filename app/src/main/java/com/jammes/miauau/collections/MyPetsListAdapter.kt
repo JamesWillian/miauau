@@ -18,13 +18,11 @@ class MyPetsListAdapter: RecyclerView.Adapter<MyPetsListAdapter.ViewHolder>() {
         fun bind(petItem: PetItem) {
             binding.petNameTextView.text = petItem.name
 
-            if (petItem.imageURL != "") {
-                Picasso.get()
-                    .load(petItem.imageURL)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .error(R.drawable.ic_launcher_foreground)
-                    .into(binding.petImageView)
-            }
+            Picasso.get()
+                .load(petItem.imageURL)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(binding.petImageView)
 
             binding.root.setOnClickListener {
                 val id = petItem.id ?: ""
@@ -41,7 +39,7 @@ class MyPetsListAdapter: RecyclerView.Adapter<MyPetsListAdapter.ViewHolder>() {
         return ViewHolder(binding)
     }
 
-    fun updateOwnPetList(pet: List<PetItem>) {
+    fun updateMyPetList(pet: List<PetItem>) {
         asyncListDiffer.submitList(pet)
     }
 

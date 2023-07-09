@@ -70,7 +70,7 @@ class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
                 else -> Size.MEDIUM
             },
             castrated = if (castrated) "Castrado" else "",
-            imageURL = imageURL ?: "",
+            imageURL = imageURL,
             tutorId = tutorId ?: ""
         )
     }

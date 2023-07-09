@@ -34,13 +34,11 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
                     Sex.FEMALE -> itemView.context.getString(R.string.female)
                 }
 
-            if (petItem.imageURL != "") {
-                Picasso.get()
-                    .load(petItem.imageURL)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .error(R.drawable.ic_launcher_foreground)
-                    .into(binding.petPhotoImageView)
-            }
+            Picasso.get()
+                .load(petItem.imageURL)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(binding.petPhotoImageView)
 
             binding.root.setOnClickListener {
                 val id = petItem.id ?: ""

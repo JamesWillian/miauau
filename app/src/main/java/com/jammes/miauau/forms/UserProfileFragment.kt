@@ -58,13 +58,12 @@ class UserProfileFragment: Fragment() {
             binding.userDescriptionTextView.text = user.user.about
             binding.userPhoneTextView.text = "Telefone: ${user.user.phone}"
             binding.userEmailTextView.text = "Email: ${user.user.email}"
-            if (user.user.photoUrl != "") {
-                Picasso.get()
-                    .load(user.user.photoUrl)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .error(R.drawable.ic_launcher_foreground)
-                    .into(binding.imageView)
-            }
+
+            Picasso.get()
+                .load(user.user.photoUrl)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(binding.imageView)
         }
 
         viewModel.statePetsOnce().observe(viewLifecycleOwner) {pet ->
@@ -84,7 +83,7 @@ class UserProfileFragment: Fragment() {
     }
 
     private fun bindPetItem(petListUiState: UserProfileViewModel.MyPetListUiState){
-        adapter.updateOwnPetList(petListUiState.petItemList)
+        adapter.updateMyPetList(petListUiState.petItemList)
     }
 
     override fun onDestroy() {
