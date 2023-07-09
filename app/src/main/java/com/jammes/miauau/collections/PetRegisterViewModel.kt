@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.Timestamp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.jammes.miauau.core.model.*
@@ -94,14 +95,14 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
 
     fun addPet() {
         if (uiState.value?.pet!!.id.isNullOrEmpty()) {
-            new()
+            createPet()
         } else {
             val pet = uiState.value?.pet!!.toPetDomain()
             repository.updatePet(pet)
         }
     }
 
-    private fun new() {
+    private fun createPet() {
         val pet = uiState.value?.pet
         val img = pet?.imageBitmap?.let { toInputStream(it) }
         val imageFileName = "${pet?.name}-${System.currentTimeMillis()}.png "
@@ -207,7 +208,8 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
                 Size.SMALL -> 1
                 Size.MEDIUM -> 2
                 Size.LARGE -> 3
-            }
+            },
+            updatedAt = if (!id.isNullOrEmpty()) Timestamp.now() else null
         )
     }
 

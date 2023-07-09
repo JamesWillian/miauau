@@ -1,5 +1,7 @@
 package com.jammes.miauau.core.model
 
+import com.google.firebase.Timestamp
+
 data class PetDomain(
     val id: String? = null,
     val petType: Int = 1,
@@ -12,6 +14,8 @@ data class PetDomain(
     val vaccinated: Boolean = false,
     val size: Int = 1,
     val castrated: Boolean = false,
-    var imageURL: String? = "",
-    val tutorId: String? = null
+    var imageURL: String? = null,
+    val tutorId: String? = null,
+    val createdAt: Timestamp = Timestamp.now(),
+    val updatedAt: Timestamp? = null
 )
