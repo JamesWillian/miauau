@@ -34,7 +34,7 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
                     vaccinated = "",
                     size = Size.MEDIUM,
                     castrated = "",
-                    imageURL = "",
+                    imageURL = null,
                     tutorId = ""
                 )
             )

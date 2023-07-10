@@ -125,40 +125,42 @@ class PetRegisterFragment : Fragment() {
     }
 
     private fun updateUI(uiState: PetRegisterViewModel.UiState) {
-        binding.petNameEditText.editText?.setText(uiState.pet.name)
-        binding.petBreedEditText.editText?.setText(uiState.pet.breed)
-        binding.petAgeEditText.editText?.setText((uiState.pet.age ?: "").toString())
-        binding.petDescriptionEditText.editText?.setText(uiState.pet.description)
-        if (uiState.pet.imageBitmap != null) {
-            binding.imagePet.setImageBitmap(uiState.pet.imageBitmap)
+        val pet = uiState.pet
+
+        binding.petNameEditText.editText?.setText(pet.name)
+        binding.petBreedEditText.editText?.setText(pet.breed)
+        binding.petAgeEditText.editText?.setText((pet.age ?: "").toString())
+        binding.petDescriptionEditText.editText?.setText(pet.description)
+        binding.petVaccinatedCheckBox.isChecked = pet.vaccinated.isNotBlank()
+        binding.petCastratedCheckBox.isChecked = pet.castrated.isNotBlank()
+        if (pet.imageBitmap != null) {
+            binding.imagePet.setImageBitmap(pet.imageBitmap)
         } else {
-            if (uiState.pet.imageURL != "") {
-                Picasso.get()
-                    .load(uiState.pet.imageURL)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .error(R.drawable.ic_launcher_foreground)
-                    .into(binding.imagePet)
-            }
+            Picasso.get()
+                .load(pet.imageURL)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(binding.imagePet)
         }
         binding.petTypeChipGroup.check(
-            when (uiState.pet.petType) {
+            when (pet.petType) {
                 PetType.DOG -> binding.chipDog.id
                 PetType.CAT -> binding.chipCat.id
             }
         )
         binding.petAgeChipGroup.check(
-            when (uiState.pet.ageType) {
+            when (pet.ageType) {
                 AgeType.YEARS -> binding.chipYears.id
                 AgeType.MONTHS -> binding.chipMonths.id
                 AgeType.WEEKS -> binding.chipWeeks.id
             }
         )
-        when (uiState.pet.size) {
+        when (pet.size) {
             Size.SMALL -> binding.chipSmall.id
             Size.MEDIUM -> binding.chipMedium.id
             Size.LARGE -> binding.chipLarge.id
         }
-        when (uiState.pet.sex) {
+        when (pet.sex) {
             Sex.MALE -> binding.chipMale.id
             Sex.FEMALE -> binding.chipFemale.id
         }

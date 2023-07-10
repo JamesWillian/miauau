@@ -7,7 +7,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light">#EFEFEF</color>
     <color name="blue">#185ADB</color>
-    <color name="yellow">#FFD02F</color>
+    <color name="yellow_primary">#FFD02F</color>
+    <color name="yellow_secondary">#FFC93C</color>
     <color name="green">#1DB954</color>
+    <color name="grafity">#2C2C2C</color>
+    <color name="dark">#424242</color>
 
 </resources>

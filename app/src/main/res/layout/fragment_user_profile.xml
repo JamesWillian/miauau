@@ -8,15 +8,15 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/userDetailsButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/userDetailsButton">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
@@ -25,6 +25,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:theme="@style/Theme.Material3.Dark"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
@@ -52,6 +53,7 @@
                         android:layout_marginBottom="5dp"
                         android:text="Username"
                         android:textAlignment="center"
+                        android:textColor="@color/yellow_secondary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -90,6 +92,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:theme="@style/Theme.Material3.Dark"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
@@ -129,6 +132,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:theme="@style/Theme.Material3.Dark"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
@@ -143,9 +147,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="Meus Pets"
-                        android:textAlignment="center"
-                        android:textSize="16dp"
+                        android:text="@string/pets"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/yellow_secondary"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -166,14 +171,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="2dp"
+        android:backgroundTint="@color/blue"
         android:text="Edit User Details"
         android:textAlignment="viewStart"
         android:textAllCaps="false"
-        android:textColor="#2C2C2C"
+        android:textColor="@color/yellow_secondary"
         app:cornerRadius="20dp"
         app:icon="@drawable/baseline_keyboard_arrow_right_24"
         app:iconGravity="end"
-        app:iconTint="#171717"
+        app:iconTint="@color/yellow_primary"
         app:layout_constraintBottom_toTopOf="@id/userLogoffButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -185,14 +191,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/blue"
         android:text="Logoff Account"
         android:textAlignment="viewStart"
         android:textAllCaps="false"
-        android:textColor="#2C2C2C"
+        android:textColor="@color/yellow_secondary"
         app:cornerRadius="20dp"
         app:icon="@drawable/baseline_keyboard_arrow_right_24"
         app:iconGravity="end"
-        app:iconTint="#171717"
+        app:iconTint="@color/yellow_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

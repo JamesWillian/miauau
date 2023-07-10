@@ -95,6 +95,9 @@ class PetDetailFragment : Fragment() {
         } else {
             binding.adoptButton.text = "Adotar esse Pet"
         }
+
+        binding.saveImageView2.visibility = View.GONE
+        binding.shareImageView2.visibility = View.GONE
     }
 
     override fun onDestroy() {

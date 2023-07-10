@@ -53,17 +53,7 @@ class UserProfileFragment: Fragment() {
 
         viewModel.refreshUser(Firebase.auth.currentUser!!.uid)
         viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {user ->
-            binding.userNameTextView.text = user.user.name
-            binding.userLocationTextView.text = user.user.location
-            binding.userDescriptionTextView.text = user.user.about
-            binding.userPhoneTextView.text = "Telefone: ${user.user.phone}"
-            binding.userEmailTextView.text = "Email: ${user.user.email}"
-
-            Picasso.get()
-                .load(user.user.photoUrl)
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .error(R.drawable.ic_launcher_foreground)
-                .into(binding.imageView)
+            updateUi(user)
         }
 
         viewModel.statePetsOnce().observe(viewLifecycleOwner) {pet ->
@@ -79,6 +69,26 @@ class UserProfileFragment: Fragment() {
         binding.userLogoffButton.setOnClickListener {
             Firebase.auth.signOut()
             findNavController().navigateUp()
+        }
+    }
+
+    private fun updateUi(uiState: UserProfileViewModel.UserUiState) {
+        binding.userNameTextView.text = uiState.user.name
+        binding.userLocationTextView.text = uiState.user.location
+        binding.userDescriptionTextView.text = uiState.user.about
+        binding.userPhoneTextView.text = "Telefone: ${uiState.user.phone}"
+        binding.userEmailTextView.text = "Email: ${uiState.user.email}"
+
+        Picasso.get()
+            .load(uiState.user.photoUrl)
+            .placeholder(R.drawable.ic_launcher_foreground)
+            .error(R.drawable.ic_launcher_foreground)
+            .into(binding.imageView)
+
+        if (uiState.user.uid != Firebase.auth.currentUser!!.uid) {
+            if (!uiState.user.showContact) binding.userinfoCard.visibility = View.GONE
+            binding.userDetailsButton.visibility = View.GONE
+            binding.userLogoffButton.visibility = View.GONE
         }
     }
 

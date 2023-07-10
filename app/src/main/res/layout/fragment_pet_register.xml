@@ -292,14 +292,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:buttonTint="@color/yellow"
+                android:buttonTint="@color/yellow_primary"
                 android:text="@string/vaccinated" />
 
             <CheckBox
                 android:id="@+id/petCastratedCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/yellow"
+                android:buttonTint="@color/yellow_primary"
                 android:text="@string/castrated" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

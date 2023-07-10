@@ -1,6 +1,7 @@
 package com.jammes.miauau.collections
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -23,7 +24,6 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
                 AgeType.WEEKS -> itemView.context.getString(R.string.weeks)
                 AgeType.MONTHS -> itemView.context.getString(R.string.months)
                 AgeType.YEARS -> itemView.context.getString(R.string.years)
-                else -> {""}
             }
 
             binding.petNameTextView.text = petItem.name
@@ -31,11 +31,12 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
             binding.petBreedTextView.text = petItem.breed
             binding.petAgeTextView.text = "${petItem.age} $ageType"
 
+            binding.saveImageView.visibility = View.GONE
+
             binding.petSexTextView.text =
                 when (petItem.sex) {
                     Sex.MALE -> itemView.context.getString(R.string.male)
                     Sex.FEMALE -> itemView.context.getString(R.string.female)
-                    else -> {""}
                 }
 
             Picasso.get()

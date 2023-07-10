@@ -30,4 +30,5 @@
     <string name="Profile">Perfil</string>
     <string name="EditProfile">Editar Perfil</string>
     <string name="pet_image">Imagem do Pet</string>
+    <string name="pets">Pets</string>
 </resources>
