@@ -7,13 +7,21 @@ import kotlinx.coroutines.launch
 
 class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
 
+    private val petFilter: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>(1)
+    }
+
     private val petListUiState: MutableLiveData<PetListUiState> by lazy {
         MutableLiveData<PetListUiState>(PetListUiState(petItemList = emptyList()))
     }
 
     val detailUiState = MutableLiveData<PetDetailUiState>()
 
-    fun onResume() {
+    fun filterPet(petTypeFilter: Int) {
+        petFilter.value = petTypeFilter
+    }
+
+    fun fetchPets() {
         viewModelScope.launch {
             refreshPetsList()
         }
@@ -27,7 +35,7 @@ class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
 
     private suspend fun refreshPetsList() {
         petListUiState.postValue(
-            PetListUiState(repository.fetchPets()
+            PetListUiState(repository.fetchPets(petFilter.value ?: 1)
                 .map {pet ->
                     pet.toPetItem()
                 })
@@ -82,6 +90,10 @@ class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
 
     fun stateOnceAndStream(): LiveData<PetListUiState> {
         return petListUiState
+    }
+
+    fun stateFilter(): LiveData<Int> {
+        return petFilter
     }
 
     data class PetListUiState(val petItemList: List<PetItem>)

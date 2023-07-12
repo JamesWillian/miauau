@@ -3,21 +3,20 @@ package com.jammes.miauau.core.repository
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.inject.Deferred
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.core.model.PetDomain
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
 
 class PetsRepositoryFirestore : PetsRepository {
 
     private val db = Firebase.firestore
 
-    override suspend fun fetchPets(): List<PetDomain> {
+    override suspend fun fetchPets(petType: Int): List<PetDomain> {
         val resultList = mutableListOf<PetDomain>()
 
         val petsList = db.collection(COLLECTION)
             .whereNotEqualTo("tutorId", Firebase.auth.currentUser!!.uid)
+            .whereEqualTo("petType", petType)
             .get()
             .await()
 
@@ -43,7 +42,7 @@ class PetsRepositoryFirestore : PetsRepository {
         return resultList
     }
 
-    override suspend fun fetchOwnPets(): List<PetDomain> {
+    override suspend fun fetchMyPets(): List<PetDomain> {
         val resultList = mutableListOf<PetDomain>()
 
         val petsList = db.collection(COLLECTION)

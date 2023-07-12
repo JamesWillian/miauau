@@ -45,6 +45,18 @@ class HomeFragment: Fragment() {
         binding.homeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.homeRecyclerView.adapter = adapter
 
+        binding.chipDog.setOnClickListener {
+            petListViewModel.filterPet(1)
+        }
+
+        binding.chipCat.setOnClickListener {
+            petListViewModel.filterPet(2)
+        }
+
+        petListViewModel.stateFilter().observe(viewLifecycleOwner){
+            petListViewModel.fetchPets()
+        }
+
         petListViewModel.stateOnceAndStream().observe(viewLifecycleOwner){ petList ->
             bindUiState(petList)
         }

@@ -31,7 +31,7 @@ class UserProfileViewModel(
 
     private suspend fun refreshPetsList() {
         petListUiState.postValue(
-            MyPetListUiState(petRepository.fetchOwnPets()
+            MyPetListUiState(petRepository.fetchMyPets()
                 .map { pet ->
                     PetItem(
                         id = pet.id,

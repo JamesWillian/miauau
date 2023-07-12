@@ -23,14 +23,14 @@ class PetsListLifecycleObserver(
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("signInAnonymous", "Login Anonimo: Sucesso!")
-                        viewModel.onResume()
+                        viewModel.fetchPets()
                     } else {
                         Log.d("signInAnonymous", "Login Anonimo: Falhou!")
                     }
                 }
 
         } else {
-            viewModel.onResume()
+            viewModel.fetchPets()
         }
     }
 
