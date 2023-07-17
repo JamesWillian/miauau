@@ -94,36 +94,28 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
     }
 
     fun addPet() {
-        if (uiState.value?.pet!!.id.isNullOrEmpty()) {
-            createPet()
-        } else {
-            val pet = uiState.value?.pet!!.toPetDomain()
-            repository.updatePet(pet)
+        viewModelScope.launch {
+
+            if (uiState.value?.pet!!.id.isNullOrEmpty()) {
+
+                createPet()
+
+            } else {
+
+                val pet = uiState.value?.pet!!.toPetDomain()
+                repository.updatePet(pet)
+
+            }
         }
     }
 
-    private fun createPet() {
+    private suspend fun createPet() {
         val pet = uiState.value?.pet
         val img = pet?.imageBitmap?.let { toInputStream(it) }
-        val imageFileName = "${pet?.name}-${System.currentTimeMillis()}.png "
-        val imageRef = storageRef.child("imagesPets/$imageFileName")
+        val pet2 = pet?.toPetDomain()
 
-        val uploadTask = img?.let { imageRef.putBytes(it) }
-        uploadTask?.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
-                }
-            }
-            imageRef.downloadUrl
-        }?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val downloadUrl = task.result.toString()
-                val newPet = pet.copy(imageURL = downloadUrl)
-                val petComImg = newPet.toPetDomain()
-
-                repository.addPet(petComImg)
-            }
+        if ((pet2 != null) && (img != null)) {
+            repository.addPetImage(pet2, img)
         }
     }
 

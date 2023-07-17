@@ -16,7 +16,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -41,15 +40,6 @@ class PetRegisterFragment : Fragment() {
     }
 
     private var imageBitmap: Bitmap? = null
-
-    val takePicture = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            imageBitmap = result.data?.extras?.get("data") as Bitmap
-
-            binding.imagePet.setImageBitmap(imageBitmap)
-
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,7 +81,7 @@ class PetRegisterFragment : Fragment() {
                     android.Manifest.permission.CAMERA
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                startCamera(activity)
+                startCamera()
             } else {
                 ActivityCompat.requestPermissions(
                     activity,
@@ -185,11 +175,19 @@ class PetRegisterFragment : Fragment() {
         )
     }
 
-    @SuppressLint("QueryPermissionsNeeded")
-    private fun startCamera(activity: FragmentActivity) {
+    private fun startCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (intent.resolveActivity(requireContext().packageManager) != null) {
             takePicture.launch(intent)
+        }
+    }
+
+    private val takePicture = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            imageBitmap = result.data?.extras?.get("data") as Bitmap
+
+            binding.imagePet.setImageBitmap(imageBitmap)
+
         }
     }
 

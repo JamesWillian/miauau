@@ -1,15 +1,22 @@
 package com.jammes.miauau.core.repository
 
 import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.jammes.miauau.core.model.PetDomain
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class PetsRepositoryFirestore : PetsRepository {
 
     private val db = Firebase.firestore
+    private val storage = Firebase.storage
+    private val storageRef = storage.reference
 
     override suspend fun fetchPets(petType: Int): List<PetDomain> {
         val resultList = mutableListOf<PetDomain>()
@@ -101,7 +108,7 @@ class PetsRepositoryFirestore : PetsRepository {
             }
     }
 
-    override fun updatePet(petItem: PetDomain) {
+    override suspend fun updatePet(petItem: PetDomain) {
         db.collection(COLLECTION)
             .document(petItem.id!!)
             .set(petItem)
@@ -111,6 +118,29 @@ class PetsRepositoryFirestore : PetsRepository {
             .addOnFailureListener {ex ->
                 Log.w("PetsRepositoryFirestore", "Não foi possível atualziar o Pet!", ex)
             }
+    }
+
+    override suspend fun addPetImage(petItem: PetDomain, img: ByteArray) {
+        val imageFileName = "${petItem.name}-${System.currentTimeMillis()}.png "
+        val imageRef = storageRef.child("imagesPets/$imageFileName")
+
+        val uploadTask = img.let { imageRef.putBytes(it) }
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            imageRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val downloadUrl = task.result.toString()
+                val newPet = petItem.copy(imageURL = downloadUrl)
+
+                addPet(newPet)
+
+            }
+        }
     }
 
     companion object {
