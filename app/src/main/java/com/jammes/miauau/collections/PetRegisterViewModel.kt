@@ -88,7 +88,7 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
     private fun toInputStream(image: Bitmap): ByteArray {
 
         val baos = ByteArrayOutputStream()
-        image.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        image.compress(Bitmap.CompressFormat.PNG, 80, baos)
         return baos.toByteArray()
 
     }
