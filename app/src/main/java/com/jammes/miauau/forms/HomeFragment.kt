@@ -53,10 +53,6 @@ class HomeFragment: Fragment() {
             petListViewModel.filterPet(2)
         }
 
-        petListViewModel.stateFilter().observe(viewLifecycleOwner){
-            petListViewModel.fetchPets()
-        }
-
         petListViewModel.stateOnceAndStream().observe(viewLifecycleOwner){ petList ->
             bindUiState(petList)
         }

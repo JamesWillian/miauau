@@ -19,6 +19,7 @@ class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
 
     fun filterPet(petTypeFilter: Int) {
         petFilter.value = petTypeFilter
+        fetchPets()
     }
 
     fun fetchPets() {
