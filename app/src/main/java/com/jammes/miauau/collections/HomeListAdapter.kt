@@ -20,24 +20,10 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
     class ViewHolder(private val binding: PetItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(petItem: PetItem) {
-            val ageType = when (petItem.ageType) {
-                AgeType.WEEKS -> itemView.context.getString(R.string.weeks)
-                AgeType.MONTHS -> itemView.context.getString(R.string.months)
-                AgeType.YEARS -> itemView.context.getString(R.string.years)
-            }
-
             binding.petNameTextView.text = petItem.name
             binding.petDescriptionTextView.text = petItem.description
-            binding.petBreedTextView.text = petItem.breed
-            binding.petAgeTextView.text = "${petItem.age} $ageType"
 
             binding.saveImageView.visibility = View.GONE
-
-            binding.petSexTextView.text =
-                when (petItem.sex) {
-                    Sex.MALE -> itemView.context.getString(R.string.male)
-                    Sex.FEMALE -> itemView.context.getString(R.string.female)
-                }
 
             Picasso.get()
                 .load(petItem.imageURL)

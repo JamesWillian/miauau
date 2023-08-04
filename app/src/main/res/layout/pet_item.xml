@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="130dp"
-    android:layout_marginBottom="5dp"
     android:background="@color/cardview_dark_background">
 
     <ImageView
@@ -23,7 +22,7 @@
         android:layout_height="40dp"
         android:layout_marginEnd="10dp"
         app:srcCompat="@drawable/favorite_pet_foreground"
-        app:layout_constraintBottom_toTopOf="@+id/petSexTextView"
+        app:layout_constraintBottom_toTopOf="@+id/petDescriptionTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,54 +36,11 @@
         android:text="@string/pet_name_hint"
         android:hint="@string/pet_name_hint"
         android:textColor="#FFC93C"
-        android:textSize="17sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/saveImageView"
         app:layout_constraintStart_toEndOf="@+id/petPhotoImageView"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/petBreedTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/breed_hint"
-        android:hint="@string/breed_hint"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/petAgeTextView"
-        app:layout_constraintStart_toEndOf="@+id/petPhotoImageView"
-        app:layout_constraintTop_toBottomOf="@+id/petNameTextView" />
-
-    <TextView
-        android:id="@+id/petAgeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/age_hint"
-        android:hint="@string/age_hint"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/petSexTextView"
-        app:layout_constraintStart_toEndOf="@+id/petBreedTextView"
-        app:layout_constraintTop_toBottomOf="@+id/petNameTextView" />
-
-    <TextView
-        android:id="@+id/petSexTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:text="@string/sex_hint"
-        android:hint="@string/sex_hint"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/petAgeTextView"
-        app:layout_constraintTop_toBottomOf="@+id/petNameTextView" />
 
     <TextView
         android:id="@+id/petDescriptionTextView"
@@ -92,14 +48,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:text="@string/pet_description_hint"
         android:hint="@string/pet_description_hint"
         android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/petPhotoImageView"
-        app:layout_constraintTop_toBottomOf="@+id/petBreedTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/petNameTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -138,7 +138,7 @@ class PetRegisterFragment : Fragment() {
         } else {
             Picasso.get()
                 .load(pet.imageURL)
-                .placeholder(R.drawable.ic_launcher_foreground)
+                .placeholder(R.drawable.camera)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(binding.imagePet)
         }
