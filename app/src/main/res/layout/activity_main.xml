@@ -18,6 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:logo="@drawable/miauau_120x38"
             android:background="@color/blue">
 
             <androidx.appcompat.widget.AppCompatImageView
