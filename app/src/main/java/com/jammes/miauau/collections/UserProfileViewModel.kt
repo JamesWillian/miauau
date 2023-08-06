@@ -42,6 +42,12 @@ class UserProfileViewModel(
         )
     }
 
+    fun deletePet(petId: String) {
+        viewModelScope.launch {
+            petRepository.deletePet(petId)
+        }
+    }
+
     fun statePetsOnce(): LiveData<MyPetListUiState> {
         return petListUiState
     }

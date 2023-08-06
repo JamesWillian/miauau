@@ -120,6 +120,18 @@ class PetsRepositoryFirestore : PetsRepository {
             }
     }
 
+    override suspend fun deletePet(petId: String) {
+        db.collection(COLLECTION)
+            .document(petId)
+            .delete()
+            .addOnSuccessListener {
+                Log.d("PetsRepositoryFirestore", "Pet Excluído com Sucesso! ID: ${petId}")
+            }
+            .addOnFailureListener {ex ->
+                Log.w("PetsRepositoryFirestore", "Não foi possível excluir o Pet!", ex)
+            }
+    }
+
     override suspend fun addPetImage(petItem: PetDomain, img: ByteArray) {
         val imageFileName = "${petItem.name}-${System.currentTimeMillis()}.png "
         val imageRef = storageRef.child("imagesPets/$imageFileName")

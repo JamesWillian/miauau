@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/option_delete_pet"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="Excluir Pet" />
+    <item
+        android:id="@+id/option_adopted_pet"
+        android:icon="@drawable/ic_check_foreground"
+        android:title="Pet Adotado!" />
+</menu>

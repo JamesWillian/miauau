@@ -29,6 +29,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:singleSelection="true"
+                app:selectionRequired="true"
                 app:checkedChip="@id/chipDog">
 
                 <com.google.android.material.chip.Chip

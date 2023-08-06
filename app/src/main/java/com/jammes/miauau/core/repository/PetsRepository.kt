@@ -9,6 +9,7 @@ interface PetsRepository {
     suspend fun fetchPetDetail(petId: String): PetDomain
     fun addPet(petItem: PetDomain)
     suspend fun updatePet(petItem: PetDomain)
+    suspend fun deletePet(petId: String)
     suspend fun addPetImage(petItem: PetDomain, img: ByteArray)
 
 }

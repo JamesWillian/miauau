@@ -2,6 +2,8 @@ package com.jammes.miauau.collections
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -29,6 +31,22 @@ class MyPetsListAdapter: RecyclerView.Adapter<MyPetsListAdapter.ViewHolder>() {
                 val id = petItem.id ?: ""
                 val action = UserProfileFragmentDirections.actionUserProfileFragmentToPetDetailFragment(id)
                 itemView.findNavController().navigate(action)
+            }
+
+            binding.button.setOnClickListener {
+                PopupMenu(it.context, binding.button).apply {
+                    menuInflater.inflate(R.menu.popup_menu_my_pet, this.menu)
+
+                    setOnMenuItemClickListener {menu ->
+                        when (menu.itemId) {
+                            R.id.option_delete_pet -> Toast.makeText(it.context, "Deletar", Toast.LENGTH_SHORT).show()
+                            R.id.option_adopted_pet -> Toast.makeText(it.context, "Adotado", Toast.LENGTH_SHORT).show()
+                        }
+                        true
+                    }
+                    show()
+
+                }
             }
         }
     }
