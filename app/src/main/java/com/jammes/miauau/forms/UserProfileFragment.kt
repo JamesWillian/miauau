@@ -29,7 +29,7 @@ class UserProfileFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = MyPetsListAdapter()
+        adapter = MyPetsListAdapter(viewModel)
     }
 
     override fun onResume() {

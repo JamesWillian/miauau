@@ -16,5 +16,6 @@ data class PetItem(
     val castrated: String = "",
     val imageURL: String? = null,
     val imageBitmap: Bitmap? = null,
-    val tutorId: String = ""
+    val tutorId: String = "",
+    val adopted: Boolean = false
 )

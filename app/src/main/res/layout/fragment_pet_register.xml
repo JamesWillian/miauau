@@ -56,7 +56,7 @@
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/chip_background"
                 app:chipCornerRadius="10dip"
-                app:chipIcon="@drawable/dog"
+                app:chipIcon="@drawable/dog_pixel"
                 app:chipIconVisible="true"
                 app:iconStartPadding="15dp" />
 
@@ -70,7 +70,7 @@
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@color/chip_background"
                 app:chipCornerRadius="10dip"
-                app:chipIcon="@drawable/cat"
+                app:chipIcon="@drawable/cat_pixel"
                 app:chipIconVisible="true"
                 app:iconStartPadding="13dp" />
         </com.google.android.material.chip.ChipGroup>

@@ -16,6 +16,7 @@ data class PetDomain(
     val castrated: Boolean = false,
     var imageURL: String? = null,
     val tutorId: String? = null,
+    val adoptedAt: Timestamp? = null,
     val createdAt: Timestamp = Timestamp.now(),
     val updatedAt: Timestamp? = null
 )

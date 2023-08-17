@@ -11,5 +11,6 @@ interface PetsRepository {
     suspend fun updatePet(petItem: PetDomain)
     suspend fun deletePet(petId: String)
     suspend fun addPetImage(petItem: PetDomain, img: ByteArray)
+    suspend fun petAdopted(petId: String)
 
 }

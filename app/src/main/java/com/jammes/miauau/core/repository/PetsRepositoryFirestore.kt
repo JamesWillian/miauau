@@ -2,6 +2,7 @@ package com.jammes.miauau.core.repository
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -153,6 +154,18 @@ class PetsRepositoryFirestore : PetsRepository {
 
             }
         }
+    }
+
+    override suspend fun petAdopted(petId: String) {
+        db.collection(COLLECTION)
+            .document(petId)
+            .update("adoptedAt", Timestamp.now())
+            .addOnSuccessListener {
+                Log.d("PetsRepositoryFirestore", "Pet Adotado com Sucesso! ID: ${petId}")
+            }
+            .addOnFailureListener {ex ->
+                Log.w("PetsRepositoryFirestore", "Não foi possível adotar o Pet!", ex)
+            }
     }
 
     companion object {

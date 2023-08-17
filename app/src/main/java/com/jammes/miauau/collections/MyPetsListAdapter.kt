@@ -14,11 +14,11 @@ import com.jammes.miauau.databinding.MyPetItemBinding
 import com.jammes.miauau.forms.UserProfileFragmentDirections
 import com.squareup.picasso.Picasso
 
-class MyPetsListAdapter: RecyclerView.Adapter<MyPetsListAdapter.ViewHolder>() {
+class MyPetsListAdapter(private val viewModel: UserProfileViewModel): RecyclerView.Adapter<MyPetsListAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: MyPetItemBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(petItem: PetItem) {
+        fun bind(petItem: PetItem, viewModel: UserProfileViewModel) {
             binding.petNameTextView.text = petItem.name
 
             Picasso.get()
@@ -39,8 +39,8 @@ class MyPetsListAdapter: RecyclerView.Adapter<MyPetsListAdapter.ViewHolder>() {
 
                     setOnMenuItemClickListener {menu ->
                         when (menu.itemId) {
-                            R.id.option_delete_pet -> Toast.makeText(it.context, "Deletar", Toast.LENGTH_SHORT).show()
-                            R.id.option_adopted_pet -> Toast.makeText(it.context, "Adotado", Toast.LENGTH_SHORT).show()
+                            R.id.option_delete_pet -> viewModel.deletePet(petItem.id ?: "")
+                            R.id.option_adopted_pet -> viewModel.adoptPet(petItem.id ?: "")
                         }
                         true
                     }
@@ -67,7 +67,7 @@ class MyPetsListAdapter: RecyclerView.Adapter<MyPetsListAdapter.ViewHolder>() {
     override fun getItemCount(): Int = asyncListDiffer.currentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(asyncListDiffer.currentList[position])
+        holder.bind(asyncListDiffer.currentList[position], viewModel)
     }
 
     object DiffCallBack : DiffUtil.ItemCallback<PetItem>() {

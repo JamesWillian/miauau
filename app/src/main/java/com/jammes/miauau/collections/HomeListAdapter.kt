@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jammes.miauau.R
 import com.jammes.miauau.core.model.AgeType
 import com.jammes.miauau.core.model.PetItem
+import com.jammes.miauau.core.model.PetType
 import com.jammes.miauau.core.model.Sex
 import com.jammes.miauau.databinding.PetItemBinding
 import com.jammes.miauau.forms.HomeFragmentDirections
@@ -25,9 +26,16 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 
             binding.saveImageView.visibility = View.GONE
 
+            fun placeHolderImage(petType: PetType): Int {
+                return when (petType) {
+                    PetType.DOG -> R.drawable.dog_pixel
+                    PetType.CAT -> R.drawable.cat_pixel
+                }
+            }
+
             Picasso.get()
                 .load(petItem.imageURL)
-                .placeholder(R.drawable.ic_launcher_foreground)
+                .placeholder(placeHolderImage(petItem.petType))
                 .error(R.drawable.ic_launcher_foreground)
                 .into(binding.petPhotoImageView)
 

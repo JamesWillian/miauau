@@ -45,6 +45,13 @@ class UserProfileViewModel(
     fun deletePet(petId: String) {
         viewModelScope.launch {
             petRepository.deletePet(petId)
+            refreshPetsList()
+        }
+    }
+
+    fun adoptPet (petId: String) {
+        viewModelScope.launch {
+            petRepository.petAdopted(petId)
         }
     }
 
