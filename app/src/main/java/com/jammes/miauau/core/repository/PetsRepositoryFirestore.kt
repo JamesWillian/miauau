@@ -25,6 +25,7 @@ class PetsRepositoryFirestore : PetsRepository {
         val petsList = db.collection(COLLECTION)
             .whereNotEqualTo("tutorId", Firebase.auth.currentUser!!.uid)
             .whereEqualTo("petType", petType)
+            .whereEqualTo("adoptedAt",null)
             .get()
             .await()
 
