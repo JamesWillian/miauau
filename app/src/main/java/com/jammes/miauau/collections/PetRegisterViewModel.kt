@@ -136,7 +136,7 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
             breed = breed,
             vaccinated = if (vaccinated) "Vacinado" else "",
             castrated = if (castrated) "Castrado" else "",
-            imageURL = imageURL ?: "",
+            imageURL = imageURL,
             tutorId = tutorId ?: "",
             petType =
             when (petType) {

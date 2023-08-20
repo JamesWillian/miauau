@@ -48,7 +48,9 @@ class MainActivity : AppCompatActivity() {
             if (Firebase.auth.currentUser!!.isAnonymous) {
                 login()
             } else {
-                navController.navigate(R.id.petRegisterFragment)
+                if (navController.currentDestination != navController.findDestination(R.id.petRegisterFragment)) {
+                    navController.navigate(R.id.petRegisterFragment)
+                }
             }
         }
 
@@ -60,7 +62,9 @@ class MainActivity : AppCompatActivity() {
             if (Firebase.auth.currentUser!!.isAnonymous) {
                 login()
             } else {
-                navController.navigate(R.id.userProfileFragment)
+                if (navController.currentDestination != navController.findDestination(R.id.userProfileFragment)) {
+                    navController.navigate(R.id.userProfileFragment)
+                }
             }
         }
     }
