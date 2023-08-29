@@ -6,9 +6,13 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.core.model.PetDomain
 import com.jammes.miauau.core.model.UserDomain
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class UsersRepositoryFirestore: UsersRepository {
+class UsersRepositoryFirestore @Inject constructor() : UsersRepository {
 
     private val db = Firebase.firestore
 

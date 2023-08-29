@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.jammes.miauau.R
@@ -21,13 +22,13 @@ class HomeFragment: Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: HomeListAdapter
-    private val petListViewModel: PetsListViewModel by activityViewModels {
-        val petsRepository = PetsRepositoryFirestore()
-        PetsListViewModel.Factory(petsRepository)
-    }
+    private lateinit var petListViewModel: PetsListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        petListViewModel = ViewModelProvider(this)[PetsListViewModel::class.java]
+
         lifecycle.addObserver(PetsListLifecycleObserver(petListViewModel))
         adapter = HomeListAdapter()
     }

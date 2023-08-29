@@ -1,12 +1,16 @@
 package com.jammes.miauau.forms
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.firebase.auth.ktx.auth
@@ -19,22 +23,26 @@ import com.jammes.miauau.core.model.Size
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentPetDetailBinding
 import com.squareup.picasso.Picasso
+import java.net.URLEncoder
 
 class PetDetailFragment : Fragment() {
 
-    private val viewModel: PetsListViewModel by viewModels {
-        PetsListViewModel.Factory(PetsRepositoryFirestore())
-    }
+    private lateinit var viewModel: PetsListViewModel
 
     private var _binding: FragmentPetDetailBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[PetsListViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentPetDetailBinding.inflate(inflater,  container, false)
+        _binding = FragmentPetDetailBinding.inflate(inflater, container, false)
 
         return (binding.root)
     }
@@ -49,6 +57,7 @@ class PetDetailFragment : Fragment() {
         viewModel.detailUiState.observe(viewLifecycleOwner) { pet ->
             updateUI(pet)
         }
+
     }
 
     private fun updateUI(pet: PetsListViewModel.PetDetailUiState) {
@@ -94,10 +103,33 @@ class PetDetailFragment : Fragment() {
             }
         } else {
             binding.adoptButton.text = "Adotar esse Pet"
+            binding.adoptButton.setOnClickListener {
+                messageTutorByWhatsApp()
+            }
         }
 
         binding.saveImageView2.visibility = View.GONE
         binding.shareImageView2.visibility = View.GONE
+    }
+
+    private fun messageTutorByWhatsApp() {
+        val sendIntent = Intent(Intent.ACTION_VIEW)
+        val phone = "5577998004647"
+
+        try {
+            val url = "https://api.whatsapp.com/send?phone=$phone&text=" +
+                    URLEncoder.encode(
+                        "Olá [Nome do Tutor], Estou interessado em adotar [Nome do Pet]! Gostaria de saber mais sobre o processo de adoção e os próximos passos.",
+                        "UTF-8"
+                    )
+            sendIntent.setPackage("com.whatsapp")
+            sendIntent.data = Uri.parse(url)
+            startActivity(sendIntent)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     override fun onDestroy() {
