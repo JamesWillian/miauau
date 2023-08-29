@@ -27,6 +27,9 @@
             android:id="@+id/action_petDetailFragment_to_petRegisterFragment"
             app:destination="@id/petRegisterFragment"
             app:popUpTo="@id/petDetailFragment" />
+        <action
+            android:id="@+id/action_petDetailFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/petRegisterFragment"
@@ -43,6 +46,11 @@
         android:name="com.jammes.miauau.forms.UserProfileFragment"
         android:label="@string/Profile"
         tools:layout="@layout/fragment_user_profile">
+        <argument
+            android:name="userId"
+            app:argType="string"
+            app:nullable="true"
+            />
         <action
             android:id="@+id/action_userProfileFragment_to_userProfileEditFragment"
             app:destination="@id/userProfileEditFragment"

@@ -98,6 +98,12 @@ class PetDetailFragment : Fragment() {
 
         binding.saveImageView2.visibility = View.GONE
         binding.shareImageView2.visibility = View.GONE
+
+        binding.adoptButton.setOnClickListener {
+            val action =
+                PetDetailFragmentDirections.actionPetDetailFragmentToUserProfileFragment(pet.petDetail.tutorId)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroy() {

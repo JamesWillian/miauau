@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -51,13 +52,21 @@ class UserProfileFragment: Fragment() {
         binding.userPetsList.layoutManager = LinearLayoutManager(requireContext())
         binding.userPetsList.adapter = adapter
 
-        viewModel.refreshUser(Firebase.auth.currentUser!!.uid)
-        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {user ->
-            updateUi(user)
+        val args: UserProfileFragmentArgs by navArgs()
+
+        if (arguments?.containsKey("userId") == true) {
+            if (!args.userId.isNullOrEmpty()) {
+                viewModel.refreshUser(args.userId!!)
+            }
+        } else {
+            viewModel.refreshUser(Firebase.auth.currentUser!!.uid)
+            viewModel.statePetsOnce().observe(viewLifecycleOwner) {pet ->
+                bindPetItem(pet)
+            }
         }
 
-        viewModel.statePetsOnce().observe(viewLifecycleOwner) {pet ->
-            bindPetItem(pet)
+        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {user ->
+            updateUi(user)
         }
 
         binding.userDetailsButton.setOnClickListener {
@@ -89,6 +98,12 @@ class UserProfileFragment: Fragment() {
             if (!uiState.user.showContact) binding.userinfoCard.visibility = View.GONE
             binding.userDetailsButton.visibility = View.GONE
             binding.userLogoffButton.visibility = View.GONE
+            binding.petsListCard.visibility = View.GONE
+        } else {
+            binding.userinfoCard.visibility = View.VISIBLE
+            binding.userDetailsButton.visibility = View.VISIBLE
+            binding.userLogoffButton.visibility = View.VISIBLE
+            binding.petsListCard.visibility = View.VISIBLE
         }
     }
 
