@@ -23,8 +23,10 @@ import com.jammes.miauau.core.model.Size
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentPetDetailBinding
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import java.net.URLEncoder
 
+@AndroidEntryPoint
 class PetDetailFragment : Fragment() {
 
     private lateinit var viewModel: PetsListViewModel

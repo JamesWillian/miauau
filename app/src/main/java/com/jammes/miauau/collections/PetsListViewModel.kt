@@ -12,6 +12,10 @@ class PetsListViewModel @Inject constructor(
     private val repository: PetsRepository
 ): ViewModel() {
 
+    init {
+        //teste
+    }
+
     private val petFilter: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>(1)
     }

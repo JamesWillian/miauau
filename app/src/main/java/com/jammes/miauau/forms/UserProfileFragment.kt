@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
@@ -17,18 +18,20 @@ import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.core.repository.UsersRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentUserProfileBinding
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UserProfileFragment: Fragment() {
 
     private var _binding: FragmentUserProfileBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: MyPetsListAdapter
-    private val viewModel: UserProfileViewModel by activityViewModels {
-        UserProfileViewModel.Factory(UsersRepositoryFirestore(), PetsRepositoryFirestore())
-    }
+    private lateinit var viewModel: UserProfileViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[UserProfileViewModel::class.java]
         adapter = MyPetsListAdapter(viewModel)
     }
 

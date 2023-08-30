@@ -20,6 +20,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.firebase.auth.ktx.auth
@@ -30,26 +31,32 @@ import com.jammes.miauau.core.model.*
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentPetRegisterBinding
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class PetRegisterFragment : Fragment() {
 
     private var currentPicturePath: String? = null
     private var _binding: FragmentPetRegisterBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: PetRegisterViewModel by viewModels {
-        PetRegisterViewModel.Factory(PetsRepositoryFirestore())
-    }
+    private lateinit var viewModel: PetRegisterViewModel
 
     private val storageDir = File(
         Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_PICTURES
         ), "MiauAu"
     )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[PetRegisterViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

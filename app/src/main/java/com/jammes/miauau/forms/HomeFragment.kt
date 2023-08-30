@@ -16,7 +16,9 @@ import com.jammes.miauau.collections.PetsListLifecycleObserver
 import com.jammes.miauau.collections.PetsListViewModel
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment: Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
