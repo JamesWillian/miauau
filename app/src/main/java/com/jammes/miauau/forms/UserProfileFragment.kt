@@ -1,5 +1,7 @@
 package com.jammes.miauau.forms
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,7 @@ import com.jammes.miauau.core.repository.UsersRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentUserProfileBinding
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import java.net.URLEncoder
 
 @AndroidEntryPoint
 class UserProfileFragment: Fragment() {
@@ -72,6 +75,10 @@ class UserProfileFragment: Fragment() {
             updateUi(user)
         }
 
+        binding.userContactButton.setOnClickListener{
+            messageTutorByWhatsApp("77998004647","Caramelo","James")
+        }
+
         binding.userDetailsButton.setOnClickListener {
             val action =
                 UserProfileFragmentDirections.actionUserProfileFragmentToUserProfileEditFragment()
@@ -82,6 +89,26 @@ class UserProfileFragment: Fragment() {
             Firebase.auth.signOut()
             findNavController().navigateUp()
         }
+    }
+
+    private fun messageTutorByWhatsApp(phone: String, petName: String, tutorName: String) {
+        val sendIntent = Intent(Intent.ACTION_VIEW)
+        val tutorPhone = "55$phone"
+
+        try {
+            val url = "https://api.whatsapp.com/send?phone=$tutorPhone&text=" +
+                    URLEncoder.encode(
+                        "Olá $tutorName, Estou interessado em adotar $petName! Gostaria de saber mais sobre o processo de adoção e os próximos passos.",
+                        "UTF-8"
+                    )
+            sendIntent.setPackage("com.whatsapp")
+            sendIntent.data = Uri.parse(url)
+            startActivity(sendIntent)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     private fun updateUi(uiState: UserProfileViewModel.UserUiState) {

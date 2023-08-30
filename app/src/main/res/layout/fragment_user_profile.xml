@@ -96,7 +96,7 @@
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
@@ -104,24 +104,41 @@
 
                     <TextView
                         android:id="@+id/userPhoneTextView"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:text="User Phone: (99) 99999-9999"
                         android:textAlignment="viewStart"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/userContactButton"/>
 
                     <TextView
                         android:id="@+id/userEmailTextView"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:text="User Email: email@email.com"
                         android:textAlignment="viewStart"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/userPhoneTextView"
+                        app:layout_constraintEnd_toStartOf="@id/userContactButton"/>
+
+                    <ImageButton
+                        android:id="@+id/userContactButton"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_message_24"
+                        android:scaleType="centerCrop"
+                        android:background="@color/cardview_dark_background"
+                        app:layout_constraintTop_toTopOf="@id/userPhoneTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/userEmailTextView"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView

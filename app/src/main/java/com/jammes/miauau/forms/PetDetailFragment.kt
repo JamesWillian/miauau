@@ -105,37 +105,14 @@ class PetDetailFragment : Fragment() {
         } else {
             binding.adoptButton.text = "Adotar esse Pet"
             binding.adoptButton.setOnClickListener {
-                messageTutorByWhatsApp()
+                val action =
+                    PetDetailFragmentDirections.actionPetDetailFragmentToUserProfileFragment(pet.petDetail.tutorId)
+                findNavController().navigate(action)
             }
         }
 
         binding.saveImageView2.visibility = View.GONE
         binding.shareImageView2.visibility = View.GONE
-
-        binding.adoptButton.setOnClickListener {
-            val action =
-                PetDetailFragmentDirections.actionPetDetailFragmentToUserProfileFragment(pet.petDetail.tutorId)
-            findNavController().navigate(action)
-        }
-    }
-
-    private fun messageTutorByWhatsApp() {
-        val sendIntent = Intent(Intent.ACTION_VIEW)
-        val phone = "5577998004647"
-
-        try {
-            val url = "https://api.whatsapp.com/send?phone=$phone&text=" +
-                    URLEncoder.encode(
-                        "Olá [Nome do Tutor], Estou interessado em adotar [Nome do Pet]! Gostaria de saber mais sobre o processo de adoção e os próximos passos.",
-                        "UTF-8"
-                    )
-            sendIntent.setPackage("com.whatsapp")
-            sendIntent.data = Uri.parse(url)
-            startActivity(sendIntent)
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
 
     }
 
