@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -15,14 +16,20 @@ import com.jammes.miauau.collections.UserProfileViewModel
 import com.jammes.miauau.core.repository.PetsRepositoryFirestore
 import com.jammes.miauau.core.repository.UsersRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentUserProfileEditBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UserProfileEditFragment: Fragment() {
 
     private var _binding: FragmentUserProfileEditBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: UserProfileViewModel by activityViewModels {
-        UserProfileViewModel.Factory(UsersRepositoryFirestore(), PetsRepositoryFirestore())
+    private lateinit var viewModel: UserProfileViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[UserProfileViewModel::class.java]
     }
 
     override fun onCreateView(

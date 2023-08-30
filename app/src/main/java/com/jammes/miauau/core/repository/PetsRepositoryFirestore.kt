@@ -1,22 +1,22 @@
 package com.jammes.miauau.core.repository
 
 import android.util.Log
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.jammes.miauau.core.model.PetDomain
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class PetsRepositoryFirestore : PetsRepository {
+class PetsRepositoryFirestore @Inject constructor(
+    private val db: FirebaseFirestore,
+    private val storage: FirebaseStorage
+) : PetsRepository {
 
-    private val db = Firebase.firestore
-    private val storage = Firebase.storage
     private val storageRef = storage.reference
 
     override suspend fun fetchPets(petType: Int): List<PetDomain> {

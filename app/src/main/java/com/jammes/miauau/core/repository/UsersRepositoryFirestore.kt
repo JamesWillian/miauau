@@ -1,16 +1,21 @@
 package com.jammes.miauau.core.repository
 
 import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.core.model.PetDomain
 import com.jammes.miauau.core.model.UserDomain
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class UsersRepositoryFirestore: UsersRepository {
-
-    private val db = Firebase.firestore
+class UsersRepositoryFirestore @Inject constructor(
+    private val db: FirebaseFirestore
+) : UsersRepository {
 
     override suspend fun fetchUserDetail(userId: String): UserDomain {
         val doc = db.collection(COLLECTION).document(userId).get().await()

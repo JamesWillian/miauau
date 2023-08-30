@@ -6,9 +6,12 @@ import com.jammes.miauau.core.model.User
 import com.jammes.miauau.core.model.UserDomain
 import com.jammes.miauau.core.repository.PetsRepository
 import com.jammes.miauau.core.repository.UsersRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserProfileViewModel(
+@HiltViewModel
+class UserProfileViewModel @Inject constructor(
     private val userRepository: UsersRepository,
     private val petRepository: PetsRepository
 ): ViewModel() {
@@ -113,13 +116,4 @@ class UserProfileViewModel(
 
     data class MyPetListUiState(val petItemList: List<PetItem>)
 
-    class Factory(
-        private val userRepository: UsersRepository,
-        private val petRepository: PetsRepository
-    ) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return UserProfileViewModel(userRepository, petRepository) as T
-        }
-    }
 }

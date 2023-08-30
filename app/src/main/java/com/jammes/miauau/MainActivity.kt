@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -14,15 +15,15 @@ import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.collections.AuthViewModel
 import com.jammes.miauau.core.repository.UsersRepositoryFirestore
 import com.jammes.miauau.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    private val viewModel: AuthViewModel by viewModels {
-        AuthViewModel.Factory(UsersRepositoryFirestore())
-    }
+    private lateinit var viewModel: AuthViewModel
 
     private val signInLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
         viewModel.handleSignInResult(result.data)
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 

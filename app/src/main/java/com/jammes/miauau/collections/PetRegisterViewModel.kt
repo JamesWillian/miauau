@@ -11,13 +11,15 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.jammes.miauau.core.model.*
 import com.jammes.miauau.core.repository.PetsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import java.io.ByteArrayOutputStream
+import javax.inject.Inject
 
-class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel() {
-
-    private val storage = Firebase.storage
-    private val storageRef = storage.reference
+@HiltViewModel
+class PetRegisterViewModel @Inject constructor(
+    private val repository: PetsRepository
+) : ViewModel() {
 
     private val uiState : MutableLiveData<UiState> by lazy {
         MutableLiveData<UiState>(
@@ -205,10 +207,4 @@ class PetRegisterViewModel(private val repository: PetsRepository) : ViewModel()
         )
     }
 
-    class Factory(private val repository: PetsRepository) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PetRegisterViewModel(repository) as T
-        }
-    }
 }

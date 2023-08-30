@@ -23,13 +23,22 @@ import com.jammes.miauau.MainActivity
 import com.jammes.miauau.R
 import com.jammes.miauau.core.model.UserDomain
 import com.jammes.miauau.core.repository.UsersRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AuthViewModel(private val repository: UsersRepository): ViewModel() {
+@HiltViewModel
+class AuthViewModel @Inject constructor(
+    private val repository: UsersRepository
+): ViewModel() {
 
     private lateinit var oneTapClient: SignInClient
     private lateinit var signUpRequest: BeginSignInRequest
     private lateinit var auth: FirebaseAuth
+
+    init {
+        //teste
+    }
 
     fun oneTapSignIn(serverClientId: String, signInClient: SignInClient, resultLauncher: ActivityResultLauncher<IntentSenderRequest>) {
         auth = Firebase.auth
@@ -106,13 +115,6 @@ class AuthViewModel(private val repository: UsersRepository): ViewModel() {
                 }
 
             }
-    }
-
-    class Factory(private val repository: UsersRepository) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return AuthViewModel(repository) as T
-        }
     }
 
     companion object {

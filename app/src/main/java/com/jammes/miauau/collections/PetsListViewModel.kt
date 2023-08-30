@@ -3,9 +3,18 @@ package com.jammes.miauau.collections
 import androidx.lifecycle.*
 import com.jammes.miauau.core.model.*
 import com.jammes.miauau.core.repository.PetsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
+@HiltViewModel
+class PetsListViewModel @Inject constructor(
+    private val repository: PetsRepository
+): ViewModel() {
+
+    init {
+        //teste
+    }
 
     private val petFilter: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>(1)
@@ -101,10 +110,4 @@ class PetsListViewModel(private val repository: PetsRepository): ViewModel() {
 
     data class PetDetailUiState(val petDetail: PetItem)
 
-    class Factory(private val repository: PetsRepository) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PetsListViewModel(repository) as T
-        }
-    }
 }
