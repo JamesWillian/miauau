@@ -29,7 +29,7 @@ class UserProfileEditFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this)[UserProfileViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[UserProfileViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -44,7 +44,7 @@ class UserProfileEditFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        updateUI()
+        viewModel.userInfo()?.let { updateUI(it.user) }
 
         binding.userSaveButton.setOnClickListener {
             val user = User(
@@ -62,15 +62,20 @@ class UserProfileEditFragment: Fragment() {
         }
     }
 
-    private fun updateUI() {
-        val actualUser = viewModel.stateOnceAndStream().value!!.user
+    override fun onResume() {
+        super.onResume()
 
-        binding.userNameEditText.editText?.setText(actualUser.name, TextView.BufferType.NORMAL)
-        binding.userLocationEditText.editText?.setText(actualUser.location, TextView.BufferType.NORMAL)
-        binding.userEmailEditText.editText?.setText(actualUser.email, TextView.BufferType.NORMAL)
-        binding.userPhoneEditText.editText?.setText(actualUser.phone, TextView.BufferType.NORMAL)
-        binding.userDescriptionEditText.editText?.setText(actualUser.about, TextView.BufferType.NORMAL)
-        binding.showUserContactCheckBox.isChecked = actualUser.showContact
+        viewModel.onResume()
+    }
+
+    private fun updateUI(user: User) {
+
+        binding.userNameEditText.editText?.setText(user.name, TextView.BufferType.NORMAL)
+        binding.userLocationEditText.editText?.setText(user.location, TextView.BufferType.NORMAL)
+        binding.userEmailEditText.editText?.setText(user.email, TextView.BufferType.NORMAL)
+        binding.userPhoneEditText.editText?.setText(user.phone, TextView.BufferType.NORMAL)
+        binding.userDescriptionEditText.editText?.setText(user.about, TextView.BufferType.NORMAL)
+        binding.showUserContactCheckBox.isChecked = user.showContact
 
     }
 

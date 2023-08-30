@@ -32,7 +32,7 @@ class UserProfileFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this)[UserProfileViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[UserProfileViewModel::class.java]
         adapter = MyPetsListAdapter(viewModel)
     }
 

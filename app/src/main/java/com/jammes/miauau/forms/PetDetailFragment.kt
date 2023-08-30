@@ -36,7 +36,7 @@ class PetDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[PetsListViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[PetsListViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -49,7 +49,6 @@ class PetDetailFragment : Fragment() {
         return (binding.root)
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

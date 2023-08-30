@@ -32,6 +32,10 @@ class UserProfileViewModel @Inject constructor(
         }
     }
 
+    fun userInfo(): UserUiState? {
+        return userUiState.value
+    }
+
     private suspend fun refreshPetsList() {
         petListUiState.postValue(
             MyPetListUiState(petRepository.fetchMyPets()
@@ -76,7 +80,6 @@ class UserProfileViewModel @Inject constructor(
 
     private suspend fun getUserById(userId: String) {
         val userDomain = userRepository.fetchUserDetail(userId)
-//        val user = userDomain.toUser()
         val user = userDomain.let {
             User(
                 uid = it.uid,

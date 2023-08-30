@@ -29,7 +29,7 @@ class HomeFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        petListViewModel = ViewModelProvider(this)[PetsListViewModel::class.java]
+        petListViewModel = ViewModelProvider(requireActivity())[PetsListViewModel::class.java]
 
         lifecycle.addObserver(PetsListLifecycleObserver(petListViewModel))
         adapter = HomeListAdapter()
