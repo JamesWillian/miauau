@@ -5,17 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="70dp">
 
-    <ImageView
-        android:id="@+id/petImageView"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardPetView"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="5dp"
-        android:background="@drawable/circle_background"
-        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/dog" />
+        app:cardCornerRadius="100dp"
+        android:layout_gravity="center"
+        app:cardElevation="5dp">
+
+        <ImageView
+            android:id="@+id/petImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/circle_background"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/dog_pixel" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/petNameTextView"
@@ -25,7 +34,7 @@
         android:text="Nome do Pet"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/petImageView"
+        app:layout_constraintStart_toEndOf="@id/cardPetView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton

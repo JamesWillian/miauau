@@ -23,13 +23,6 @@
             android:background="@color/blue">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageUserToolbar"
-                android:layout_width="@dimen/icon_toolbar_size"
-                android:layout_height="@dimen/icon_toolbar_size"
-                android:layout_gravity="end"
-                android:src="@drawable/user_foreground" />
-
-            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageAddPetToolbar"
                 android:layout_width="@dimen/icon_toolbar_size"
                 android:layout_height="@dimen/icon_toolbar_size"
@@ -46,10 +39,20 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:navGraph="@navigation/nav_graph" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/blue"
+        app:menu="@menu/menu_navigation_view"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,23 +5,29 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.collections.AuthViewModel
 import com.jammes.miauau.core.repository.UsersRepositoryFirestore
 import com.jammes.miauau.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
+    private lateinit var bottomNavigation: BottomNavigationView
 
     private lateinit var viewModel: AuthViewModel
 
@@ -39,10 +45,27 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         setupNavigation()
+        setupBottomNavigation()
 
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        val navController = findNavController(R.id.fragmentContainerView)
+        bottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.homeFragment -> {
+                    navController.navigate(R.id.userProfileFragment)
+                    true
+                }
+                R.id.userProfileFragment -> {
+                    if (Firebase.auth.currentUser!!.isAnonymous) {
+                        login()
+                    } else {
+                        navController.navigate(R.id.userProfileFragment)
+                    }
+                    !Firebase.auth.currentUser!!.isAnonymous
+                }
+                else -> true
+            }
+        }
 
         /**
          * Tela de Cadastro de Novo Pet
@@ -57,19 +80,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /**
-         * Se autenticado > Tela de Perfil
-         * Não autenticado > Login One Tap
-         */
-        binding.imageUserToolbar.setOnClickListener {
-            if (Firebase.auth.currentUser!!.isAnonymous) {
-                login()
-            } else {
-                if (navController.currentDestination != navController.findDestination(R.id.userProfileFragment)) {
-                    navController.navigate(R.id.userProfileFragment)
-                }
-            }
-        }
+    }
+
+    private fun setupBottomNavigation() {
+        bottomNavigation = binding.bottomNavigation
+
+        NavigationUI.setupWithNavController(bottomNavigation, navController)
     }
 
     private fun login() {
@@ -81,7 +97,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        val navController = findNavController(R.id.fragmentContainerView)
+        navController = findNavController(R.id.fragmentContainerView)
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
 

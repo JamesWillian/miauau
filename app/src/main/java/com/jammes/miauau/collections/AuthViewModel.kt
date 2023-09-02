@@ -36,10 +36,6 @@ class AuthViewModel @Inject constructor(
     private lateinit var signUpRequest: BeginSignInRequest
     private lateinit var auth: FirebaseAuth
 
-    init {
-        //teste
-    }
-
     fun oneTapSignIn(serverClientId: String, signInClient: SignInClient, resultLauncher: ActivityResultLauncher<IntentSenderRequest>) {
         auth = Firebase.auth
         oneTapClient = signInClient
@@ -55,6 +51,9 @@ class AuthViewModel @Inject constructor(
         oneTapClient.beginSignIn(signUpRequest)
             .addOnSuccessListener { result ->
                 launchSignIn(result.pendingIntent, resultLauncher)
+            }
+            .addOnFailureListener {err ->
+                Log.e(TAG, "Couldn't start Sign In: ${err.message}")
             }
     }
 
