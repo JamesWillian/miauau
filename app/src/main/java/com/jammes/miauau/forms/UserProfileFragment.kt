@@ -79,7 +79,7 @@ class UserProfileFragment: Fragment() {
             messageTutorByWhatsApp("77998004647","Caramelo","James")
         }
 
-        binding.userDetailsButton.setOnClickListener {
+        binding.userEditImageButton.setOnClickListener {
             val action =
                 UserProfileFragmentDirections.actionUserProfileFragmentToUserProfileEditFragment()
             findNavController().navigate(action)
@@ -126,12 +126,12 @@ class UserProfileFragment: Fragment() {
 
         if (uiState.user.uid != Firebase.auth.currentUser!!.uid) {
             if (!uiState.user.showContact) binding.userinfoCard.visibility = View.GONE
-            binding.userDetailsButton.visibility = View.GONE
+            binding.userEditImageButton.visibility = View.GONE
             binding.userLogoffButton.visibility = View.GONE
             binding.petsListCard.visibility = View.GONE
         } else {
             binding.userinfoCard.visibility = View.VISIBLE
-            binding.userDetailsButton.visibility = View.VISIBLE
+            binding.userEditImageButton.visibility = View.VISIBLE
             binding.userLogoffButton.visibility = View.VISIBLE
             binding.petsListCard.visibility = View.VISIBLE
         }

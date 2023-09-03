@@ -8,7 +8,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/userDetailsButton"
+        app:layout_constraintBottom_toTopOf="@id/userLogoffButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,11 +29,23 @@
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical">
+                    android:layout_margin="10dp">
+
+                    <ImageButton
+                        android:id="@+id/userEditImageButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:contentDescription="Editar Informações do Usuário"
+                        android:src="@drawable/ic_edit_24"
+                        android:scaleType="centerCrop"
+                        android:background="@color/cardview_dark_background"/>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardUserView"
@@ -44,7 +56,10 @@
                         android:theme="@style/Theme.Material3.Dark"
                         app:cardCornerRadius="100dp"
                         android:layout_gravity="center"
-                        app:cardElevation="15dp">
+                        app:cardElevation="15dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
 
                         <ImageView
                             android:id="@+id/imageView"
@@ -66,7 +81,10 @@
                         android:textAlignment="center"
                         android:textColor="@color/yellow_secondary"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/cardUserView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                     <TextView
                         android:id="@+id/userLocationTextView"
@@ -75,13 +93,19 @@
                         android:layout_gravity="center"
                         android:layout_marginBottom="5dp"
                         android:text="User Location"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        app:layout_constraintTop_toBottomOf="@id/userNameTextView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                     <View
                         android:id="@+id/divider2"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="?android:attr/listDivider" />
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintTop_toBottomOf="@id/userLocationTextView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                     <TextView
                         android:id="@+id/userDescriptionTextView"
@@ -90,9 +114,12 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         android:text="User Description"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        app:layout_constraintTop_toBottomOf="@id/divider2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -193,32 +220,12 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/userDetailsButton"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="2dp"
-        android:backgroundTint="@color/blue"
-        android:text="Edit User Details"
-        android:textAlignment="viewStart"
-        android:textAllCaps="false"
-        android:textColor="@color/yellow_secondary"
-        app:cornerRadius="20dp"
-        app:icon="@drawable/baseline_keyboard_arrow_right_24"
-        app:iconGravity="end"
-        app:iconTint="@color/yellow_primary"
-        app:layout_constraintBottom_toTopOf="@id/userLogoffButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/userLogoffButton"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="@color/blue"
         android:text="Logoff Account"
         android:textAlignment="viewStart"

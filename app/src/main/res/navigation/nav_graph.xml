@@ -65,5 +65,10 @@
         android:name="com.jammes.miauau.forms.UserProfileEditFragment"
         android:label="@string/EditProfile"
         tools:layout="@layout/fragment_user_profile_edit"/>
+    <fragment
+        android:id="@+id/favoritePetFragment"
+        android:name="com.jammes.miauau.forms.FavoritePetFragment"
+        android:label="FavoritePetFragment"
+        tools:layout="@layout/fragment_pet_favorite"/>
 
 </navigation>

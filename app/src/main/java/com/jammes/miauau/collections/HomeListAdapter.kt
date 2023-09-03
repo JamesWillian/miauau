@@ -24,8 +24,6 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
             binding.petNameTextView.text = petItem.name
             binding.petDescriptionTextView.text = petItem.description
 
-            binding.saveImageView.visibility = View.GONE
-
             fun placeHolderImage(petType: PetType): Int {
                 return when (petType) {
                     PetType.DOG -> R.drawable.dog_pixel
@@ -43,6 +41,10 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
                 val id = petItem.id ?: ""
                 val action = HomeFragmentDirections.actionHomeFragmentToPetDetailFragment(id)
                 itemView.findNavController().navigate(action)
+            }
+
+            binding.saveImageView.setOnClickListener {img ->
+                binding.saveImageView.setImageResource(R.drawable.ic_favorite_fill_24)
             }
         }
     }

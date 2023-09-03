@@ -31,15 +31,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_launcher_foreground" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:id="@+id/saveImageView"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/petDescriptionTextView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_favorite_outline_24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/favorite_pet_foreground" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/petNameTextView"
@@ -62,7 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:hint="@string/pet_description_hint"
                 android:text="@string/pet_description_hint"

@@ -1,6 +1,7 @@
 package com.jammes.miauau
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -50,20 +51,24 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         bottomNavigation.setOnItemSelectedListener {
+
+            val userAnonymous = Firebase.auth.currentUser!!.isAnonymous
+
             when (it.itemId) {
                 R.id.homeFragment -> {
-                    navController.navigate(R.id.userProfileFragment)
+                    navController.navigate(R.id.homeFragment)
                     true
                 }
-                R.id.userProfileFragment -> {
-                    if (Firebase.auth.currentUser!!.isAnonymous) {
-                        login()
-                    } else {
-                        navController.navigate(R.id.userProfileFragment)
-                    }
-                    !Firebase.auth.currentUser!!.isAnonymous
+                R.id.favoritePetFragment -> {
+                    if (userAnonymous) login() else navController.navigate(R.id.favoritePetFragment)
+                    !userAnonymous
                 }
-                else -> true
+                R.id.userProfileFragment -> {
+                    if (userAnonymous) login() else navController.navigate(R.id.userProfileFragment)
+
+                    !userAnonymous
+                }
+                else -> {false}
             }
         }
 

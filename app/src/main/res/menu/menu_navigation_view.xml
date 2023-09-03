@@ -3,18 +3,18 @@
     <item
         android:id="@+id/homeFragment"
         android:enabled="true"
-        android:icon="@drawable/baseline_home_24"
+        android:icon="@drawable/ic_home_outline_24"
         android:title="Início" />
 
     <item
-        android:id="@+id/favFragment"
+        android:id="@+id/favoritePetFragment"
         android:enabled="true"
-        android:icon="@drawable/favorite_pet_foreground"
+        android:icon="@drawable/ic_favorite_outline_24"
         android:title="Favoritos" />
 
     <item
         android:id="@+id/userProfileFragment"
         android:enabled="true"
-        android:icon="@drawable/user_foreground"
-        android:title="Perfil" />
+        android:icon="@drawable/ic_person_outline_24"
+        android:title="Perfil"/>
 </menu>
