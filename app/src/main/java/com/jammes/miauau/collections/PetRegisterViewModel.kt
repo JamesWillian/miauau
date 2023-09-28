@@ -4,11 +4,8 @@ import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import com.jammes.miauau.core.model.*
 import com.jammes.miauau.core.repository.PetsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -117,7 +114,7 @@ class PetRegisterViewModel @Inject constructor(
         val pet2 = pet?.toPetDomain()
 
         if ((pet2 != null) && (img != null)) {
-            repository.addPetImage(pet2, img)
+            repository.addPetWithImage(pet2, img)
         }
     }
 

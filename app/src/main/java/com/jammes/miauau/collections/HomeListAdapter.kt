@@ -16,24 +16,24 @@ import com.jammes.miauau.databinding.PetItemBinding
 import com.jammes.miauau.forms.HomeFragmentDirections
 import com.squareup.picasso.Picasso
 
-class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
+class HomeListAdapter(private val viewModel: PetsListViewModel) : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: PetItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(petItem: PetItem) {
+        fun bind(petItem: PetItem, viewModel: PetsListViewModel) {
             binding.petNameTextView.text = petItem.name
             binding.petDescriptionTextView.text = petItem.description
 
-            fun placeHolderImage(petType: PetType): Int {
+            fun setPlaceHolderImage(petType: PetType): Int {
                 return when (petType) {
-                    PetType.DOG -> R.drawable.dog_pixel
-                    PetType.CAT -> R.drawable.cat_pixel
+                    PetType.DOG -> R.drawable.dog_pixel_placeholder
+                    PetType.CAT -> R.drawable.cat_pixel_placeholder
                 }
             }
 
             Picasso.get()
                 .load(petItem.imageURL)
-                .placeholder(placeHolderImage(petItem.petType))
+                .placeholder(setPlaceHolderImage(petItem.petType))
                 .error(R.drawable.ic_launcher_foreground)
                 .into(binding.petPhotoImageView)
 
@@ -43,8 +43,11 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
                 itemView.findNavController().navigate(action)
             }
 
-            binding.saveImageView.setOnClickListener {img ->
-                binding.saveImageView.setImageResource(R.drawable.ic_favorite_fill_24)
+            binding.saveImageView.setOnClickListener {
+                if (petItem.id != "") {
+                    binding.saveImageView.setImageResource(R.drawable.ic_favorite_fill_24)
+                    petItem.id?.let { id -> viewModel.addFavoritePet(id) }
+                }
             }
         }
     }
@@ -63,7 +66,7 @@ class HomeListAdapter : RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
     override fun getItemCount(): Int = asyncListDiffer.currentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(asyncListDiffer.currentList[position])
+        holder.bind(asyncListDiffer.currentList[position], viewModel)
     }
 
     private val asyncListDiffer: AsyncListDiffer<PetItem> = AsyncListDiffer(this, DiffCallBack)

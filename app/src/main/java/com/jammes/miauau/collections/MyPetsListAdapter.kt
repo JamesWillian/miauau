@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jammes.miauau.R
 import com.jammes.miauau.core.model.PetItem
+import com.jammes.miauau.core.model.PetType
 import com.jammes.miauau.databinding.MyPetItemBinding
 import com.jammes.miauau.forms.UserProfileFragmentDirections
 import com.squareup.picasso.Picasso
@@ -21,9 +22,16 @@ class MyPetsListAdapter(private val viewModel: UserProfileViewModel): RecyclerVi
         fun bind(petItem: PetItem, viewModel: UserProfileViewModel) {
             binding.petNameTextView.text = petItem.name
 
+            fun setPlaceHolderImage(petType: PetType): Int {
+                return when (petType) {
+                    PetType.DOG -> R.drawable.dog_pixel_placeholder
+                    PetType.CAT -> R.drawable.cat_pixel_placeholder
+                }
+            }
+
             Picasso.get()
                 .load(petItem.imageURL)
-                .placeholder(R.drawable.ic_launcher_foreground)
+                .placeholder(setPlaceHolderImage(petItem.petType))
                 .error(R.drawable.ic_launcher_foreground)
                 .into(binding.petImageView)
 

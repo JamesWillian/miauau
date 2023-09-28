@@ -3,11 +3,11 @@ package com.jammes.miauau.core.repository
 import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
+import com.jammes.miauau.core.model.FavoritePet
 import com.jammes.miauau.core.model.PetDomain
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -18,6 +18,65 @@ class PetsRepositoryFirestore @Inject constructor(
 ) : PetsRepository {
 
     private val storageRef = storage.reference
+
+    override suspend fun addFavoritePet(petId: String) {
+
+        val userId = Firebase.auth.currentUser!!.uid
+
+        val favoritePetsRef = FirebaseFirestore.getInstance()
+            .collection("users")
+            .document(userId)
+            .collection("favoritePets")
+
+        favoritePetsRef.add(mapOf("petId" to petId))
+    }
+
+    private fun DocumentSnapshot.toFavoritePet(): FavoritePet {
+        return FavoritePet(
+            id = this.id,
+            name = this.getString("name") ?: "",
+            imageURL = this.getString("imageURL") ?: "",
+            tutorName = this.getString("tutorName") ?: ""
+        )
+    }
+
+    override suspend fun fetchFavoritePets(): List<FavoritePet> {
+        val resultList = mutableListOf<FavoritePet>()
+        val userId = Firebase.auth.currentUser!!.uid
+
+        // Referência para a coleção "favoritePets" do usuário atual
+        val favoritePetsRef = FirebaseFirestore.getInstance()
+            .collection("users")
+            .document(userId)
+            .collection("favoritePets")
+
+        // Consulta para obter os documentos na coleção "favoritePets"
+        favoritePetsRef.get()
+            .addOnSuccessListener { documents ->
+                val favoritePetIds = mutableListOf<String>()
+
+                for (document in documents) {
+                    val petId = document.getString("petId")
+                    if (petId != null) {
+                        favoritePetIds.add(petId)
+                    }
+                }
+
+                for (pet in favoritePetIds) {
+                    val doc = db.collection(COLLECTION).document(pet).get()
+                    val petFav = doc.result.toFavoritePet()     //Erro - Concluir
+
+                    resultList.add(petFav)
+
+                }
+            }
+            .addOnFailureListener { ex ->
+                Log.w("PetsRepositoryFirestore", "Não foi possível listar os Pets favoritos!", ex)
+            }
+
+        return resultList
+
+    }
 
     override suspend fun fetchPets(petType: Int): List<PetDomain> {
         val resultList = mutableListOf<PetDomain>()
@@ -99,17 +158,6 @@ class PetsRepositoryFirestore @Inject constructor(
 
     }
 
-    override fun addPet(petItem: PetDomain) {
-        db.collection(COLLECTION)
-            .add(petItem)
-            .addOnSuccessListener {docRef ->
-                Log.d("PetsRepositoryFirestore", "Pet Salvo com Sucesso! ID: ${docRef.id}")
-            }
-            .addOnFailureListener { ex ->
-                Log.w("PetsRepositoryFirestore", "Não foi possível salvar o Pet!", ex)
-            }
-    }
-
     override suspend fun updatePet(petItem: PetDomain) {
         db.collection(COLLECTION)
             .document(petItem.id!!)
@@ -134,7 +182,7 @@ class PetsRepositoryFirestore @Inject constructor(
             }
     }
 
-    override suspend fun addPetImage(petItem: PetDomain, img: ByteArray) {
+    override suspend fun addPetWithImage(petItem: PetDomain, img: ByteArray) {
         val imageFileName = "${petItem.name}-${System.currentTimeMillis()}.png "
         val imageRef = storageRef.child("imagesPets/$imageFileName")
 
@@ -155,6 +203,17 @@ class PetsRepositoryFirestore @Inject constructor(
 
             }
         }
+    }
+
+    private fun addPet(petItem: PetDomain) {
+        db.collection(COLLECTION)
+            .add(petItem)
+            .addOnSuccessListener {docRef ->
+                Log.d("PetsRepositoryFirestore", "Pet Salvo com Sucesso! ID: ${docRef.id}")
+            }
+            .addOnFailureListener { ex ->
+                Log.w("PetsRepositoryFirestore", "Não foi possível salvar o Pet!", ex)
+            }
     }
 
     override suspend fun petAdopted(petId: String) {

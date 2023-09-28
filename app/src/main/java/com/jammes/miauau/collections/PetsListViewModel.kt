@@ -52,6 +52,26 @@ class PetsListViewModel @Inject constructor(
         )
     }
 
+    fun listFavoritePets() {
+        viewModelScope.launch {
+            favoritePets()
+        }
+    }
+
+    private suspend fun favoritePets() {
+        repository.fetchFavoritePets()
+    }
+
+    fun addFavoritePet(petId: String) {
+        viewModelScope.launch {
+            setFavoritePet(petId)
+        }
+    }
+
+    private suspend fun setFavoritePet(petId: String) {
+        repository.addFavoritePet(petId)
+    }
+
     private fun PetDomain.toPetItem(): PetItem {
         return PetItem(
             id,

@@ -32,7 +32,7 @@ class HomeFragment: Fragment() {
         petListViewModel = ViewModelProvider(requireActivity())[PetsListViewModel::class.java]
 
         lifecycle.addObserver(PetsListLifecycleObserver(petListViewModel))
-        adapter = HomeListAdapter()
+        adapter = HomeListAdapter(petListViewModel)
     }
 
     override fun onCreateView(
