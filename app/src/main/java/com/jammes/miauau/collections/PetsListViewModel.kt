@@ -24,6 +24,10 @@ class PetsListViewModel @Inject constructor(
         MutableLiveData<PetListUiState>(PetListUiState(petItemList = emptyList()))
     }
 
+    private val petFavoriteListUiState: MutableLiveData<FavoritePetsUiState> by lazy {
+        MutableLiveData<FavoritePetsUiState>(FavoritePetsUiState(petFavoriteList = emptyList()))
+    }
+
     val detailUiState = MutableLiveData<PetDetailUiState>()
 
     fun filterPet(petTypeFilter: Int) {
@@ -59,7 +63,9 @@ class PetsListViewModel @Inject constructor(
     }
 
     private suspend fun favoritePets() {
-        repository.fetchFavoritePets()
+        petFavoriteListUiState.postValue(
+            FavoritePetsUiState(repository.fetchFavoritePets())
+        )
     }
 
     fun addFavoritePet(petId: String) {
@@ -122,6 +128,10 @@ class PetsListViewModel @Inject constructor(
         return petListUiState
     }
 
+    fun stateFavoritePets(): LiveData<FavoritePetsUiState> {
+        return petFavoriteListUiState
+    }
+
     fun stateFilter(): LiveData<Int> {
         return petFilter
     }
@@ -129,5 +139,7 @@ class PetsListViewModel @Inject constructor(
     data class PetListUiState(val petItemList: List<PetItem>)
 
     data class PetDetailUiState(val petDetail: PetItem)
+
+    data class FavoritePetsUiState(val petFavoriteList: List<FavoritePet>)
 
 }

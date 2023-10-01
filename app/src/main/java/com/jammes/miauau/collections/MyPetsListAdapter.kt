@@ -20,14 +20,14 @@ class MyPetsListAdapter(private val viewModel: UserProfileViewModel): RecyclerVi
     class ViewHolder(private val binding: MyPetItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(petItem: PetItem, viewModel: UserProfileViewModel) {
-            binding.petNameTextView.text = petItem.name
-
             fun setPlaceHolderImage(petType: PetType): Int {
                 return when (petType) {
                     PetType.DOG -> R.drawable.dog_pixel_placeholder
                     PetType.CAT -> R.drawable.cat_pixel_placeholder
                 }
             }
+
+            binding.petNameTextView.text = petItem.name
 
             Picasso.get()
                 .load(petItem.imageURL)

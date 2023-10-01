@@ -69,6 +69,10 @@
         android:id="@+id/favoritePetFragment"
         android:name="com.jammes.miauau.forms.FavoritePetFragment"
         android:label="FavoritePetFragment"
-        tools:layout="@layout/fragment_pet_favorite"/>
+        tools:layout="@layout/fragment_pet_favorite">
+        <action
+            android:id="@+id/action_favoritePetFragment_to_petDetailFragment"
+            app:destination="@id/petDetailFragment" />
+    </fragment>
 
 </navigation>

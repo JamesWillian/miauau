@@ -35,7 +35,7 @@ class PetsRepositoryFirestore @Inject constructor(
         return FavoritePet(
             id = this.id,
             name = this.getString("name") ?: "",
-            imageURL = this.getString("imageURL") ?: "",
+            imageURL = this.getString("imageURL"),
             tutorName = this.getString("tutorName") ?: ""
         )
     }
@@ -51,31 +51,24 @@ class PetsRepositoryFirestore @Inject constructor(
             .collection("favoritePets")
 
         // Consulta para obter os documentos na coleção "favoritePets"
-        favoritePetsRef.get()
-            .addOnSuccessListener { documents ->
-                val favoritePetIds = mutableListOf<String>()
+        val pets = favoritePetsRef.get().await()
+        val favoritePetIds = mutableListOf<String>()
 
-                for (document in documents) {
-                    val petId = document.getString("petId")
-                    if (petId != null) {
-                        favoritePetIds.add(petId)
-                    }
-                }
-
-                for (pet in favoritePetIds) {
-                    val doc = db.collection(COLLECTION).document(pet).get()
-                    val petFav = doc.result.toFavoritePet()     //Erro - Concluir
-
-                    resultList.add(petFav)
-
-                }
+        for (document in pets) {
+            val petId = document.getString("petId")
+            if (petId != null) {
+                favoritePetIds.add(petId)
             }
-            .addOnFailureListener { ex ->
-                Log.w("PetsRepositoryFirestore", "Não foi possível listar os Pets favoritos!", ex)
-            }
+        }
+
+        for (pet in favoritePetIds) {
+            val doc = db.collection(COLLECTION).document(pet).get().await()
+            val petFav = doc.toFavoritePet()
+
+            resultList.add(petFav)
+        }
 
         return resultList
-
     }
 
     override suspend fun fetchPets(petType: Int): List<PetDomain> {
@@ -84,7 +77,7 @@ class PetsRepositoryFirestore @Inject constructor(
         val petsList = db.collection(COLLECTION)
             .whereNotEqualTo("tutorId", Firebase.auth.currentUser!!.uid)
             .whereEqualTo("petType", petType)
-            .whereEqualTo("adoptedAt",null)
+            .whereEqualTo("adoptedAt", null)
             .get()
             .await()
 
@@ -165,7 +158,7 @@ class PetsRepositoryFirestore @Inject constructor(
             .addOnSuccessListener {
                 Log.d("PetsRepositoryFirestore", "Pet Atualziado com Sucesso! ID: ${petItem.id}")
             }
-            .addOnFailureListener {ex ->
+            .addOnFailureListener { ex ->
                 Log.w("PetsRepositoryFirestore", "Não foi possível atualziar o Pet!", ex)
             }
     }
@@ -177,7 +170,7 @@ class PetsRepositoryFirestore @Inject constructor(
             .addOnSuccessListener {
                 Log.d("PetsRepositoryFirestore", "Pet Excluído com Sucesso! ID: ${petId}")
             }
-            .addOnFailureListener {ex ->
+            .addOnFailureListener { ex ->
                 Log.w("PetsRepositoryFirestore", "Não foi possível excluir o Pet!", ex)
             }
     }
@@ -208,7 +201,7 @@ class PetsRepositoryFirestore @Inject constructor(
     private fun addPet(petItem: PetDomain) {
         db.collection(COLLECTION)
             .add(petItem)
-            .addOnSuccessListener {docRef ->
+            .addOnSuccessListener { docRef ->
                 Log.d("PetsRepositoryFirestore", "Pet Salvo com Sucesso! ID: ${docRef.id}")
             }
             .addOnFailureListener { ex ->
@@ -223,7 +216,7 @@ class PetsRepositoryFirestore @Inject constructor(
             .addOnSuccessListener {
                 Log.d("PetsRepositoryFirestore", "Pet Adotado com Sucesso! ID: ${petId}")
             }
-            .addOnFailureListener {ex ->
+            .addOnFailureListener { ex ->
                 Log.w("PetsRepositoryFirestore", "Não foi possível adotar o Pet!", ex)
             }
     }
