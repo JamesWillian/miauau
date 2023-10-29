@@ -26,7 +26,7 @@ class FavoritePetFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[PetsListViewModel::class.java]
-        adapter = FavoritePetsListAdapter()
+        adapter = FavoritePetsListAdapter(viewModel)
     }
 
     override fun onCreateView(

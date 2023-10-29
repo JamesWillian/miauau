@@ -16,6 +16,8 @@ class PetsListViewModel @Inject constructor(
         //teste
     }
 
+    var petFavorite = false
+
     private val petFilter: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>(1)
     }
@@ -73,12 +75,22 @@ class PetsListViewModel @Inject constructor(
             setFavoritePet(petId)
         }
     }
+    fun removeFavoritePet(petId: String) {
+        viewModelScope.launch {
+            deleteFavoritePet(petId)
+        }
+    }
 
     private suspend fun setFavoritePet(petId: String) {
         repository.addFavoritePet(petId)
     }
 
+    private suspend fun deleteFavoritePet(petId: String) {
+        repository.removeFavoritePet(petId)
+    }
+
     private fun PetDomain.toPetItem(): PetItem {
+
         return PetItem(
             id,
             name,
@@ -114,11 +126,17 @@ class PetsListViewModel @Inject constructor(
             },
             castrated = if (castrated) "Castrado" else "",
             imageURL = imageURL,
-            tutorId = tutorId ?: ""
+            tutorId = tutorId ?: "",
+            favorite = petFavorite
+
         )
     }
 
     private suspend fun getPetById(petId: String) {
+        repository.isPetFavorite(petId) {isFavorite ->
+            petFavorite = isFavorite
+        }
+
         val petDetail = repository.fetchPetDetail(petId)
         val pet: PetItem = petDetail.toPetItem()
         detailUiState.postValue(PetDetailUiState(pet))
@@ -130,10 +148,6 @@ class PetsListViewModel @Inject constructor(
 
     fun stateFavoritePets(): LiveData<FavoritePetsUiState> {
         return petFavoriteListUiState
-    }
-
-    fun stateFilter(): LiveData<Int> {
-        return petFilter
     }
 
     data class PetListUiState(val petItemList: List<PetItem>)

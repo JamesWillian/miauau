@@ -117,11 +117,22 @@ class PetDetailFragment : Fragment() {
 
         }
 
+        if (pet.petDetail.favorite) {
+            binding.saveImageView.setImageResource(R.drawable.ic_favorite_fill_24)
+        } else {
+            binding.saveImageView.setImageResource(R.drawable.ic_favorite_outline_24)
+        }
+
         binding.saveImageView.setOnClickListener {
-            if (pet.petDetail.id != "") {
+
+            if (pet.petDetail.favorite) {
+                viewModel.removeFavoritePet(pet.petDetail.id ?: "")
+                binding.saveImageView.setImageResource(R.drawable.ic_favorite_outline_24)
+            } else {
                 binding.saveImageView.setImageResource(R.drawable.ic_favorite_fill_24)
-                pet.petDetail.id?.let { id -> viewModel.addFavoritePet(id) }
+                viewModel.addFavoritePet(pet.petDetail.id ?: "")
             }
+
         }
 
         binding.shareImageView2.visibility = View.GONE

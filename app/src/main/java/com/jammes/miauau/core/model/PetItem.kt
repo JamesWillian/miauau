@@ -17,5 +17,6 @@ data class PetItem(
     val imageURL: String? = null,
     val imageBitmap: Bitmap? = null,
     val tutorId: String = "",
-    val adopted: Boolean = false
+    val adopted: Boolean = false,
+    val favorite: Boolean = false
 )

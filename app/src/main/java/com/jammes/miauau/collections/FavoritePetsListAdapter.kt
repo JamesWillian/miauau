@@ -12,7 +12,7 @@ import com.jammes.miauau.databinding.FavoritePetItemBinding
 import com.jammes.miauau.forms.FavoritePetFragmentDirections
 import com.squareup.picasso.Picasso
 
-class FavoritePetsListAdapter() :
+class FavoritePetsListAdapter(private val viewModel: PetsListViewModel) :
     RecyclerView.Adapter<FavoritePetsListAdapter.ViewHolder>() {
 
     private val asyncListDiffer: AsyncListDiffer<FavoritePet> = AsyncListDiffer(this, DiffCallBack)
@@ -20,7 +20,7 @@ class FavoritePetsListAdapter() :
     inner class ViewHolder(private val binding: FavoritePetItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(favoritePet: FavoritePet) {
+        fun bind(favoritePet: FavoritePet, viewModel: PetsListViewModel) {
 
             binding.petNameTextView.text = favoritePet.name
 
@@ -29,6 +29,11 @@ class FavoritePetsListAdapter() :
                 .placeholder(R.drawable.dog_pixel_placeholder)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(binding.petImageView)
+
+            binding.favoriteImageView.setOnClickListener {
+                viewModel.removeFavoritePet(favoritePet.id ?: "")
+                viewModel.listFavoritePets()
+            }
 
             binding.root.setOnClickListener {
                 val id = favoritePet.id ?: ""
@@ -52,7 +57,7 @@ class FavoritePetsListAdapter() :
     override fun getItemCount(): Int = asyncListDiffer.currentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(asyncListDiffer.currentList[position])
+        holder.bind(asyncListDiffer.currentList[position], viewModel)
     }
 
     object DiffCallBack : DiffUtil.ItemCallback<FavoritePet>() {

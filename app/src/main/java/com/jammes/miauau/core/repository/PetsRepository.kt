@@ -13,6 +13,8 @@ interface PetsRepository {
     suspend fun addPetWithImage(petItem: PetDomain, img: ByteArray)
     suspend fun petAdopted(petId: String)
     suspend fun addFavoritePet(petId: String)
+    suspend fun removeFavoritePet(petId: String)
+    fun isPetFavorite(petId: String, callback: (Boolean) -> Unit)
     suspend fun fetchFavoritePets(): List<FavoritePet>
 
 }

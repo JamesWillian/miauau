@@ -1,6 +1,8 @@
 package com.jammes.miauau.core.repository
 
 import android.util.Log
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -24,12 +26,55 @@ class PetsRepositoryFirestore @Inject constructor(
         val userId = Firebase.auth.currentUser!!.uid
 
         val favoritePetsRef = FirebaseFirestore.getInstance()
-            .collection("users")
-            .document(userId)
-            .collection("favoritePets")
+            .collection("users").document(userId)
+            .collection("favoritePets").document(petId)
 
-        favoritePetsRef.add(mapOf("petId" to petId))
-//        favoritePetsRef.document().delete()
+        favoritePetsRef.set(
+            mapOf(
+                "petId" to petId,
+                "favorite" to true
+            )
+        )
+    }
+
+    override suspend fun removeFavoritePet(petId: String) {
+
+        val userId = Firebase.auth.currentUser!!.uid
+
+        val favoritePetsRef = FirebaseFirestore.getInstance()
+            .collection("users").document(userId)
+            .collection("favoritePets").document(petId)
+
+        favoritePetsRef.update(
+            "favorite",
+            false
+        )
+    }
+
+    override fun isPetFavorite(petId: String, callback: (Boolean) -> Unit) {
+
+        val userId = Firebase.auth.currentUser!!.uid
+
+        val favoritePetsRef = FirebaseFirestore.getInstance()
+            .collection("users").document(userId)
+            .collection("favoritePets").document(petId)
+
+        favoritePetsRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                // Verifique se o documento existe
+                if (documentSnapshot.exists()) {
+                    val isFavorite = documentSnapshot.getBoolean("favorite") ?: false
+                    callback(isFavorite)
+                } else {
+                    // O documento não existe, o pet não é favorito
+                    callback(false)
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Trate os erros aqui, por exemplo, log ou exiba uma mensagem de erro
+                callback(false)
+            }
+
     }
 
     private fun DocumentSnapshot.toFavoritePet(): FavoritePet {
@@ -52,7 +97,11 @@ class PetsRepositoryFirestore @Inject constructor(
             .collection("favoritePets")
 
         // Consulta para obter os documentos na coleção "favoritePets"
-        val pets = favoritePetsRef.get().await()
+        val pets = favoritePetsRef
+            .whereEqualTo("favorite",true)
+            .get()
+            .await()
+
         val favoritePetIds = mutableListOf<String>()
 
         for (document in pets) {
