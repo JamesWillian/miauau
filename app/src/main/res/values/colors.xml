@@ -7,5 +7,6 @@
     <color name="yellow_primary">#FFD02F</color>
     <color name="yellow_secondary">#FFC93C</color>
     <color name="green">#1DB954</color>
+    <color name="soft_dark">#FD919191</color>
 
 </resources>

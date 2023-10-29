@@ -96,28 +96,40 @@ class PetDetailFragment : Fragment() {
         }
 
         if (pet.petDetail.tutorId == Firebase.auth.currentUser!!.uid) {
+
             binding.adoptButton.text = "Editar meu Pet"
             binding.adoptButton.setOnClickListener {
                 val action =
                     PetDetailFragmentDirections.actionPetDetailFragmentToPetRegisterFragment(pet.petDetail.id)
                 findNavController().navigate(action)
             }
+            binding.saveImageView.visibility = View.GONE
+
         } else {
+
             binding.adoptButton.text = "Adotar esse Pet"
             binding.adoptButton.setOnClickListener {
                 val action =
                     PetDetailFragmentDirections.actionPetDetailFragmentToUserProfileFragment(pet.petDetail.tutorId)
                 findNavController().navigate(action)
             }
+            binding.saveImageView.visibility = View.VISIBLE
+
         }
 
-        binding.saveImageView2.visibility = View.GONE
+        binding.saveImageView.setOnClickListener {
+            if (pet.petDetail.id != "") {
+                binding.saveImageView.setImageResource(R.drawable.ic_favorite_fill_24)
+                pet.petDetail.id?.let { id -> viewModel.addFavoritePet(id) }
+            }
+        }
+
         binding.shareImageView2.visibility = View.GONE
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

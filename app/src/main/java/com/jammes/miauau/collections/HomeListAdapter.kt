@@ -43,12 +43,6 @@ class HomeListAdapter(private val viewModel: PetsListViewModel) : RecyclerView.A
                 itemView.findNavController().navigate(action)
             }
 
-            binding.saveImageView.setOnClickListener {
-                if (petItem.id != "") {
-                    binding.saveImageView.setImageResource(R.drawable.ic_favorite_fill_24)
-                    petItem.id?.let { id -> viewModel.addFavoritePet(id) }
-                }
-            }
         }
     }
 

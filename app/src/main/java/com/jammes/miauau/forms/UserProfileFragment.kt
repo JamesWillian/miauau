@@ -141,8 +141,8 @@ class UserProfileFragment: Fragment() {
         adapter.updateMyPetList(petListUiState.petItemList)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

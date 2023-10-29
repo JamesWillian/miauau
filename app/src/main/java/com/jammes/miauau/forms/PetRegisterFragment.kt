@@ -305,8 +305,8 @@ class PetRegisterFragment : Fragment() {
         R.id.chipLarge to listOf(PetRegisterChipInfo(1, "Large", Size.LARGE)),
     )
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
 
         if (!requireActivity().isChangingConfigurations) deleteTempFiles(storageDir)
 

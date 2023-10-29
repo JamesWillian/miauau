@@ -269,15 +269,17 @@
                     android:textSize="16sp"
                     app:cornerRadius="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/saveImageView2"
+                    app:layout_constraintEnd_toStartOf="@id/saveImageView"
                     app:layout_constraintStart_toEndOf="@id/shareImageView2"
                     app:layout_constraintTop_toBottomOf="@id/petDescriptionCard" />
 
                 <ImageView
-                    android:id="@+id/saveImageView2"
+                    android:id="@+id/saveImageView"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/ic_pets_foreground"
+                    android:scaleType="centerCrop"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_favorite_outline_24"
                     app:layout_constraintBottom_toBottomOf="@id/adoptButton"
                     app:layout_constraintEnd_toEndOf="@id/petDescriptionCard"
                     app:layout_constraintStart_toEndOf="@id/adoptButton"

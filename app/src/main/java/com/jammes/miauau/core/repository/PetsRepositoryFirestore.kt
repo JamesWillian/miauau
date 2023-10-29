@@ -29,6 +29,7 @@ class PetsRepositoryFirestore @Inject constructor(
             .collection("favoritePets")
 
         favoritePetsRef.add(mapOf("petId" to petId))
+//        favoritePetsRef.document().delete()
     }
 
     private fun DocumentSnapshot.toFavoritePet(): FavoritePet {
