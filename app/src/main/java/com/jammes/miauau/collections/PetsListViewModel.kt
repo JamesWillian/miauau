@@ -3,18 +3,16 @@ package com.jammes.miauau.collections
 import androidx.lifecycle.*
 import com.jammes.miauau.core.model.*
 import com.jammes.miauau.core.repository.PetsRepository
+import com.jammes.miauau.core.repository.UsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PetsListViewModel @Inject constructor(
-    private val repository: PetsRepository
+    private val petsRepository: PetsRepository,
+    private val userRepository: UsersRepository
 ): ViewModel() {
-
-    init {
-        //teste
-    }
 
     var petFavorite = false
 
@@ -31,6 +29,8 @@ class PetsListViewModel @Inject constructor(
     }
 
     val detailUiState = MutableLiveData<PetDetailUiState>()
+
+    private val tutorUiState = MutableLiveData<TutorUiState>()
 
     fun filterPet(petTypeFilter: Int) {
         petFilter.value = petTypeFilter
@@ -51,7 +51,7 @@ class PetsListViewModel @Inject constructor(
 
     private suspend fun refreshPetsList() {
         petListUiState.postValue(
-            PetListUiState(repository.fetchPets(petFilter.value ?: 1)
+            PetListUiState(petsRepository.fetchPets(petFilter.value ?: 1)
                 .map {pet ->
                     pet.toPetItem()
                 })
@@ -66,7 +66,7 @@ class PetsListViewModel @Inject constructor(
 
     private suspend fun favoritePets() {
         petFavoriteListUiState.postValue(
-            FavoritePetsUiState(repository.fetchFavoritePets())
+            FavoritePetsUiState(petsRepository.fetchFavoritePets())
         )
     }
 
@@ -81,12 +81,18 @@ class PetsListViewModel @Inject constructor(
         }
     }
 
+    fun fetchTutorById(tutorId: String) {
+        viewModelScope.launch {
+            getTutorById(tutorId)
+        }
+    }
+
     private suspend fun setFavoritePet(petId: String) {
-        repository.addFavoritePet(petId)
+        petsRepository.addFavoritePet(petId)
     }
 
     private suspend fun deleteFavoritePet(petId: String) {
-        repository.removeFavoritePet(petId)
+        petsRepository.removeFavoritePet(petId)
     }
 
     private fun PetDomain.toPetItem(): PetItem {
@@ -133,13 +139,30 @@ class PetsListViewModel @Inject constructor(
     }
 
     private suspend fun getPetById(petId: String) {
-        repository.isPetFavorite(petId) {isFavorite ->
+        petsRepository.isPetFavorite(petId) {isFavorite ->
             petFavorite = isFavorite
         }
 
-        val petDetail = repository.fetchPetDetail(petId)
+        val petDetail = petsRepository.fetchPetDetail(petId)
         val pet: PetItem = petDetail.toPetItem()
         detailUiState.postValue(PetDetailUiState(pet))
+    }
+
+    private suspend fun getTutorById(tutorId: String) {
+        val userDomain = userRepository.fetchUserDetail(tutorId)
+        val user = userDomain.let {
+            User(
+                uid = it.uid,
+                name = it.name,
+                location = it.location,
+                about = it.about,
+                phone = it.phone,
+                email = it.email,
+                photoUrl = it.photoUrl,
+                showContact = it.showContact
+            )
+        }
+        tutorUiState.postValue(TutorUiState(user))
     }
 
     fun stateOnceAndStream(): LiveData<PetListUiState> {
@@ -150,10 +173,16 @@ class PetsListViewModel @Inject constructor(
         return petFavoriteListUiState
     }
 
+    fun stateTutorOnceAndStream(): LiveData<TutorUiState> {
+        return tutorUiState
+    }
+
     data class PetListUiState(val petItemList: List<PetItem>)
 
     data class PetDetailUiState(val petDetail: PetItem)
 
     data class FavoritePetsUiState(val petFavoriteList: List<FavoritePet>)
+
+    data class TutorUiState(val tutor: User)
 
 }

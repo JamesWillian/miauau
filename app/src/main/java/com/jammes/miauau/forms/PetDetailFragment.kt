@@ -109,9 +109,13 @@ class PetDetailFragment : Fragment() {
 
             binding.adoptButton.text = "Adotar esse Pet"
             binding.adoptButton.setOnClickListener {
-                val action =
-                    PetDetailFragmentDirections.actionPetDetailFragmentToUserProfileFragment(pet.petDetail.tutorId)
-                findNavController().navigate(action)
+//                val action =
+//                    PetDetailFragmentDirections.actionPetDetailFragmentToUserProfileFragment(pet.petDetail.tutorId)
+//                findNavController().navigate(action)
+
+                val adoptFragment = AdoptPetDialogFragment()
+                adoptFragment.show(requireActivity().supportFragmentManager,"adoptFragment")
+
             }
             binding.saveImageView.visibility = View.VISIBLE
 

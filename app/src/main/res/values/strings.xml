@@ -23,5 +23,7 @@
     <string name="Profile">Perfil</string>
     <string name="EditProfile">Editar Perfil</string>
     <string name="pet_image">Imagem do Pet</string>
-    <string name="pets">Pets</string>
+    <string name="my_pets">Meus Pets</string>
+    <string name="logoff_account">Sair da Conta</string>
+    <string name="edit_user_info">Editar Informações do Usuário</string>
 </resources>
