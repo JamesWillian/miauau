@@ -4,23 +4,19 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentSender
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.jammes.miauau.MainActivity
-import com.jammes.miauau.R
 import com.jammes.miauau.core.model.UserDomain
 import com.jammes.miauau.core.repository.UsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +25,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val repository: UsersRepository
+    private val userRepository: UsersRepository
 ): ViewModel() {
 
     private lateinit var oneTapClient: SignInClient
@@ -97,7 +93,7 @@ class AuthViewModel @Inject constructor(
                         Log.d(TAG, "signInWithCredential:success")
                         val user = auth.currentUser
 
-                        repository.addUser(
+                        userRepository.addUser(
                             UserDomain(
                                 uid = user!!.uid,
                                 name = user.displayName ?: "Sem Nome",
@@ -114,6 +110,22 @@ class AuthViewModel @Inject constructor(
                 }
 
             }
+    }
+
+    private val userWithoutPhone = MutableLiveData<Boolean>()
+
+    fun userWithoutPhone(): LiveData<Boolean> {
+        return userWithoutPhone
+    }
+
+    fun checkUserPhone() {
+        viewModelScope.launch {
+            userWithoutPhone.postValue(phoneIsEmpty())
+        }
+    }
+
+    private suspend fun phoneIsEmpty(): Boolean {
+        return userRepository.phoneIsEmpty()
     }
 
     companion object {

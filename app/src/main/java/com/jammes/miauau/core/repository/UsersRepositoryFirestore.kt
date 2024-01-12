@@ -1,15 +1,11 @@
 package com.jammes.miauau.core.repository
 
 import android.util.Log
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.jammes.miauau.core.model.PetDomain
 import com.jammes.miauau.core.model.UserDomain
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -45,6 +41,12 @@ class UsersRepositoryFirestore @Inject constructor(
             .addOnFailureListener {ex ->
                 Log.w("UsersRepoFirestore","Não foi possível salvar os dados do Usuário!", ex)
             }
+    }
+
+    override suspend fun phoneIsEmpty(): Boolean {
+        val userId = Firebase.auth.currentUser!!.uid
+        val doc = db.collection(COLLECTION).document(userId).get().await()
+        return doc.getString("phone").isNullOrEmpty()
     }
 
     companion object {

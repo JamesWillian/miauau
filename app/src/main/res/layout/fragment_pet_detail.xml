@@ -36,7 +36,7 @@
                     android:layout_gravity="top|center"
                     android:layout_marginTop="30dp"
                     android:contentDescription="@string/pet_image"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_pet_no_photo_foreground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

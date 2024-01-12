@@ -32,10 +32,6 @@ class UserProfileViewModel @Inject constructor(
         }
     }
 
-    fun userInfo(): UserUiState? {
-        return userUiState.value
-    }
-
     private suspend fun refreshPetsList() {
         petListUiState.postValue(
             MyPetListUiState(petRepository.fetchMyPets()

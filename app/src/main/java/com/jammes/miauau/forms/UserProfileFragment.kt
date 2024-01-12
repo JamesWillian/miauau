@@ -1,13 +1,11 @@
 package com.jammes.miauau.forms
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -17,12 +15,9 @@ import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.R
 import com.jammes.miauau.collections.MyPetsListAdapter
 import com.jammes.miauau.collections.UserProfileViewModel
-import com.jammes.miauau.core.repository.PetsRepositoryFirestore
-import com.jammes.miauau.core.repository.UsersRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentUserProfileBinding
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import java.net.URLEncoder
 
 @AndroidEntryPoint
 class UserProfileFragment: Fragment() {
@@ -110,7 +105,15 @@ class UserProfileFragment: Fragment() {
             binding.userEditImageButton.visibility = View.VISIBLE
             binding.userLogoffButton.visibility = View.VISIBLE
             binding.petsListCard.visibility = View.VISIBLE
+
+            if (uiState.user.phone.isEmpty()) {
+                Toast.makeText(requireContext(),"Informe seu Telefone para continuar", Toast.LENGTH_SHORT).show()
+
+                findNavController().navigate(R.id.userProfileEditFragment)
+            }
         }
+
+
     }
 
     private fun bindPetItem(petListUiState: UserProfileViewModel.MyPetListUiState){

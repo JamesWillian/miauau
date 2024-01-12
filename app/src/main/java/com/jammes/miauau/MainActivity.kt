@@ -1,9 +1,8 @@
 package com.jammes.miauau
 
 import android.os.Bundle
-import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -17,10 +16,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.collections.AuthViewModel
-import com.jammes.miauau.core.repository.UsersRepositoryFirestore
 import com.jammes.miauau.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -60,11 +57,13 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.favoritePetFragment -> {
-                    if (userAnonymous) login() else navController.navigate(R.id.favoritePetFragment)
+                    if (userAnonymous) login()
+                    else navController.navigate(R.id.favoritePetFragment)
                     !userAnonymous
                 }
                 R.id.userProfileFragment -> {
-                    if (userAnonymous) login() else navController.navigate(R.id.userProfileFragment)
+                    if (userAnonymous) login()
+                    else navController.navigate(R.id.userProfileFragment)
 
                     !userAnonymous
                 }
@@ -72,17 +71,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.userWithoutPhone().observe(this) { isEmpty ->
+            if (isEmpty) {
+                Toast.makeText(this, "Informe seu Telefone para continuar", Toast.LENGTH_SHORT)
+                    .show()
+                navController.navigate(R.id.userProfileEditFragment)
+            } else if (navController.currentDestination != navController.findDestination(R.id.petRegisterFragment)) {
+                navController.navigate(R.id.petRegisterFragment)
+            }
+        }
+
         /**
          * Tela de Cadastro de Novo Pet
          */
         binding.imageAddPetToolbar.setOnClickListener {
-            if (Firebase.auth.currentUser!!.isAnonymous) {
+
+            if (Firebase.auth.currentUser!!.isAnonymous)
                 login()
-            } else {
-                if (navController.currentDestination != navController.findDestination(R.id.petRegisterFragment)) {
-                    navController.navigate(R.id.petRegisterFragment)
-                }
-            }
+            else
+                viewModel.checkUserPhone()
         }
 
     }

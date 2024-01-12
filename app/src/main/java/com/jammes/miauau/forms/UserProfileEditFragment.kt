@@ -6,15 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.jammes.miauau.core.model.User
 import com.jammes.miauau.collections.UserProfileViewModel
-import com.jammes.miauau.core.repository.PetsRepositoryFirestore
-import com.jammes.miauau.core.repository.UsersRepositoryFirestore
 import com.jammes.miauau.databinding.FragmentUserProfileEditBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,7 +41,10 @@ class UserProfileEditFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.userInfo()?.let { updateUI(it.user) }
+        viewModel.refreshUser(Firebase.auth.currentUser!!.uid)
+        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {user ->
+            updateUI(user)
+        }
 
         binding.userSaveButton.setOnClickListener {
             val user = User(
@@ -68,7 +68,8 @@ class UserProfileEditFragment: Fragment() {
         viewModel.onResume()
     }
 
-    private fun updateUI(user: User) {
+    private fun updateUI(userUiState: UserProfileViewModel.UserUiState) {
+        val user = userUiState.user
 
         binding.userNameEditText.editText?.setText(user.name, TextView.BufferType.NORMAL)
         binding.userLocationEditText.editText?.setText(user.location, TextView.BufferType.NORMAL)

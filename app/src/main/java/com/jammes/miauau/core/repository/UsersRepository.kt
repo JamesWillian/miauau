@@ -7,4 +7,6 @@ interface UsersRepository {
     suspend fun fetchUserDetail(userId: String): UserDomain
 
     suspend fun addUser(user: UserDomain)
+
+    suspend fun phoneIsEmpty(): Boolean
 }
